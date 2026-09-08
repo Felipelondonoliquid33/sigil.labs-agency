@@ -1,4 +1,5 @@
 import styles from "./services.module.css";
+import ServiceMotion from "./ServiceMotion";
 
 const SITE_URL = "https://www.sigillabs.agency";
 
@@ -38,6 +39,8 @@ export default function ServicePage({ service }) {
         <h2 id="service-intro">{service.introTitle}</h2>
         <p className={styles.body}>{service.intro}</p>
       </section>
+
+      <ServiceMotion capabilities={service.capabilities} />
 
       <section className={styles.grid} aria-label={`${service.name} capabilities`}>
         {service.capabilities.map((capability, index) => (

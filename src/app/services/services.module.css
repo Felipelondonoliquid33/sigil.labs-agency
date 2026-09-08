@@ -14,6 +14,72 @@
   padding: 8rem 2rem;
 }
 
+.motionSection {
+  min-height: 100svh;
+  width: min(100%, 1500px);
+  margin: 0 auto;
+  padding: 7rem 2rem;
+  display: grid;
+  grid-template-columns: 0.8fr 1.2fr;
+  gap: 3rem;
+  align-items: center;
+  overflow: hidden;
+}
+
+.motionIntro {
+  align-self: start;
+  display: grid;
+  gap: 1rem;
+  color: var(--base-300);
+}
+
+.motionIntro > p:last-child {
+  max-width: 300px;
+  color: var(--base-400);
+  font-size: clamp(1.4rem, 2.3vw, 2.2rem);
+  line-height: 1.05;
+}
+
+.motionStage {
+  position: relative;
+  min-height: min(70svh, 700px);
+  display: grid;
+  place-items: center;
+}
+
+.motionCard {
+  position: absolute;
+  width: min(100%, 560px);
+  min-height: 300px;
+  padding: 1.5rem;
+  border: 1px solid rgba(241, 245, 249, 0.16);
+  border-radius: 1rem;
+  background: linear-gradient(145deg, rgba(0, 240, 255, 0.16), rgba(9, 12, 18, 0.96) 45%);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 2rem;
+  will-change: transform, opacity;
+}
+
+.motionCard:nth-child(2) {
+  background: linear-gradient(145deg, rgba(204, 255, 0, 0.14), rgba(9, 12, 18, 0.96) 45%);
+}
+
+.motionCard:nth-child(3) {
+  background: linear-gradient(145deg, rgba(241, 245, 249, 0.14), rgba(9, 12, 18, 0.96) 45%);
+}
+
+.motionCard h3 {
+  max-width: 420px;
+  font-size: clamp(3rem, 6vw, 6rem);
+}
+
+.motionCard p {
+  max-width: 400px;
+  color: var(--base-300);
+}
+
 .hero {
   min-height: 78vh;
   display: flex;
@@ -155,6 +221,24 @@
   .intro,
   .proof {
     grid-template-columns: 1fr;
+  }
+
+  .motionSection {
+    min-height: auto;
+    padding: 5rem 1.25rem;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .motionStage {
+    min-height: auto;
+    display: grid;
+    gap: 1rem;
+  }
+
+  .motionCard {
+    position: relative;
+    min-height: 260px;
   }
 
   .body {

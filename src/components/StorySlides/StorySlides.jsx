@@ -1,349 +1,148 @@
 "use client";
+
 import "./StorySlides.css";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
 import { stories } from "./stories.js";
-import { gsap } from "gsap";
-import Button from "../Button/Button.jsx";
 
-export default function StorySlides() {
-  const storiesContainerRef = useRef(null);
+gsap.registerPlugin(useGSAP);
 
-  useEffect(() => {
-    if (typeof window === "undefined" || !storiesContainerRef.current) return;
-
-    let activeStory = 0;
-    let storyTimeout;
-    let isAnimating = false;
-
-    const storyDuration = 4000;
-    const contentUpdateDelay = 0.4;
-
-    const storiesContainer = storiesContainerRef.current;
-
-    function resetIndexHighlight(index) {
-      const highlight = storiesContainer.querySelectorAll(
-        ".index .index-highlight"
-      )[index];
-      if (!highlight) return;
-
-      gsap.killTweensOf(highlight);
-      gsap.to(highlight, {
-        width: "100%",
-        duration: 0.3,
-        onStart: () => {
-          gsap.to(highlight, {
-            transformOrigin: "right center",
-            scaleX: 0,
-            duration: 0.3,
-          });
-        },
-      });
-    }
-
-    function animateIndexHighlight(index) {
-      const highlight = storiesContainer.querySelectorAll(
-        ".index .index-highlight"
-      )[index];
-      if (!highlight) return;
-
-      gsap.set(highlight, {
-        width: "0%",
-        scaleX: 1,
-        transformOrigin: "right center",
-      });
-      gsap.to(highlight, {
-        width: "100%",
-        duration: storyDuration / 1000,
-        ease: "none",
-      });
-    }
-
-    function animateNewImage(imgContainer) {
-      gsap.set(imgContainer, {
-        clipPath: "polygon(100% 0%, 100% 0%, 100% 100%, 100% 100%)",
-      });
-      gsap.to(imgContainer, {
-        clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
-        duration: 1,
-        ease: "power4.out",
-      });
-    }
-
-    function animateImageScale(currentImg, upcomingImg) {
-      const tl = gsap.timeline({
-        onComplete: () => {
-          isAnimating = false;
-        },
-      });
-
-      tl.fromTo(
-        currentImg,
-        { scale: 1, rotate: 0 },
-        {
-          scale: 2,
-          rotate: -25,
-          duration: 1,
-          ease: "power4.out",
-          onComplete: () => {
-            if (currentImg.parentElement) {
-              currentImg.parentElement.remove();
-            }
-          },
-        }
-      );
-
-      tl.fromTo(
-        upcomingImg,
-        { scale: 2, rotate: 25 },
-        { scale: 1, rotate: 0, duration: 1, ease: "power4.out" },
-        "<"
-      );
-    }
-
-    function cleanUpElements() {
-      const profileNameDiv = storiesContainer.querySelector(".profile-name");
-      const titleRows = storiesContainer.querySelectorAll(".title-row");
-
-      if (profileNameDiv) {
-        while (profileNameDiv.childElementCount > 2) {
-          profileNameDiv.removeChild(profileNameDiv.firstChild);
-        }
-      }
-
-      if (titleRows) {
-        titleRows.forEach((titleRow) => {
-          while (titleRow.childElementCount > 2) {
-            titleRow.removeChild(titleRow.firstChild);
-          }
-        });
-      }
-    }
-
-    function changeStory() {
-      if (isAnimating) {
-        return;
-      }
-
-      isAnimating = true;
-
-      const previousStory = activeStory;
-      activeStory = (activeStory + 1) % stories.length;
-
-      const story = stories[activeStory];
-
-      const profileNameElements =
-        storiesContainer.querySelectorAll(".profile-name p");
-      if (profileNameElements.length > 0) {
-        gsap.to(profileNameElements, {
-          y: -24,
-          duration: 0.75,
-          delay: contentUpdateDelay,
-          ease: "power3.out",
-        });
-      }
-
-      const titleElements = storiesContainer.querySelectorAll(".title-row h1");
-      if (titleElements.length > 0) {
-        gsap.to(titleElements, {
-          y: -48,
-          duration: 0.75,
-          delay: contentUpdateDelay,
-          ease: "power3.out",
-        });
-      }
-
-      const currentImgContainer =
-        storiesContainer.querySelector(".story-img .img");
-      if (!currentImgContainer) {
-        isAnimating = false;
-        return;
-      }
-
-      const currentImg = currentImgContainer.querySelector("img");
-      if (!currentImg) {
-        isAnimating = false;
-        return;
-      }
-
-      setTimeout(() => {
-        const profileNameDiv = storiesContainer.querySelector(".profile-name");
-        if (profileNameDiv) {
-          const newProfileName = document.createElement("p");
-          newProfileName.innerText = story.profileName;
-          newProfileName.style.transform = "translateY(24px)";
-
-          profileNameDiv.appendChild(newProfileName);
-
-          gsap.to(newProfileName, {
-            y: 0,
-            duration: 0.5,
-            delay: contentUpdateDelay,
-            ease: "power3.out",
-          });
-        }
-
-        const titleRows = storiesContainer.querySelectorAll(".title-row");
-        if (titleRows.length > 0) {
-          story.title.forEach((line, index) => {
-            if (titleRows[index]) {
-              const newTitle = document.createElement("h1");
-              newTitle.innerText = line;
-              newTitle.style.transform = "translateY(48px)";
-              titleRows[index].appendChild(newTitle);
-
-              gsap.to(newTitle, {
-                y: 0,
-                duration: 0.75,
-                delay: contentUpdateDelay,
-                ease: "power3.out",
-              });
-            }
-          });
-        }
-
-        const storyMeta = storiesContainer.querySelector(".story-meta");
-        if (storyMeta) {
-          gsap.to(storyMeta, {
-            opacity: 0,
-            duration: 0.3,
-            onComplete: () => {
-              storyMeta.innerHTML = "";
-              (story.meta || []).forEach((line) => {
-                const li = document.createElement("li");
-                li.textContent = line;
-                storyMeta.appendChild(li);
-              });
-              gsap.to(storyMeta, { opacity: 1, duration: 0.4 });
-            },
-          });
-        }
-
-        const storyImgDiv = storiesContainer.querySelector(".story-img");
-        if (storyImgDiv) {
-          const newImgContainer = document.createElement("div");
-          newImgContainer.classList.add("img");
-
-          const newStoryImg = document.createElement("img");
-          newStoryImg.src = story.storyImg;
-          newStoryImg.alt = story.profileName;
-
-          newImgContainer.appendChild(newStoryImg);
-          storyImgDiv.appendChild(newImgContainer);
-
-          animateNewImage(newImgContainer);
-          animateImageScale(currentImg, newStoryImg);
-        }
-
-        resetIndexHighlight(previousStory);
-        animateIndexHighlight(activeStory);
-
-        cleanUpElements();
-
-        clearTimeout(storyTimeout);
-        storyTimeout = setTimeout(() => changeStory(), storyDuration);
-      }, 500);
-
-      setTimeout(() => {
-        const profileImg = storiesContainer.querySelector(".profile-icon img");
-        if (profileImg) {
-          profileImg.src = story.profileImg;
-        }
-
-        const link = storiesContainer.querySelector(".link a");
-        if (link) {
-          link.href = story.linkSrc;
-          const labelEl = link.querySelector(".button-label");
-          if (labelEl) {
-            labelEl.textContent = story.linkLabel;
-          } else {
-            link.textContent = story.linkLabel;
-          }
-        }
-      }, 600);
-    }
-
-    function handleClick(event) {
-      // Links and controls navigate; only the story surface advances the slide.
-      if (event.target.closest("a, button, input, video")) return;
-      if (isAnimating) {
-        return;
-      }
-
-      clearTimeout(storyTimeout);
-      resetIndexHighlight(activeStory);
-      changeStory();
-    }
-
-    storiesContainer.addEventListener("click", handleClick);
-
-    storyTimeout = setTimeout(() => changeStory(), storyDuration);
-    animateIndexHighlight(activeStory);
-
-    return () => {
-      storiesContainer.removeEventListener("click", handleClick);
-      clearTimeout(storyTimeout);
-      gsap.killTweensOf(storiesContainer.querySelectorAll("*"));
-    };
-  }, []);
+function ServiceFigure({ service, index }) {
+  const figurePaths = [
+    "M130 250C130 170 190 100 280 100C370 100 430 170 430 250C430 330 370 400 280 400C190 400 130 330 130 250Z",
+    "M280 70C340 70 390 130 390 190C390 240 450 270 420 330C390 390 320 430 260 400C190 365 120 320 140 250C155 195 205 180 205 125C205 95 235 70 280 70Z",
+    "M280 75L405 145L405 285L280 425L155 285L155 145Z",
+  ];
 
   return (
-    <div className="stories-container stories" ref={storiesContainerRef}>
-      <div className="story-img">
-        <div className="img">
-          <img src={stories[0].storyImg} alt={stories[0].profileName} />
-        </div>
-      </div>
-
-      <div className="stories-footer">
-        <div className="container">
-          <p className="sm">Creative Index</p>
-          <p className="sm">( Since 2025 )</p>
-        </div>
-      </div>
-
-      <div className="story-content">
-        <div className="row">
-          <div className="indices">
-            {stories.map((_, index) => (
-              <div className="index" key={`index-${index}`}>
-                <div className="index-highlight"></div>
-              </div>
-            ))}
-          </div>
-
-          <div className="profile">
-            <div className="profile-icon">
-              <img src={stories[0].profileImg} alt="" />
-            </div>
-
-            <div className="profile-name">
-              <p>{stories[0].profileName}</p>
-            </div>
-          </div>
-        </div>
-
-        <div className="row">
-          <div className="title">
-            {stories[0].title.map((line, index) => (
-              <div className="title-row" key={`title-${index}`}>
-                <h1>{line}</h1>
-              </div>
-            ))}
-          </div>
-
-          <ul className="story-meta">
-            {stories[0].meta.map((line, index) => (
-              <li key={`meta-${index}`}>{line}</li>
-            ))}
-          </ul>
-
-          <div className="link">
-            <Button variant="light" href={stories[0].linkSrc}>
-              {stories[0].linkLabel}
-            </Button>
-          </div>
-        </div>
-      </div>
+    <div className={`service-figure service-figure--${index}`} aria-hidden="true">
+      <svg viewBox="0 0 560 500" role="presentation">
+        <defs>
+          <radialGradient id={`figure-glow-${index}`} cx="50%" cy="45%" r="60%">
+            <stop offset="0%" stopColor={service.accent} stopOpacity="0.48" />
+            <stop offset="65%" stopColor={service.accent} stopOpacity="0.08" />
+            <stop offset="100%" stopColor={service.accent} stopOpacity="0" />
+          </radialGradient>
+          <linearGradient id={`figure-fill-${index}`} x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor={service.accent} stopOpacity="0.9" />
+            <stop offset="100%" stopColor="#081018" stopOpacity="0.2" />
+          </linearGradient>
+        </defs>
+        <circle className="figure-glow" cx="280" cy="250" r="220" fill={`url(#figure-glow-${index})`} />
+        <g className="figure-orbit figure-orbit--outer">
+          <ellipse cx="280" cy="250" rx="205" ry="92" fill="none" stroke={service.accent} strokeOpacity="0.35" />
+          <ellipse cx="280" cy="250" rx="205" ry="92" fill="none" stroke={service.accent} strokeOpacity="0.16" transform="rotate(62 280 250)" />
+        </g>
+        <g className="figure-core" key={`${service.name}-${index}`}>
+          <path d={figurePaths[index]} fill={`url(#figure-fill-${index})`} stroke={service.accent} strokeWidth="2" />
+          <path d={figurePaths[index]} fill="none" stroke="#f1f5f9" strokeOpacity="0.48" strokeWidth="1" transform="translate(10 -8) scale(.94)" />
+          <circle cx="280" cy="250" r={index === 1 ? 38 : 28} fill="#040507" stroke="#f1f5f9" strokeOpacity="0.8" />
+          <circle cx="280" cy="250" r="7" fill={service.accent} />
+        </g>
+        <g className="figure-nodes" fill={service.accent}>
+          <circle cx="96" cy="250" r="4" />
+          <circle cx="464" cy="250" r="4" />
+          <circle cx="280" cy="54" r="4" />
+          <circle cx="280" cy="446" r="4" />
+        </g>
+      </svg>
+      <span className="figure-label">SIGNAL / 0{index + 1}</span>
     </div>
+  );
+}
+
+export default function StorySlides() {
+  const [activeStory, setActiveStory] = useState(0);
+  const storiesRef = useRef(null);
+  const active = stories[activeStory];
+
+  useEffect(() => {
+    const interval = window.setInterval(() => {
+      setActiveStory((current) => (current + 1) % stories.length);
+    }, 6500);
+
+    return () => window.clearInterval(interval);
+  }, []);
+
+  useGSAP(
+    () => {
+      const root = storiesRef.current;
+      if (!root) return;
+
+      const mm = gsap.matchMedia();
+      mm.add("(prefers-reduced-motion: reduce)", () => {
+        gsap.set(root.querySelectorAll(".manifesto-copy > *, .service-figure"), { clearProps: "all" });
+      });
+      mm.add("(prefers-reduced-motion: no-preference)", () => {
+        const intro = root.querySelectorAll(".manifesto-copy > *");
+        const figure = root.querySelector(".service-figure");
+        const core = root.querySelector(".figure-core");
+        const orbit = root.querySelector(".figure-orbit");
+
+        gsap.fromTo(intro, { y: 22, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.65, stagger: 0.07, ease: "power3.out" });
+        gsap.fromTo(figure, { scale: 0.82, rotation: -8, autoAlpha: 0 }, { scale: 1, rotation: 0, autoAlpha: 1, duration: 1, ease: "power3.out" });
+        gsap.fromTo(core, { scale: 0.72, rotation: 16 }, { scale: 1, rotation: 0, duration: 1.1, ease: "elastic.out(1, 0.65)" });
+        gsap.fromTo(orbit, { rotation: -20, scale: 0.8 }, { rotation: 0, scale: 1, duration: 1.2, ease: "power3.out" });
+      });
+
+      return () => mm.revert();
+    },
+    { scope: storiesRef, dependencies: [activeStory] }
+  );
+
+  const move = (direction) => {
+    setActiveStory((current) => (current + direction + stories.length) % stories.length);
+  };
+
+  return (
+    <main className="services-manifesto" ref={storiesRef}>
+      <div className="manifesto-grid" aria-hidden="true" />
+      <header className="manifesto-header">
+        <span>Services manifesto</span>
+        <span>01 — 03 / SIGIL LABS</span>
+      </header>
+
+      <section className={`manifesto-stage manifesto-stage--${activeStory}`} aria-live="polite">
+        <div className="manifesto-visual">
+          <ServiceFigure service={active} index={activeStory} />
+        </div>
+
+        <article className="manifesto-copy">
+          <p className="manifesto-kicker">{active.kicker}</p>
+          <p className="manifesto-number">0{activeStory + 1} / 03</p>
+          <h1>{active.title}</h1>
+          <p className="manifesto-description">{active.description}</p>
+          <ul className="manifesto-meta">
+            {active.meta.map((line) => <li key={line}>{line}</li>)}
+          </ul>
+          <a className="manifesto-cta" href={active.linkSrc}>
+            {active.linkLabel} <span aria-hidden="true">↗</span>
+          </a>
+        </article>
+      </section>
+
+      <nav className="manifesto-nav" aria-label="Service manifesto slides">
+        <div className="manifesto-progress">
+          {stories.map((story, index) => (
+            <button
+              type="button"
+              className={index === activeStory ? "is-active" : ""}
+              key={story.name}
+              onClick={() => setActiveStory(index)}
+              aria-label={`Show ${story.name}`}
+              aria-current={index === activeStory ? "true" : undefined}
+            >
+              <span>{String(index + 1).padStart(2, "0")}</span>
+              <i />
+            </button>
+          ))}
+        </div>
+        <div className="manifesto-arrows">
+          <button type="button" onClick={() => move(-1)} aria-label="Previous service">←</button>
+          <button type="button" onClick={() => move(1)} aria-label="Next service">→</button>
+        </div>
+      </nav>
+    </main>
   );
 }

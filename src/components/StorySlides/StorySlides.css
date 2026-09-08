@@ -1,256 +1,121 @@
-.stories {
+.services-manifesto {
   position: relative;
-  width: 100%;
-  height: 100svh;
+  min-height: 100svh;
   overflow: hidden;
+  background: var(--base-400);
+  color: var(--base-100);
+  isolation: isolate;
 }
 
-.stories h1 {
-  color: #fff;
-  text-transform: none;
-  font-family: "PP Neue Montreal";
-  font-size: 2.25rem;
-  font-weight: 400;
-  line-height: 1.15;
-  letter-spacing: 0;
-}
-
-.stories p {
-  color: #fff;
-  font-size: 1rem;
-  font-weight: 400;
-  line-height: 1.15;
-  letter-spacing: 0;
-}
-
-.stories a {
-  color: #fff;
-  text-decoration: none;
-  text-transform: uppercase;
-  font-family: "PP Pangram Sans";
-  font-size: 0.9rem;
-  font-weight: 900;
-  -webkit-font-smoothing: antialiased;
-}
-
-.stories .story-img {
+.manifesto-grid {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100svh;
-  overflow: hidden;
-  opacity: 1;
-  background-color: var(--base-100);
+  inset: 0;
+  z-index: -1;
+  opacity: 0.5;
+  background-image: linear-gradient(rgba(4, 5, 7, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(4, 5, 7, 0.1) 1px, transparent 1px);
+  background-size: 72px 72px;
+  mask-image: linear-gradient(90deg, black, transparent 90%);
 }
 
-/* Readability scrim so titles stay legible over any project screenshot. */
-.stories .story-img::after {
+.manifesto-grid::after {
   content: "";
   position: absolute;
   inset: 0;
-  background:
-    linear-gradient(
-      to top,
-      rgba(4, 5, 7, 0.92) 0%,
-      rgba(4, 5, 7, 0.55) 35%,
-      rgba(4, 5, 7, 0.25) 65%,
-      rgba(4, 5, 7, 0.4) 100%
-    ),
-    linear-gradient(
-      90deg,
-      rgba(4, 5, 7, 0.55) 0%,
-      rgba(4, 5, 7, 0.3) 50%,
-      rgba(4, 5, 7, 0.45) 100%
-    );
-  pointer-events: none;
+  background: linear-gradient(90deg, rgba(0, 240, 255, 0.14), transparent 60%);
+}
+
+.manifesto-header,
+.manifesto-nav {
+  position: absolute;
+  z-index: 5;
+  left: 2rem;
+  right: 2rem;
+  height: 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--base-100);
+  font: 0.78rem "Geist Mono", monospace;
+  letter-spacing: 0.12rem;
+  text-transform: uppercase;
+}
+
+.manifesto-header { top: 2rem; }
+.manifesto-nav { top: auto; bottom: 2rem; }
+
+.manifesto-stage {
+  position: relative;
   z-index: 1;
-}
-
-.stories .img {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
-
-.stories .img img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  will-change: transform;
-}
-
-.stories .story-content {
-  position: absolute;
-  padding: 2rem 0;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 30%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.stories .row {
-  width: 100%;
-}
-
-.stories .indices {
-  width: 100%;
-  height: 0.5rem;
-  display: flex;
-  justify-content: space-between;
+  min-height: 100svh;
+  width: min(1400px, 100%);
+  margin: 0 auto;
+  padding: 8rem 2rem 7rem;
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: 0;
   align-items: center;
-  gap: 0.25em;
+  background: var(--base-400);
+  border: 2px solid var(--base-100);
+  box-shadow: 12px 12px 0 var(--base-100);
 }
 
-.stories .index {
-  position: relative;
-  width: 100%;
-  height: 0.25rem;
-  border-radius: 2rem;
-  background: rgba(255, 255, 255, 0.3);
-  overflow: hidden;
-}
-
-.stories .index-highlight {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 0%;
-  height: 100%;
-  background: var(--base-500);
-  transform: scaleX(100%);
-  will-change: transform;
-}
-
-.stories .profile {
-  width: 100%;
-  height: 60px;
-  display: flex;
-  gap: 1em;
-  align-items: center;
-}
-
-.stories .profile-icon {
-  position: relative;
-  width: 40px;
-  height: 40px;
-  border-radius: 100%;
-  overflow: hidden;
-}
-
-.stories .profile-icon img {
+.manifesto-visual {
+  min-height: min(68svh, 680px);
+  display: grid;
+  place-items: center;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  border-right: 2px solid var(--base-100);
+  background: var(--accent-2);
 }
 
-.stories .profile-name {
+.manifesto-stage--1 .manifesto-visual { background: var(--base-500); }
+.manifesto-stage--2 .manifesto-visual { background: var(--base-100); }
+
+.service-figure {
   position: relative;
-  width: 200px;
-  height: 18px;
-  clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+  width: min(48vw, 650px);
+  aspect-ratio: 1.12;
+  display: grid;
+  place-items: center;
+  will-change: transform, opacity;
 }
 
-.stories .title {
-  margin-bottom: 2rem;
-}
+.service-figure svg { width: 100%; height: 100%; overflow: visible; }
+.figure-core, .figure-orbit { transform-box: fill-box; transform-origin: center; will-change: transform; }
+.figure-orbit--outer { animation: orbit-spin 18s linear infinite; }
+.figure-label { position: absolute; bottom: 5%; right: 12%; color: var(--base-100); font: 0.72rem "Geist Mono", monospace; letter-spacing: 0.12rem; }
+.service-figure--2 .figure-label { color: var(--base-400); }
 
-.stories .title-row {
-  position: relative;
-  width: 100%;
-  height: 2.5rem;
-  overflow: hidden;
-}
+@keyframes orbit-spin { to { transform: rotate(360deg); } }
 
-.stories .title-row h1 {
-  text-transform: uppercase;
-  font-family: "Big Shoulders Display";
-  font-weight: 900;
-  line-height: 1;
-}
+.manifesto-copy { position: relative; max-width: 560px; padding: 3rem; }
+.manifesto-copy > * { will-change: transform, opacity; }
+.manifesto-kicker, .manifesto-number { color: var(--base-100); font: 0.78rem "Geist Mono", monospace; letter-spacing: 0.12rem; text-transform: uppercase; }
+.manifesto-number { position: absolute; top: 0; right: 0; }
+.manifesto-copy h1 { max-width: 560px; margin: 2rem 0; color: var(--base-100); font-size: clamp(3.5rem, 6vw, 7.5rem); line-height: 0.88; letter-spacing: -0.08rem; text-transform: uppercase; }
+.manifesto-description { max-width: 480px; color: var(--base-100); font-size: clamp(1.2rem, 1.8vw, 1.65rem); line-height: 1.12; }
+.manifesto-meta { list-style: none; margin: 2rem 0; padding: 1rem 0 1rem 1rem; border-left: 2px solid var(--base-100); display: grid; gap: 0.45rem; color: var(--base-100); font: 0.78rem/1.3 "Geist Mono", monospace; text-transform: uppercase; }
+.manifesto-cta { display: inline-flex; gap: 1.25rem; align-items: center; padding: 1rem 1.2rem; background: var(--base-100); color: var(--base-400); font: 0.78rem "Geist Mono", monospace; text-decoration: none; text-transform: uppercase; }
 
-.stories .story-meta {
-  list-style: none;
-  margin: 0 0 1.5rem 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  border-left: 2px solid var(--base-500);
-  padding-left: 1rem;
-}
+.manifesto-progress { display: flex; gap: 0.75rem; }
+.manifesto-progress button { min-width: 130px; padding: 0; border: 0; background: transparent; color: var(--base-300); cursor: pointer; text-align: left; font: inherit; text-transform: uppercase; }
+.manifesto-progress i { display: block; height: 2px; margin-top: 0.5rem; background: rgba(4,5,7,.2); overflow: hidden; }
+.manifesto-progress i::after { content: ""; display: block; width: 100%; height: 100%; background: var(--base-100); transform: scaleX(0); transform-origin: left center; }
+.manifesto-progress button.is-active { color: var(--base-100); }
+.manifesto-progress button.is-active i::after { transform: scaleX(1); transition: transform 6.5s linear; }
+.manifesto-arrows { display: flex; gap: 0.5rem; }
+.manifesto-arrows button { width: 42px; height: 32px; border: 1px solid var(--base-100); background: transparent; color: var(--base-100); cursor: pointer; font-size: 1rem; }
 
-.stories .story-meta li {
-  font-family: "Geist Mono";
-  font-size: 0.8rem;
-  font-weight: 500;
-  line-height: 1.3;
-  letter-spacing: 0.02rem;
-  color: rgba(255, 255, 255, 0.88);
-  text-transform: uppercase;
-}
-
-.stories .link {
-  position: relative;
-  width: max-content;
-  margin: 1rem 0 2rem 0;
-  padding: 0.25rem 0;
-}
-
-.stories .title-row h1,
-.stories .profile-name p {
-  position: absolute;
-  top: 0;
-  will-change: transform;
-}
-
-.stories .stories-footer {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-}
-
-.stories .stories-footer .container {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-}
-
-.stories .stories-footer p {
-  text-transform: uppercase;
-  font-family: "Geist Mono";
-  font-size: 0.85rem;
-  font-weight: 500;
-  line-height: 1.15;
-  color: #fff;
-  letter-spacing: 0.1rem;
-}
-
-@media (max-width: 1000px) {
-  .stories .story-content {
-    width: 100%;
-    padding: 1.25rem 1.25rem 5rem 1.25rem;
-  }
-
-  .stories .indices {
-    margin-top: 10rem;
-  }
-
-  .stories h1 {
-    font-size: 1.75rem;
-    font-weight: 400;
-    line-height: 1.15;
-    letter-spacing: 0;
-  }
-
-  .stories .title-row {
-    height: 2rem;
-  }
+@media (max-width: 800px) {
+  .manifesto-header, .manifesto-nav { left: 1.25rem; right: 1.25rem; }
+  .manifesto-header { top: 1.25rem; }
+  .manifesto-stage { min-height: 100svh; padding: 6rem 1.25rem 6rem; display: flex; flex-direction: column; justify-content: center; gap: 0; box-shadow: 6px 6px 0 var(--base-100); }
+  .manifesto-visual { min-height: 42svh; width: 100%; border-right: 0; border-bottom: 2px solid var(--base-100); }
+  .service-figure { width: min(92vw, 520px); }
+  .manifesto-copy { padding: 2rem 1.25rem; }
+  .manifesto-copy h1 { margin: 1.25rem 0; font-size: clamp(2.8rem, 12vw, 5rem); }
+  .manifesto-description { font-size: 1.15rem; }
+  .manifesto-progress button { min-width: 70px; font-size: 0.65rem; }
+  .manifesto-progress button:not(.is-active) span { display: none; }
 }

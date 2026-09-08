@@ -1,7 +1,7 @@
 export const metadata = {
-  title: "Manifesto and Stories | SIGIL LABS",
+  title: "Services Manifesto | SIGIL LABS",
   description:
-    "Stories, protocols and field notes from SIGIL LABS across editorial systems, motion research and digital culture.",
+    "The SIGIL LABS services manifesto: creative engineering, agentic AI systems and interactive web experiences.",
   alternates: { canonical: "/stories" },
 };
 

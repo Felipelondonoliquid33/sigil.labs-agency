@@ -441,6 +441,8 @@ const Menu = ({ pageRef }) => {
               e.preventDefault();
               const currentPath = window.location.pathname;
               if (currentPath === "/") {
+                lenis?.scrollTo(0, { duration: 1.2 });
+                window.scrollTo({ top: 0, behavior: "smooth" });
                 return;
               }
               navigateWithTransition("/", isMenuOpen ? toggleMenu : null);

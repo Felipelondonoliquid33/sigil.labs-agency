@@ -82,8 +82,8 @@ export const projectMedia = {
   },
   'yen-galindo-photography': {
     cover: {
-      src: 'https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?auto=format&fit=crop&q=80&w=1600',
-      alt: 'Yen Galindo Photography — editorial portrait',
+      src: '/showcase/yen_galindo_portfolio_cover.jpg',
+      alt: 'Yen Galindo Photography — editorial portfolio interface',
     },
     gallery: [
       {

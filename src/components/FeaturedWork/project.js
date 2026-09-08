@@ -59,7 +59,7 @@ export const projects = [
     name: "Yen Galindo Photography",
     description:
       "Editorial photography portfolio shaped around natural light, analog grain, intimate portraits and documentary image-making.",
-    img: "https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?auto=format&fit=crop&q=80&w=1200",
+    img: "/showcase/yen_galindo_portfolio_cover.jpg",
     video: "/showcase/yen_galindo_portfolio_showcase.webm",
     route: "/sample-project?project=yen-galindo-photography",
   },

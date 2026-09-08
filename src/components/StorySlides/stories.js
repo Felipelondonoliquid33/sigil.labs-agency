@@ -48,7 +48,7 @@ export const stories = [
       "Milestone — Frictionless tactile checkout",
     ],
     linkLabel: "View Protocol",
-    linkSrc: "/sample-project?project=la-mar",
+    linkSrc: "/work/la-mar",
     storyImg: "/showcase/opt/mar_shop_hero.webp",
   },
   {
@@ -87,7 +87,7 @@ export const stories = [
       "Milestone — The lab behind SIGIL LABS",
     ],
     linkLabel: "View Protocol",
-    linkSrc: "/sample-project?project=internal-r-and-d",
+    linkSrc: "/work/internal-r-and-d",
     storyImg: "/showcase/opt/portfolio_flh_hero.webp",
   },
 ];

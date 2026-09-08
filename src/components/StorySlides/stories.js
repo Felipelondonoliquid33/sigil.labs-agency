@@ -9,7 +9,7 @@ export const stories = [
       "Milestone — 11,617 images rescued from a dead archive",
     ],
     linkLabel: "View Protocol",
-    linkSrc: "/sample-project?project=pacifista",
+    linkSrc: "/work/pacifista",
     storyImg: "/showcase/opt/pacifista_hero.webp",
   },
   {
@@ -22,7 +22,7 @@ export const stories = [
       "Milestone — Real-time AI infrastructure landing",
     ],
     linkLabel: "View Protocol",
-    linkSrc: "/sample-project?project=li4uid",
+    linkSrc: "/work/li4uid",
     storyImg: "/showcase/opt/liquid_new_landing_hero.webp",
   },
   {
@@ -35,7 +35,7 @@ export const stories = [
       "Milestone — 295 reusable motion modules",
     ],
     linkLabel: "View Protocol",
-    linkSrc: "/sample-project?project=gsap-motion-vault",
+    linkSrc: "/work/gsap-motion-vault",
     storyImg: "/cases/gsap-motion-vault/cover.webp",
   },
   {
@@ -61,7 +61,7 @@ export const stories = [
       "Milestone — Navigable 3D memory archive",
     ],
     linkLabel: "View Protocol",
-    linkSrc: "/sample-project?project=el-susurro-del-tiempo",
+    linkSrc: "/work/el-susurro-del-tiempo",
     storyImg: "/showcase/opt/el_susurro_del_tiempo_hero.webp",
   },
   {
@@ -74,7 +74,7 @@ export const stories = [
       "Milestone — Kinetic scroll ordering flow",
     ],
     linkLabel: "View Protocol",
-    linkSrc: "/sample-project?project=empanadas",
+    linkSrc: "/work/empanadas",
     storyImg: "/showcase/opt/empanadas_app_hero.webp",
   },
   {

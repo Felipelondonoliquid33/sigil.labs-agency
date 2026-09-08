@@ -1,0 +1,521 @@
+.sample-project-page {
+  background-color: var(--base-100);
+}
+
+.sample-project-page h3 {
+  font-size: 4rem;
+}
+
+.sample-project-page .project-header {
+  width: 100vw;
+  height: 50svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 1.5em;
+  padding-bottom: 3em;
+  text-align: center;
+  padding-inline: 2rem;
+  min-height: 50svh;
+  height: auto;
+  padding-top: 8rem;
+}
+
+.sample-project-page .project-header h1 { font-size: clamp(3rem, 7vw, 8rem); overflow-wrap: anywhere; }
+.sample-project-page video { width: 100%; height: 100%; object-fit: contain; background: var(--bg-primary); }
+.sample-project-page .project-img img { object-fit: contain; }
+.sample-project-page .project-banner-img img { object-fit: contain; }
+
+.sample-project-page .project-header p {
+  margin-bottom: 2rem;
+}
+
+.sample-project-page .project-banner-img {
+  position: relative;
+  width: 100%;
+  height: 100svh;
+  overflow: hidden;
+}
+
+.sample-project-page img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.sample-project-page .project-banner-img-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.sample-project-page .project-details {
+  width: 55%;
+  padding: 8rem 1rem 2rem 1rem;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 4rem;
+  margin-bottom: 4rem;
+}
+
+.sample-project-page .details {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 4rem;
+}
+
+.sample-project-page .project-images {
+  background-color: var(--bg-card);
+  color: var(--text-main);
+  padding: 4em 2em;
+}
+
+.sample-project-page .project-images-container {
+  width: 75%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2em;
+}
+
+.sample-project-page .project-img {
+  position: relative;
+  width: 100%;
+  height: 80svh;
+  overflow: hidden;
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+.sample-project-page .project-img-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.sample-project-page .next-project {
+  width: 100vw;
+  height: 100svh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5em;
+  text-align: center;
+}
+
+.sample-project-page .next-project-img {
+  position: relative;
+  width: 35%;
+  height: 400px;
+  overflow: hidden;
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+.sample-project-page .next-project-img-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+@media (max-width: 1000px) {
+  .sample-project-page .project-header {
+    padding: 1.25em 1.25em 3em 1.25em;
+  }
+
+  .sample-project-page .project-details {
+    width: 100%;
+    padding: 6em 1.25em;
+    gap: 3em;
+  }
+
+  .sample-project-page h3 {
+    font-size: 2rem;
+  }
+
+  .sample-project-page .project-images {
+    padding: 4em 1.25em;
+  }
+
+  .sample-project-page .project-images-container {
+    width: 100%;
+    gap: 1.25em;
+  }
+
+  .sample-project-page .next-project {
+    padding: 1.25em;
+  }
+
+  .sample-project-page .next-project-img {
+    width: 75%;
+  }
+
+  .sample-project-page .project-img {
+    height: 65svh;
+  }
+}
+
+/* ============================================================
+   PROJECT OVERVIEW — SIGIL-adapted showcase (browser frame),
+   stack, metrics & service tags. Cyber-dark aesthetic.
+   ============================================================ */
+.sample-project-page .project-overview {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 4rem;
+  width: 78%;
+  margin: 0 auto;
+  padding: 6rem 1rem;
+  align-items: center;
+}
+
+.sample-project-page .project-overview-col { min-width: 0; }
+
+.sample-project-page .svc { position: relative; width: 100%; }
+
+.sample-project-page .svc-glow {
+  position: absolute;
+  inset: -24px;
+  background: radial-gradient(ellipse at 50% 55%, rgba(0, 240, 255, 0.14), transparent 70%);
+  z-index: 0;
+  pointer-events: none;
+  border-radius: 22px;
+}
+
+.sample-project-page .svc-floating-label {
+  position: absolute;
+  top: -14px;
+  right: -12px;
+  z-index: 10;
+  background: var(--base-500);
+  color: var(--base-100);
+  border-radius: 8px;
+  padding: 0.5rem 0.85rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.45);
+}
+
+.sample-project-page .svc-floating-label .sfl-title {
+  font-family: "Geist Mono", monospace;
+  font-size: 0.58rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: rgba(4, 5, 7, 0.6);
+}
+
+.sample-project-page .svc-floating-label .sfl-name {
+  font-family: "Big Shoulders Display", sans-serif;
+  font-weight: 900;
+  font-size: 1rem;
+  text-transform: uppercase;
+  line-height: 1;
+  color: var(--base-100);
+}
+
+.sample-project-page .svc-browser {
+  position: relative;
+  z-index: 1;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #06080c;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.06), 0 32px 80px rgba(0, 0, 0, 0.5), 0 8px 24px rgba(0, 0, 0, 0.35);
+  transform: perspective(1000px) rotateY(-4deg) rotateX(2deg);
+  transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.6s ease;
+  will-change: transform;
+}
+
+.sample-project-page .svc-browser:hover {
+  box-shadow: 0 0 0 1px rgba(0, 240, 255, 0.18), 0 48px 100px rgba(0, 0, 0, 0.55), 0 16px 40px rgba(0, 0, 0, 0.4);
+}
+
+.sample-project-page .svc-topbar {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.65rem 1rem;
+  background: var(--base-200);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  position: relative;
+  z-index: 3;
+}
+
+.sample-project-page .svc-dots { display: flex; gap: 5px; flex-shrink: 0; }
+.sample-project-page .svc-dot { width: 9px; height: 9px; border-radius: 50%; }
+.sample-project-page .svc-dot:nth-child(1) { background: #ff5f57; }
+.sample-project-page .svc-dot:nth-child(2) { background: #febc2e; }
+.sample-project-page .svc-dot:nth-child(3) { background: #28c840; }
+
+.sample-project-page .svc-url-bar {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 5px;
+  padding: 0.28rem 0.65rem;
+  font-family: "Geist Mono", monospace;
+  font-size: 0.62rem;
+  color: rgba(255, 255, 255, 0.5);
+  letter-spacing: 0.04em;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.sample-project-page .svc-url-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--base-500); flex-shrink: 0; }
+
+.sample-project-page .svc-live-badge {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-family: "Geist Mono", monospace;
+  font-size: 0.56rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--base-500);
+  padding: 0.2rem 0.5rem;
+  border: 1px solid rgba(0, 240, 255, 0.35);
+  border-radius: 3px;
+}
+
+.sample-project-page .svc-live-pulse { width: 5px; height: 5px; border-radius: 50%; background: var(--base-500); animation: svc-pulse 1.4s ease-in-out infinite; }
+
+@keyframes svc-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.35; transform: scale(0.7); }
+}
+
+.sample-project-page .svc-video-wrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  cursor: pointer;
+  background: #000;
+}
+
+.sample-project-page .svc-video-wrapper video,
+.sample-project-page .svc-video-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.sample-project-page .svc-scanlines {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(to bottom, transparent 0px, transparent 2px, rgba(0, 0, 0, 0.14) 2px, rgba(0, 0, 0, 0.14) 4px);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.sample-project-page .svc-play-btn {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 4;
+  background: rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.sample-project-page .svc-video-wrapper:hover .svc-play-btn,
+.sample-project-page .svc-play-btn.svc-show { opacity: 1; }
+
+.sample-project-page .svc-play-icon {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background: rgba(0, 240, 255, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(8px);
+  border: 1.5px solid rgba(255, 255, 255, 0.25);
+  transition: transform 0.2s ease;
+}
+.sample-project-page .svc-play-icon:hover { transform: scale(1.1); }
+.sample-project-page .svc-play-icon svg { width: 20px; height: 20px; fill: var(--base-100); margin-left: 1px; }
+
+.sample-project-page .svc-progress-bar {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.1);
+  z-index: 5;
+}
+.sample-project-page .svc-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--base-500), #7df9ff);
+  transition: width 0.1s linear;
+}
+
+.sample-project-page .svc-bottombar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 1rem;
+  background: #05070a;
+  border-top: 1px solid rgba(255, 255, 255, 0.04);
+}
+.sample-project-page .svc-time {
+  font-family: "Geist Mono", monospace;
+  font-size: 0.6rem;
+  color: rgba(255, 255, 255, 0.35);
+  letter-spacing: 0.06em;
+}
+.sample-project-page .svc-mute-btn {
+  background: none; border: none; cursor: pointer; padding: 0;
+  font-family: "Geist Mono", monospace;
+  font-size: 0.58rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.35);
+  transition: color 0.2s ease;
+}
+.sample-project-page .svc-mute-btn:hover { color: var(--base-500); }
+
+.sample-project-page .project-overview-col .mono {
+  font-family: "Geist Mono", monospace;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--base-500);
+  margin-bottom: 1rem;
+}
+.sample-project-page .project-stack { margin-bottom: 2.5rem; }
+.sample-project-page .project-stack .stack-line {
+  font-size: 1rem;
+  line-height: 1.9;
+  color: var(--base-400);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  padding-bottom: 0.35rem;
+  margin-bottom: 0.35rem;
+}
+.sample-project-page .project-overview-copy p:not(.mono) {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: rgba(241, 245, 249, 0.72);
+}
+
+.sample-project-page .project-metrics-section {
+  width: 78%;
+  margin: 0 auto;
+  padding: 2rem 1rem 6rem 1rem;
+}
+.sample-project-page .project-metrics-card {
+  border: 1px dashed rgba(0, 240, 255, 0.22);
+  border-radius: 14px;
+  background: rgba(0, 240, 255, 0.03);
+  padding: 3rem;
+}
+.sample-project-page .pm-tag {
+  display: inline-flex;
+  align-items: center;
+  font-family: "Geist Mono", monospace;
+  font-size: 0.62rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--base-500);
+  border: 1px solid rgba(0, 240, 255, 0.28);
+  border-radius: 3px;
+  padding: 0.3rem 0.7rem;
+  margin-bottom: 1.5rem;
+}
+.sample-project-page .pm-title {
+  font-family: "Big Shoulders Display", sans-serif;
+  font-weight: 900;
+  text-transform: uppercase;
+  font-size: 2.5rem;
+  line-height: 0.95;
+  color: var(--base-400);
+  margin-bottom: 2rem;
+}
+.sample-project-page .pm-metrics {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+}
+.sample-project-page .pm-metric {
+  padding: 1.5rem 1.25rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.02);
+  transition: border-color 0.3s ease, background 0.3s ease, transform 0.3s ease;
+}
+.sample-project-page .pm-metric:hover {
+  border-color: rgba(0, 240, 255, 0.4);
+  background: rgba(0, 240, 255, 0.06);
+  transform: translateY(-3px);
+}
+.sample-project-page .pm-metric-val {
+  font-family: "Big Shoulders Display", sans-serif;
+  font-weight: 900;
+  font-size: 2.25rem;
+  line-height: 1;
+  color: var(--base-500);
+  margin-bottom: 0.4rem;
+}
+.sample-project-page .pm-metric-label {
+  font-family: "Geist Mono", monospace;
+  font-size: 0.62rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: rgba(241, 245, 249, 0.55);
+}
+.sample-project-page .pm-services-title {
+  font-family: "Geist Mono", monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(241, 245, 249, 0.55);
+  margin: 2rem 0 0.85rem 0;
+}
+.sample-project-page .pm-services { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.sample-project-page .pm-service-tag {
+  font-family: "Geist Mono", monospace;
+  font-size: 0.62rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0.35rem 0.8rem;
+  border: 1px solid rgba(0, 240, 255, 0.28);
+  border-radius: 2rem;
+  color: var(--base-500);
+  background: rgba(0, 240, 255, 0.04);
+}
+
+@media (max-width: 1000px) {
+  .sample-project-page .project-overview {
+    grid-template-columns: 1fr;
+    width: 100%;
+    gap: 3rem;
+    padding: 4rem 1.25rem;
+  }
+  .sample-project-page .svc-browser { transform: none; }
+  .sample-project-page .svc-floating-label { top: -8px; right: -4px; }
+  .sample-project-page .project-metrics-section { width: 100%; padding: 1rem 1.25rem 4rem 1.25rem; }
+  .sample-project-page .project-metrics-card { padding: 1.75rem; }
+  .sample-project-page .pm-metrics { grid-template-columns: 1fr 1fr; }
+  .sample-project-page .pm-metric-val { font-size: 1.75rem; }
+  .sample-project-page .pm-title { font-size: 1.9rem; }
+}

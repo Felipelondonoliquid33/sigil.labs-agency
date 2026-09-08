@@ -1,0 +1,256 @@
+.stories {
+  position: relative;
+  width: 100%;
+  height: 100svh;
+  overflow: hidden;
+}
+
+.stories h1 {
+  color: #fff;
+  text-transform: none;
+  font-family: "PP Neue Montreal";
+  font-size: 2.25rem;
+  font-weight: 400;
+  line-height: 1.15;
+  letter-spacing: 0;
+}
+
+.stories p {
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.15;
+  letter-spacing: 0;
+}
+
+.stories a {
+  color: #fff;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-family: "PP Pangram Sans";
+  font-size: 0.9rem;
+  font-weight: 900;
+  -webkit-font-smoothing: antialiased;
+}
+
+.stories .story-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100svh;
+  overflow: hidden;
+  opacity: 1;
+  background-color: var(--base-100);
+}
+
+/* Readability scrim so titles stay legible over any project screenshot. */
+.stories .story-img::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      to top,
+      rgba(4, 5, 7, 0.92) 0%,
+      rgba(4, 5, 7, 0.55) 35%,
+      rgba(4, 5, 7, 0.25) 65%,
+      rgba(4, 5, 7, 0.4) 100%
+    ),
+    linear-gradient(
+      90deg,
+      rgba(4, 5, 7, 0.55) 0%,
+      rgba(4, 5, 7, 0.3) 50%,
+      rgba(4, 5, 7, 0.45) 100%
+    );
+  pointer-events: none;
+  z-index: 1;
+}
+
+.stories .img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.stories .img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  will-change: transform;
+}
+
+.stories .story-content {
+  position: absolute;
+  padding: 2rem 0;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 30%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.stories .row {
+  width: 100%;
+}
+
+.stories .indices {
+  width: 100%;
+  height: 0.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.25em;
+}
+
+.stories .index {
+  position: relative;
+  width: 100%;
+  height: 0.25rem;
+  border-radius: 2rem;
+  background: rgba(255, 255, 255, 0.3);
+  overflow: hidden;
+}
+
+.stories .index-highlight {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 100%;
+  background: var(--base-500);
+  transform: scaleX(100%);
+  will-change: transform;
+}
+
+.stories .profile {
+  width: 100%;
+  height: 60px;
+  display: flex;
+  gap: 1em;
+  align-items: center;
+}
+
+.stories .profile-icon {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+  overflow: hidden;
+}
+
+.stories .profile-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.stories .profile-name {
+  position: relative;
+  width: 200px;
+  height: 18px;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+}
+
+.stories .title {
+  margin-bottom: 2rem;
+}
+
+.stories .title-row {
+  position: relative;
+  width: 100%;
+  height: 2.5rem;
+  overflow: hidden;
+}
+
+.stories .title-row h1 {
+  text-transform: uppercase;
+  font-family: "Big Shoulders Display";
+  font-weight: 900;
+  line-height: 1;
+}
+
+.stories .story-meta {
+  list-style: none;
+  margin: 0 0 1.5rem 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  border-left: 2px solid var(--base-500);
+  padding-left: 1rem;
+}
+
+.stories .story-meta li {
+  font-family: "Geist Mono";
+  font-size: 0.8rem;
+  font-weight: 500;
+  line-height: 1.3;
+  letter-spacing: 0.02rem;
+  color: rgba(255, 255, 255, 0.88);
+  text-transform: uppercase;
+}
+
+.stories .link {
+  position: relative;
+  width: max-content;
+  margin: 1rem 0 2rem 0;
+  padding: 0.25rem 0;
+}
+
+.stories .title-row h1,
+.stories .profile-name p {
+  position: absolute;
+  top: 0;
+  will-change: transform;
+}
+
+.stories .stories-footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}
+
+.stories .stories-footer .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.stories .stories-footer p {
+  text-transform: uppercase;
+  font-family: "Geist Mono";
+  font-size: 0.85rem;
+  font-weight: 500;
+  line-height: 1.15;
+  color: #fff;
+  letter-spacing: 0.1rem;
+}
+
+@media (max-width: 1000px) {
+  .stories .story-content {
+    width: 100%;
+    padding: 1.25rem 1.25rem 5rem 1.25rem;
+  }
+
+  .stories .indices {
+    margin-top: 10rem;
+  }
+
+  .stories h1 {
+    font-size: 1.75rem;
+    font-weight: 400;
+    line-height: 1.15;
+    letter-spacing: 0;
+  }
+
+  .stories .title-row {
+    height: 2rem;
+  }
+}

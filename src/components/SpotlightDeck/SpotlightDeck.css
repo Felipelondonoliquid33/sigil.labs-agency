@@ -1,0 +1,231 @@
+/* ============================================================
+   SPOTLIGHT DECK — 3D perspective gallery of project frames.
+   Dark, cyber-editorial. Cyan glow accent (matches .svc-browser).
+   Base layer is a clean static grid; 3D float/tilt/hover is layered
+   on only for pointer + no-reduced-motion via @media.
+   ============================================================ */
+.spotlight-deck {
+  background-color: var(--base-100);
+  color: var(--text-main);
+  padding: 6rem 2rem;
+}
+
+.spotlight-deck .deck-head {
+  width: 78%;
+  max-width: 1200px;
+  margin: 0 auto 3rem auto;
+}
+
+.spotlight-deck .deck-eyebrow {
+  font-family: "Geist Mono", monospace;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--accent-cyan);
+  margin-bottom: 0.75rem;
+}
+
+.spotlight-deck .deck-heading {
+  font-family: "Big Shoulders Display", sans-serif;
+  font-weight: 900;
+  text-transform: uppercase;
+  font-size: clamp(2rem, 4vw, 3.25rem);
+  line-height: 0.95;
+  color: var(--text-main);
+}
+
+.spotlight-deck .deck-stage {
+  width: 78%;
+  max-width: 1200px;
+  margin: 0 auto;
+  perspective: 1600px;
+}
+
+.spotlight-deck .deck-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(clamp(200px, 22vw, 280px), 1fr));
+  gap: 1.5rem;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+/* Card ------------------------------------------------------- */
+.spotlight-deck .deck-card {
+  appearance: none;
+  border: none;
+  background: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  position: relative;
+  aspect-ratio: var(--card-aspect, 4 / 3);
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.spotlight-deck .deck-card__float {
+  position: absolute;
+  inset: 0;
+  display: block;
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--base-200);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
+  transition: border-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+.spotlight-deck .deck-card__float img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+  transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.spotlight-deck .deck-card__scan {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0px,
+    transparent 2px,
+    rgba(0, 0, 0, 0.12) 2px,
+    rgba(0, 0, 0, 0.12) 4px
+  );
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.spotlight-deck .deck-card__idx {
+  position: absolute;
+  top: 0.6rem;
+  left: 0.7rem;
+  font-family: "Geist Mono", monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  color: var(--accent-cyan);
+  background: rgba(4, 5, 7, 0.55);
+  border: 1px solid rgba(0, 240, 255, 0.25);
+  border-radius: 3px;
+  padding: 0.18rem 0.4rem;
+  backdrop-filter: blur(4px);
+}
+
+.spotlight-deck .deck-card__glow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: 12px;
+  box-shadow: inset 0 0 0 1px rgba(0, 240, 255, 0);
+  transition: box-shadow 0.4s ease;
+}
+
+/* 3D + hover layer — pointer, fine control, motion allowed ---- */
+@media (min-width: 1000px) and (prefers-reduced-motion: no-preference) {
+  .spotlight-deck .deck-card__float {
+    animation: deck-float 7s ease-in-out infinite;
+    animation-delay: calc(var(--i) * -0.9s);
+  }
+
+  .spotlight-deck .deck-grid:has(.deck-card:hover) .deck-card:not(:hover) {
+    opacity: 0.4;
+    filter: blur(1px);
+  }
+  .spotlight-deck .deck-card {
+    transition: opacity 0.4s ease, filter 0.4s ease;
+  }
+
+  .spotlight-deck .deck-card:hover .deck-card__float {
+    border-color: rgba(0, 240, 255, 0.5);
+    box-shadow: 0 34px 70px rgba(0, 0, 0, 0.55), 0 0 40px rgba(0, 240, 255, 0.14);
+    animation-play-state: paused;
+  }
+  .spotlight-deck .deck-card:hover .deck-card__float img {
+    transform: scale(1.07);
+  }
+  .spotlight-deck .deck-card:hover .deck-card__glow {
+    box-shadow: inset 0 0 0 1px rgba(0, 240, 255, 0.55);
+  }
+}
+
+@keyframes deck-float {
+  0%, 100% { transform: translateY(0) rotateX(0deg) rotateY(0deg); }
+  33% { transform: translateY(-9px) rotateX(2.5deg) rotateY(-2deg); }
+  66% { transform: translateY(5px) rotateX(-2deg) rotateY(2.5deg); }
+}
+
+/* Lightbox --------------------------------------------------- */
+.spotlight-deck .deck-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  background: rgba(4, 5, 7, 0.92);
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 1.5rem;
+  cursor: zoom-out;
+  animation: deck-fade 0.3s ease;
+}
+
+@keyframes deck-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.spotlight-deck .deck-lightbox__inner {
+  max-width: 92vw;
+  max-height: 88vh;
+  overflow: auto;
+  border-radius: 12px;
+  border: 1px solid rgba(0, 240, 255, 0.2);
+  box-shadow: 0 40px 120px rgba(0, 0, 0, 0.6);
+  cursor: default;
+}
+
+.spotlight-deck .deck-lightbox__inner img {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  height: auto;
+}
+
+.spotlight-deck .deck-lightbox__close {
+  position: fixed;
+  top: 1.5rem;
+  right: 1.5rem;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(9, 12, 18, 0.8);
+  color: var(--text-main);
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.3s ease, color 0.3s ease;
+}
+.spotlight-deck .deck-lightbox__close:hover {
+  border-color: var(--accent-cyan);
+  color: var(--accent-cyan);
+}
+
+/* Mobile ----------------------------------------------------- */
+@media (max-width: 1000px) {
+  .spotlight-deck {
+    padding: 4rem 1.25rem;
+  }
+  .spotlight-deck .deck-head,
+  .spotlight-deck .deck-stage {
+    width: 100%;
+  }
+  .spotlight-deck .deck-grid {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+  }
+}

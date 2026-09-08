@@ -1,0 +1,144 @@
+.preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background-color: #030406;
+  color: #f1f5f9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+  will-change: clip-path;
+}
+
+.preloader-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+}
+
+.preloader-scanlines {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%);
+  background-size: 100% 4px;
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.preloader-inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 640px;
+  padding: 2rem 1.5rem;
+}
+
+.preloader-hud {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: "Geist Mono", monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: #64748b;
+  margin-bottom: 1.25rem;
+}
+
+.preloader-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #ffffff;
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.7);
+  animation: preloader-blink 2s infinite ease-in-out;
+}
+
+@keyframes preloader-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.25; }
+}
+
+.preloader-stage {
+  position: relative;
+  width: clamp(220px, 34vw, 380px);
+  aspect-ratio: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.75rem;
+}
+
+.preloader-shockwave {
+  position: absolute;
+  width: 88%;
+  height: 88%;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.75);
+  opacity: 0;
+  transform: scale(0.2);
+  pointer-events: none;
+}
+
+.preloader-sigil {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.35));
+}
+
+.preloader-brand {
+  text-align: center;
+}
+
+.preloader-wordmark {
+  font-family: "Big Shoulders Display", sans-serif;
+  font-size: clamp(2.25rem, 5vw, 3.25rem);
+  font-weight: 900;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: #ffffff;
+  line-height: 1;
+  margin: 0 0 0.6rem 0;
+  padding-left: 0.32em;
+}
+
+.preloader-tagline {
+  font-family: "Geist Mono", monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: #94a3b8;
+  margin: 0;
+}
+
+.preloader-progress-track {
+  width: min(280px, 60vw);
+  height: 2px;
+  background: rgba(255, 255, 255, 0.12);
+  margin-top: 2.25rem;
+  overflow: hidden;
+}
+
+.preloader-progress {
+  width: 100%;
+  height: 100%;
+  background: #ffffff;
+  transform: scaleX(0);
+  transform-origin: left center;
+  will-change: transform;
+}
+
+@media (max-width: 1000px) {
+  .preloader-wordmark {
+    letter-spacing: 0.22em;
+  }
+}

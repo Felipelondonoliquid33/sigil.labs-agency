@@ -107,7 +107,7 @@ export const projectMedia = {
         alt: 'Yen Galindo Photography — editorial texture and light',
       },
     ],
-    video: 'https://www.cinecasero.uy/videos/reel.mp4',
+    video: '/showcase/yen_galindo_portfolio_showcase.webm',
     videoLabel: 'Yen Galindo Photography — portfolio reel',
   },
 };

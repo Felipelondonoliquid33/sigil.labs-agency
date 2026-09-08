@@ -36,17 +36,37 @@ const Showreel = () => {
   const totalFrames = frames.length;
 
   useEffect(() => {
-    // Preload all frames for instant, stutter-free stop-motion
-    frames.forEach((src) => {
-      const img = new Image();
-      img.src = src;
-    });
+    let framesPreloaded = false;
+    const preloadRemainingFrames = () => {
+      if (framesPreloaded) return;
+      framesPreloaded = true;
+      showreelSecRef.current?.querySelectorAll("img[data-src]").forEach((img) => {
+        img.setAttribute("src", img.dataset.src);
+        img.removeAttribute("data-src");
+      });
+    };
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) return;
+        preloadRemainingFrames();
+        observer.disconnect();
+      },
+      { rootMargin: "0px 0px -25% 0px" }
+    );
+
+    if (showreelSecRef.current) {
+      observer.observe(showreelSecRef.current);
+    }
 
     const timer = setInterval(() => {
       setCurrentFrame((prev) => (prev + 1) % totalFrames);
     }, 280);
 
-    return () => clearInterval(timer);
+    return () => {
+      clearInterval(timer);
+      observer.disconnect();
+    };
   }, [totalFrames]);
 
   const toggleMute = () => {
@@ -151,9 +171,11 @@ const Showreel = () => {
           <img
             key={index}
             className={`showreel-frame ${index === currentFrame ? "active" : ""}`}
-            src={src}
+            src={index === 0 ? src : undefined}
+            data-src={index === 0 ? undefined : src}
             alt={`Showreel frame ${index + 1}`}
-            loading="eager"
+            loading={index === 0 ? "eager" : "lazy"}
+            fetchPriority={index === 0 ? "high" : "low"}
           />
         ))}
       </div>

@@ -7,6 +7,7 @@ export const metadata = {
   title: "SIGIL LABS | Creative Engineering & Autonomous Systems",
   description:
     "Creative engineering, agentic AI systems, and high-scale EdTech ecosystems.",
+  alternates: { canonical: "/" },
   openGraph: {
     title: "SIGIL LABS | Creative Engineering & Autonomous Systems",
     description:

@@ -203,7 +203,7 @@ const Footer = () => {
         <div className="footer-header-content">
           <div className="footer-header">
             <Copy animateOnScroll={true} delay={0.2}>
-              <h1>Magic is code.</h1>
+              <h1>Code is magic.</h1>
             </Copy>
           </div>
           <div className="footer-link">

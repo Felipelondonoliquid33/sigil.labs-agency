@@ -24,7 +24,7 @@ export default function FeaturedWork() {
            <div class="featured-work-item-copy">
             <h3>${project.name}</h3>
           </div>
-            ${project.video ? `<video src="${project.video}" poster="${project.img}" autoplay loop muted playsinline preload="metadata"></video>` : `<img src="${project.img}" alt="${project.name}" />`}
+            ${project.video ? `<video data-src="${project.video}" poster="${project.img}" autoplay loop muted playsinline preload="none"></video>` : `<img src="${project.img}" alt="${project.name}" loading="lazy" />`}
           </div>
         </a>
       `;
@@ -48,8 +48,29 @@ export default function FeaturedWork() {
           row.appendChild(createFeaturedWorkItem(projects[rightItemIndex]));
         }
 
-        workContainer.appendChild(row);
+      workContainer.appendChild(row);
       }
+
+      const videoObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            const video = entry.target;
+            const source = video.getAttribute("data-src");
+            if (source && !video.getAttribute("src")) {
+              video.setAttribute("src", source);
+              video.load();
+              video.play().catch(() => {});
+            }
+            videoObserver.unobserve(video);
+          });
+        },
+        { rootMargin: "25% 0px" }
+      );
+
+      workContainer.querySelectorAll("video[data-src]").forEach((video) => {
+        videoObserver.observe(video);
+      });
 
       gsap.set(".featured-work-item", {
         y: 1000,
@@ -93,6 +114,7 @@ export default function FeaturedWork() {
       links.forEach((a) => a.addEventListener("click", handleClick));
 
       return () => {
+        videoObserver.disconnect();
         links.forEach((a) => a.removeEventListener("click", handleClick));
       };
     },

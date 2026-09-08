@@ -199,7 +199,7 @@ const Page = () => {
       <div className="contact-copy">
         <div className="contact-col">
           <Copy delay={0.8}>
-            <h2>Things in motion stay interesting</h2>
+            <h1>Things in motion stay interesting</h1>
           </Copy>
         </div>
 

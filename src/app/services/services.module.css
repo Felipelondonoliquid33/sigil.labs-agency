@@ -1,0 +1,168 @@
+.page {
+  min-height: 100vh;
+  background: var(--bg-primary);
+  color: var(--base-400);
+}
+
+.hero,
+.intro,
+.grid,
+.proof,
+.next {
+  width: min(100%, 1500px);
+  margin: 0 auto;
+  padding: 8rem 2rem;
+}
+
+.hero {
+  min-height: 78vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 2rem;
+  border-bottom: 1px solid var(--border-line);
+}
+
+.eyebrow,
+.cardIndex {
+  color: var(--base-300);
+  font-family: "Geist Mono";
+  font-size: 0.78rem;
+  letter-spacing: 0.12rem;
+  text-transform: uppercase;
+}
+
+.hero h1 {
+  max-width: 1050px;
+  font-size: clamp(4rem, 12vw, 12rem);
+}
+
+.lead {
+  max-width: 760px;
+  color: var(--base-300);
+  font-size: clamp(1.35rem, 2.4vw, 2.2rem);
+  line-height: 1.1;
+}
+
+.cta,
+.proofLinks a {
+  width: fit-content;
+  color: var(--base-100);
+  background: var(--base-400);
+  display: inline-flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 0.9rem 1.1rem;
+  font-family: "Geist Mono";
+  font-size: 0.8rem;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.intro {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 3rem;
+}
+
+.intro h2,
+.proof h2,
+.next h2 {
+  max-width: 900px;
+  font-size: clamp(3rem, 7vw, 7rem);
+}
+
+.body {
+  grid-column: 2;
+  max-width: 700px;
+  color: var(--base-300);
+  font-size: 1.4rem;
+  line-height: 1.25;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  padding-top: 0;
+  padding-bottom: 8rem;
+}
+
+.card {
+  min-height: 300px;
+  padding: 1.5rem;
+  background: var(--base-200);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 3rem;
+}
+
+.card h3 {
+  font-size: clamp(2.2rem, 4vw, 4rem);
+}
+
+.card p {
+  max-width: 360px;
+  color: var(--base-300);
+  line-height: 1.25;
+}
+
+.proof {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  background: var(--base-400);
+  color: var(--base-100);
+}
+
+.proofLinks {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  align-self: end;
+}
+
+.proofLinks a {
+  width: 100%;
+  justify-content: space-between;
+  background: transparent;
+  border-bottom: 1px solid rgba(4, 5, 7, 0.25);
+  padding-inline: 0;
+}
+
+.next {
+  min-height: 70vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2rem;
+}
+
+@media (max-width: 800px) {
+  .hero,
+  .intro,
+  .grid,
+  .proof,
+  .next {
+    padding: 5rem 1.25rem;
+  }
+
+  .hero {
+    min-height: 75vh;
+  }
+
+  .intro,
+  .proof {
+    grid-template-columns: 1fr;
+  }
+
+  .body {
+    grid-column: auto;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 1px;
+  }
+}

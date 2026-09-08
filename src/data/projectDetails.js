@@ -129,4 +129,14 @@ export const projectDetails = {
     medium: "HTML, CSS, JavaScript, GSAP, Lenis and SplitText",
     studio: "SIGIL LABS / Internal R&D",
   },
+  "yen-galindo-photography": {
+    eyebrow: "Editorial photography / Analog image-making",
+    title: "YEN GALINDO PHOTOGRAPHY",
+    concept:
+      "An image-led portfolio for Yen Galindo, built around natural light, tactile film grain, intimate portraiture and a slower editorial gaze.",
+    cycle: "2026",
+    form: "Photography agency and artist portfolio",
+    medium: "Editorial direction, 35mm film, medium format and documentary photography",
+    studio: "SIGIL LABS / Yen Galindo",
+  },
 };

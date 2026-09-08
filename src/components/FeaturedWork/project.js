@@ -55,4 +55,12 @@ export const projects = [
     video: "/showcase/empanadas_app_showcase_90s_60fps.webm",
     route: "/sample-project?project=empanadas",
   },
+  {
+    name: "Yen Galindo Photography",
+    description:
+      "Editorial photography portfolio shaped around natural light, analog grain, intimate portraits and documentary image-making.",
+    img: "https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?auto=format&fit=crop&q=80&w=1200",
+    video: "https://www.cinecasero.uy/videos/reel.mp4",
+    route: "/sample-project?project=yen-galindo-photography",
+  },
 ];

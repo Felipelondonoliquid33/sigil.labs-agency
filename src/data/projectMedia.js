@@ -80,4 +80,34 @@ export const projectMedia = {
     video: '/showcase/portfolio_flh_showcase_90s_60fps.webm',
     videoLabel: 'Felipe Londoño — 90-second portfolio showcase',
   },
+  'yen-galindo-photography': {
+    cover: {
+      src: 'https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?auto=format&fit=crop&q=80&w=1600',
+      alt: 'Yen Galindo Photography — editorial portrait',
+    },
+    gallery: [
+      {
+        src: 'https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&q=80&w=1200',
+        alt: 'Yen Galindo Photography — editorial fashion study',
+      },
+      {
+        src: 'https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&q=80&w=1200',
+        alt: 'Yen Galindo Photography — analog portrait study',
+      },
+      {
+        src: 'https://images.unsplash.com/photo-1496449903678-c8dd7459a12b?auto=format&fit=crop&q=80&w=1200',
+        alt: 'Yen Galindo Photography — natural light portrait',
+      },
+      {
+        src: 'https://images.unsplash.com/photo-1500917293891-ef795e70e1f6?auto=format&fit=crop&q=80&w=1200',
+        alt: 'Yen Galindo Photography — intimate portrait',
+      },
+      {
+        src: 'https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&q=80&w=1200',
+        alt: 'Yen Galindo Photography — editorial texture and light',
+      },
+    ],
+    video: 'https://www.cinecasero.uy/videos/reel.mp4',
+    videoLabel: 'Yen Galindo Photography — portfolio reel',
+  },
 };

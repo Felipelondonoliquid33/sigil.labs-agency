@@ -71,6 +71,12 @@ const METRICS = {
     { v: "Lenis", l: "Smooth scroll" },
     { v: "1:1", l: "Editorial" },
   ],
+  "yen-galindo-photography": [
+    { v: "35mm", l: "Film language" },
+    { v: "120", l: "Medium format" },
+    { v: "Natural", l: "Light direction" },
+    { v: "Analog", l: "Image practice" },
+  ],
   "yoahorro-ia": [
     { v: "Vision", l: "Gemini engine" },
     { v: "Real-world", l: "Price signals" },

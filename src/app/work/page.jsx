@@ -9,23 +9,39 @@ import { projectMedia } from "@/data/projectMedia";
 
 gsap.registerPlugin(useGSAP);
 
+const WORK_PROJECT_IDS = [
+  "pacifista",
+  "gsap-motion-vault",
+  "yoahorro-ia",
+  "synapsis-academy",
+  "li4uid",
+  "puente-de-equidad",
+  "yen-galindo-photography",
+  "empanadas",
+  "el-susurro-del-tiempo",
+  "li4uid-core-web",
+  "internal-r-and-d",
+  "la-mar",
+];
+
 const Page = () => {
   const { navigateWithTransition } = useViewTransition();
 
   const workPageContainer = useRef(null);
 
   const workItems = useMemo(
-    () => Object.entries(projectDetails).map(([id, project], index) => {
+    () => WORK_PROJECT_IDS.map((id, index) => {
+      const project = projectDetails[id];
       const media = projectMedia[id];
       const previews = [media.cover.src, ...media.gallery.map((item) => item.src)];
       return {
-        index: String(index + 1).padStart(2, "0"),
-        name: project.title,
-        href: `/sample-project?project=${id}`,
-        variant: ["variant-1", "variant-2", "variant-3"][index % 3],
-        images: Array.from({ length: 3 }, (_, i) => previews[i % previews.length]),
-      };
-    }),
+          index: String(index + 1).padStart(2, "0"),
+          name: project.title,
+          href: `/sample-project?project=${id}`,
+          variant: ["variant-1", "variant-2", "variant-3"][index % 3],
+          images: Array.from({ length: 3 }, (_, i) => previews[i % previews.length]),
+        };
+      }),
     []
   );
 

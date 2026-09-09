@@ -1,0 +1,32 @@
+export const serviceDirections = {
+  "creative-engineering": {
+    number: "01", mode: "creative", lines: ["CREATIVE", "ENGINEERING."],
+    caption: "A point of view. Built to work.",
+    approach: "From a strong idea to a living system.",
+    deckTitle: "The craft behind the feeling.",
+    proofTitle: "Distinct by design.",
+    outcomes: ["A visual language with rules, range and room to grow.", "A component system your team can actually build with.", "A responsive product, ready for real people and real content."],
+    steps: ["Find the point of view", "Build the visual system", "Prototype the interactions", "Engineer & refine"],
+    closing: "LET’S MAKE\nIT MATTER.", next: "agentic-ai-systems", nextName: "Agentic AI Systems",
+  },
+  "agentic-ai-systems": {
+    number: "02", mode: "intelligence", lines: ["INTELLIGENCE", "IN MOTION."],
+    caption: "Autonomy, with a human point of view.",
+    approach: "Make the system useful. Keep the human in control.",
+    deckTitle: "From a signal to a useful decision.",
+    proofTitle: "Intelligence in context.",
+    outcomes: ["A clear map of the workflow, tools and boundaries.", "A review surface for decisions, exceptions and approvals.", "A focused implementation with observable outcomes."],
+    steps: ["Understand the work", "Connect the right tools", "Design human checkpoints", "Evaluate & improve"],
+    closing: "MAKE ROOM\nFOR BETTER WORK.", next: "interactive-web-experiences", nextName: "Interactive Web Experiences",
+  },
+  "interactive-web-experiences": {
+    number: "03", mode: "interactive", lines: ["BEYOND", "THE SCREEN."],
+    caption: "A website can be a place you remember.",
+    approach: "Turn the scroll into a story worth exploring.",
+    deckTitle: "Every movement has a purpose.",
+    proofTitle: "Enter the experience.",
+    outcomes: ["A motion language that makes the interface feel connected.", "Spatial experiences with a clear, usable path through them.", "A narrative that works with touch, a cursor or a keyboard."],
+    steps: ["Shape the narrative", "Explore the motion", "Build the experience", "Tune every device"],
+    closing: "GIVE YOUR IDEA\nA WORLD.", next: "creative-engineering", nextName: "Creative Engineering",
+  },
+};

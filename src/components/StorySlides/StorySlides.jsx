@@ -4,66 +4,77 @@ import "./StorySlides.css";
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
+import LiveSigil from "./LiveSigil";
 import { stories } from "./stories.js";
 
 gsap.registerPlugin(useGSAP);
 
-function ServiceFigure({ service, index }) {
-  const figurePaths = [
-    "M130 250C130 170 190 100 280 100C370 100 430 170 430 250C430 330 370 400 280 400C190 400 130 330 130 250Z",
-    "M280 70C340 70 390 130 390 190C390 240 450 270 420 330C390 390 320 430 260 400C190 365 120 320 140 250C155 195 205 180 205 125C205 95 235 70 280 70Z",
-    "M280 75L405 145L405 285L280 425L155 285L155 145Z",
-  ];
+// Terminal / matrix decode charset (latin + digits + glyphs).
+const SCRAMBLE_CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789<>-_/\\[]{}*+=?#";
 
+// Reveals `finalText` left-to-right on `el` while unrevealed chars flicker
+// through random glyphs — a terminal-style decode. `finalText` is passed
+// explicitly (from data) so a mid-transition revert can never corrupt the
+// text the tween lands on. Always settles on the original header.
+function scrambleTo(el, finalText, { duration = 1.6, delay = 0, ease = "power1.inOut", flickerMs = 55 } = {}) {
+  if (!el || !finalText) return null;
+  const len = finalText.length;
+  const proxy = { p: 0 };
+  // Cache the random glyphs and only re-roll every `flickerMs`, so the
+  // decode reads as a smooth, deliberate reveal instead of per-frame noise.
+  const cache = new Array(len).fill("");
+  let lastRoll = -Infinity;
+  const isStatic = (c) => c === " " || c === "—" || c === "/" || c === "|" || c === ".";
+  return gsap.to(proxy, {
+    p: 1,
+    duration,
+    delay,
+    ease,
+    onUpdate() {
+      const now = performance.now();
+      const reroll = now - lastRoll >= flickerMs;
+      if (reroll) lastRoll = now;
+      const revealed = Math.floor(proxy.p * len);
+      let out = "";
+      for (let i = 0; i < len; i++) {
+        const c = finalText[i];
+        if (i < revealed || isStatic(c)) {
+          out += c;
+        } else {
+          if (reroll || !cache[i]) cache[i] = SCRAMBLE_CHARS[(Math.random() * SCRAMBLE_CHARS.length) | 0];
+          out += cache[i];
+        }
+      }
+      el.textContent = out;
+    },
+    onComplete() {
+      el.textContent = finalText;
+    },
+  });
+}
+
+function ServiceFigure({ index }) {
   return (
-    <div className={`service-figure service-figure--${index}`} aria-hidden="true">
-      <svg viewBox="0 0 560 500" role="presentation">
-        <defs>
-          <radialGradient id={`figure-glow-${index}`} cx="50%" cy="45%" r="60%">
-            <stop offset="0%" stopColor={service.accent} stopOpacity="0.48" />
-            <stop offset="65%" stopColor={service.accent} stopOpacity="0.08" />
-            <stop offset="100%" stopColor={service.accent} stopOpacity="0" />
-          </radialGradient>
-          <linearGradient id={`figure-fill-${index}`} x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor={service.accent} stopOpacity="0.9" />
-            <stop offset="100%" stopColor="#081018" stopOpacity="0.2" />
-          </linearGradient>
-        </defs>
-        <circle className="figure-glow" cx="280" cy="250" r="220" fill={`url(#figure-glow-${index})`} />
-        <g className="figure-orbit figure-orbit--outer">
-          <ellipse cx="280" cy="250" rx="205" ry="92" fill="none" stroke={service.accent} strokeOpacity="0.35" />
-          <ellipse cx="280" cy="250" rx="205" ry="92" fill="none" stroke={service.accent} strokeOpacity="0.16" transform="rotate(62 280 250)" />
-        </g>
-        <g className="figure-core" key={`${service.name}-${index}`}>
-          <path d={figurePaths[index]} fill={`url(#figure-fill-${index})`} stroke={service.accent} strokeWidth="2" />
-          <path d={figurePaths[index]} fill="none" stroke="#f1f5f9" strokeOpacity="0.48" strokeWidth="1" transform="translate(10 -8) scale(.94)" />
-          <circle cx="280" cy="250" r={index === 1 ? 38 : 28} fill="#040507" stroke="#f1f5f9" strokeOpacity="0.8" />
-          <circle cx="280" cy="250" r="7" fill={service.accent} />
-        </g>
-        <g className="figure-nodes" fill={service.accent}>
-          <circle cx="96" cy="250" r="4" />
-          <circle cx="464" cy="250" r="4" />
-          <circle cx="280" cy="54" r="4" />
-          <circle cx="280" cy="446" r="4" />
-        </g>
-      </svg>
-      <span className="figure-label">SIGNAL / 0{index + 1}</span>
+    <div className="service-figure" aria-hidden="true">
+      <div className="sigil-mark"><LiveSigil index={index} /></div>
+      <span className="figure-label">SIGIL / 0{index + 1}</span>
     </div>
   );
 }
-
 export default function StorySlides() {
   const [activeStory, setActiveStory] = useState(0);
+  const [paused, setPaused] = useState(false);
   const storiesRef = useRef(null);
   const active = stories[activeStory];
 
   useEffect(() => {
+    if (paused || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const interval = window.setInterval(() => {
       setActiveStory((current) => (current + 1) % stories.length);
     }, 6500);
 
     return () => window.clearInterval(interval);
-  }, []);
+  }, [activeStory, paused]);
 
   useGSAP(
     () => {
@@ -76,22 +87,24 @@ export default function StorySlides() {
       });
       mm.add("(prefers-reduced-motion: no-preference)", () => {
         const intro = root.querySelectorAll(".manifesto-copy > *");
-        const figure = root.querySelector(".service-figure");
-        const core = root.querySelector(".figure-core");
-        const orbit = root.querySelector(".figure-orbit");
+        gsap.fromTo(intro, { y: 12, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.8, stagger: 0.06, ease: "power2.out" });
 
-        gsap.fromTo(intro, { y: 22, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.65, stagger: 0.07, ease: "power3.out" });
-        gsap.fromTo(figure, { scale: 0.82, rotation: -8, autoAlpha: 0 }, { scale: 1, rotation: 0, autoAlpha: 1, duration: 1, ease: "power3.out" });
-        gsap.fromTo(core, { scale: 0.72, rotation: 16 }, { scale: 1, rotation: 0, duration: 1.1, ease: "elastic.out(1, 0.65)" });
-        gsap.fromTo(orbit, { rotation: -20, scale: 0.8 }, { rotation: 0, scale: 1, duration: 1.2, ease: "power3.out" });
+        // Terminal-style decode only on the main title + the meta bullets.
+        // The small kicker/number above the header stay clean (fade only).
+        // Slow + throttled = smooth deliberate decode, no glitchy bounce.
+        scrambleTo(root.querySelector(".manifesto-copy h1"), active.title, { duration: 1.9, delay: 0.15 });
+        root.querySelectorAll(".manifesto-meta li").forEach((li, i) => {
+          scrambleTo(li, active.meta[i], { duration: 1.2, delay: 0.5 + i * 0.22 });
+        });
       });
 
       return () => mm.revert();
     },
-    { scope: storiesRef, dependencies: [activeStory] }
+    { scope: storiesRef, dependencies: [activeStory], revertOnUpdate: true }
   );
 
   const move = (direction) => {
+    setPaused(true);
     setActiveStory((current) => (current + direction + stories.length) % stories.length);
   };
 
@@ -103,9 +116,9 @@ export default function StorySlides() {
         <span>01 — 03 / SIGIL LABS</span>
       </header>
 
-      <section className={`manifesto-stage manifesto-stage--${activeStory}`} aria-live="polite">
+      <section aria-roledescription="carousel" aria-label="Services" className={`manifesto-stage manifesto-stage--${activeStory}`} aria-live={paused ? "polite" : "off"}>
         <div className="manifesto-visual">
-          <ServiceFigure service={active} index={activeStory} />
+          <ServiceFigure index={activeStory} />
         </div>
 
         <article className="manifesto-copy">
@@ -129,7 +142,7 @@ export default function StorySlides() {
               type="button"
               className={index === activeStory ? "is-active" : ""}
               key={story.name}
-              onClick={() => setActiveStory(index)}
+              onClick={() => { setPaused(true); setActiveStory(index); }}
               aria-label={`Show ${story.name}`}
               aria-current={index === activeStory ? "true" : undefined}
             >
@@ -139,6 +152,7 @@ export default function StorySlides() {
           ))}
         </div>
         <div className="manifesto-arrows">
+          <button className="manifesto-play" type="button" onClick={() => setPaused(!paused)} aria-label={paused ? "Play slideshow" : "Pause slideshow"}>{paused ? "▷" : "Ⅱ"}</button>
           <button type="button" onClick={() => move(-1)} aria-label="Previous service">←</button>
           <button type="button" onClick={() => move(1)} aria-label="Next service">→</button>
         </div>
@@ -146,3 +160,4 @@ export default function StorySlides() {
     </main>
   );
 }
+

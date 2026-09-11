@@ -1,7 +1,11 @@
 # CLAUDE.md — SIGIL LABS / Polite-Chaos
 
 ## Overview
-Next.js Pages Router application for **SIGIL LABS** creative agency portfolio.
+Next.js 15 App Router application (React 19, GSAP 3, Lenis, WebGL) for **SIGIL LABS** creative agency portfolio.
+
+- **Live URL**: `https://www.sigillabs.agency`
+- **GitHub**: `https://github.com/Felipelondonoliquid33/sigil.labs-agency.git` (`main` auto-deploys to Vercel)
+- **Primary Contacts**: `sigillabs@gmail.com` | `+57 333 4016876` | Bogotá, Colombia
 
 ## Key Commands
 ```bash
@@ -10,20 +14,22 @@ npm run dev
 # Or with explicit port:
 npm run dev -- -p 3001
 
-# Production build check
+# Production build check (27 static pages)
 npm run build
 ```
 
 ## Structure & Architecture
-- `src/components/Showreel/Showreel.jsx`: 16 high-definition project showcase frames (1080p WebP), cycling at 280ms with GSAP ScrollTrigger scale `0.75 -> 1.0`.
-- `src/components/FeaturedWork/`:
-  - Card 1: **PACIFISTA** (`/videos/pacifista_demo_hd.webm`, cover `/images/pacifista_hero.png`)
-  - Card 2: **GSAP Showroom** (`/videos/gsap_showroom_demo_hd.webm`, cover `/images/gsap_showroom_cover.png`)
-  - Card 3: **Liquid Landing** (`/videos/liquid_landing_demo_hd.webm`)
-  - Card 4: **El Susurro del Tiempo** (`/videos/susurro_tiempo_demo_hd.webm`)
-  - Card 5: **Mar Shop** (`/videos/mar_shop_demo_hd.webm`)
-  - Card 6: **Empanadas** (`/videos/empanadas_demo_hd.webm`)
-- Media locations:
-  - High-res videos: `public/videos/`
-  - High-res images: `public/images/`
-- Obsidian Documentation: `The brain/03-Projects/SIGIL-LABS-Claude-Code-Handover.md`
+- **App Router Layout (`src/app/layout.js`)**:
+  - `ViewTransitions` provider.
+  - Vercel Web Analytics (`@vercel/analytics/next`).
+  - Google Analytics 4 (`@next/third-parties/google`).
+  - Schema.org `["ProfessionalService", "Organization"]` JSON-LD with verified NAP (Bogotá, Colombia).
+- **Core Components**:
+  - `src/components/Showreel/Showreel.jsx`: 16 HD 1080p WebP project frames cycling at 280ms.
+  - `src/components/LiveSigil.jsx`: Solomonic Circuit morphing with GSAP across brand states.
+  - `src/components/FeaturedWork/`: Real client cases (PACIFISTA, GSAP Showroom, Liquid, El Susurro del Tiempo, Mar Shop, Empanadas).
+- **Dynamic Routes**:
+  - Services: `/services/creative-engineering`, `/services/agentic-ai-systems`, `/services/interactive-web-experiences`.
+  - Cases: `/work/[slug]` with JSON-LD `CreativeWork` and 308 legacy redirects.
+- **Obsidian Documentation**: `The brain/03-Projects/SIGIL-LABS-Agency-Polite-Chaos.md` & `SIGIL-LABS-Claude-Code-Handover.md`
+

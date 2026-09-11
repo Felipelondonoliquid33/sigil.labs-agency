@@ -11,7 +11,7 @@ Roadmap de trabajo para `sigillabs.agency`.
 - [x] JSON-LD `CreativeWork` en proyectos y `Service` en páginas de servicios.
 - [x] JSON-LD `ProfessionalService` / `LocalBusiness` inyectado en `RootLayout` vinculando identidad NAP (Bogotá, teléfono, email, LinkedIn, servicios).
 - [x] 3 páginas de servicios publicadas con Canvas 3D e integradas al sitemap (`creative-engineering`, `agentic-ai-systems`, `interactive-web-experiences`).
-- [x] Ficha de **Google Business Profile** creada con datos NAP (Bogotá, +57 333 4016876, `sigillabs.agency`) y enviada a verificación.
+- [x] Ficha de **Google Business Profile** de SIGIL LABS creada con datos NAP (Bogotá, +57 333 4016876, `sigillabs.agency`) y verificada por Google.
 - [x] Primera campaña de **Google Ads** configurada con cupón de $300 USD, sitelinks expandidos (Selected Work, Contact Us, Studio Details, Agentic AI Systems), long headline de marca y **pausada estratégicamente** para priorizar SEO orgánico inicial.
 - [x] Capa de analítica Vercel Web Analytics (`@vercel/analytics/next`) integrada en `RootLayout`.
 - [x] Capa de analítica Google Analytics 4 (`@next/third-parties/google`) integrada en `RootLayout` con soporte para `NEXT_PUBLIC_GA_MEASUREMENT_ID`.
@@ -67,10 +67,10 @@ Roadmap de trabajo para `sigillabs.agency`.
 
 ## SEO local
 
-- [x] Crear Google Business Profile — creado y en proceso de verificación por Google.
+- [x] Crear Google Business Profile — creado y verificado por Google.
 - [x] Usar Bogotá como base real y operación global.
 - [x] Mantener consistentes nombre (SIGIL LABS), teléfono (+57 333 4016876), ubicación y redes.
-- [ ] Completar verificación final de Google Business Profile.
+- [x] Completar verificación final de Google Business Profile — confirmada en Business Profile Manager.
 - [ ] Conseguir menciones legítimas de Colombia/Bogotá.
 
 ## Marketing y autoridad

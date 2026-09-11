@@ -2,6 +2,9 @@ import "./globals.css";
 import ClientLayout from "@/client-layout";
 import { ViewTransitions } from "next-view-transitions";
 import { Analytics } from "@vercel/analytics/next";
+import { GoogleAnalytics } from "@next/third-parties/google";
+
+const gaMeasurementId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
 
 export const metadata = {
   metadataBase: new URL("https://www.sigillabs.agency"),
@@ -40,6 +43,7 @@ export default function RootLayout({ children }) {
           <ClientLayout>{children}</ClientLayout>
         </ViewTransitions>
         <Analytics />
+        {gaMeasurementId ? <GoogleAnalytics gaId={gaMeasurementId} /> : null}
       </body>
     </html>
   );

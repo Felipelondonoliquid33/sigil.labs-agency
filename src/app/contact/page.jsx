@@ -221,8 +221,8 @@ const Page = () => {
           </div>
 
           <div className="contact-mail">
-            <Button delay={1.3} href="mailto:sigillabsdev@gmail.com">
-              sigillabsdev@gmail.com
+            <Button delay={1.3} href="mailto:sigillabs@gmail.com">
+              sigillabs@gmail.com
             </Button>
           </div>
 
@@ -279,7 +279,7 @@ const Page = () => {
             <Copy delay={1.85} animateOnScroll={false}>
               <a
                 className="sm"
-                href="https://www.linkedin.com/in/felipe-londo%C3%B1o-humar/?locale=en"
+                href="https://www.linkedin.com/company/sigil-labs/"
                 target="_blank"
                 rel="noreferrer"
               >

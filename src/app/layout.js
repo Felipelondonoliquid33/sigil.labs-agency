@@ -35,9 +35,81 @@ export const metadata = {
   },
 };
 
+const localBusinessSchema = {
+  "@context": "https://schema.org",
+  "@type": ["ProfessionalService", "Organization"],
+  "@id": "https://www.sigillabs.agency/#organization",
+  name: "SIGIL LABS",
+  legalName: "SIGIL LABS",
+  url: "https://www.sigillabs.agency",
+  logo: "https://www.sigillabs.agency/site-logo.png",
+  image: "https://www.sigillabs.agency/showcase/opt/sigil_labs_updated_hero.webp",
+  description:
+    "Creative engineering studio, agentic AI systems, and high-performance interactive web experiences.",
+  telephone: "+57 333 4016876",
+  email: "sigillabs@gmail.com",
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Bogotá",
+    addressRegion: "Bogotá D.C.",
+    addressCountry: "CO",
+  },
+  geo: {
+    "@type": "GeoCoordinates",
+    latitude: 4.711,
+    longitude: -74.0721,
+  },
+  areaServed: [
+    { "@type": "Country", name: "Colombia" },
+    { "@type": "Country", name: "United States" },
+    { "@type": "AdministrativeArea", name: "Latin America" },
+  ],
+  priceRange: "$$$$",
+  sameAs: [
+    "https://www.linkedin.com/company/sigil-labs/",
+    "https://www.instagram.com/sigil.labs",
+  ],
+  hasOfferCatalog: {
+    "@type": "OfferCatalog",
+    name: "SIGIL LABS Core Services",
+    itemListElement: [
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: "Creative Engineering",
+          url: "https://www.sigillabs.agency/services/creative-engineering",
+        },
+      },
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: "Agentic AI Systems",
+          url: "https://www.sigillabs.agency/services/agentic-ai-systems",
+        },
+      },
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: "Interactive Web Experiences",
+          url: "https://www.sigillabs.agency/services/interactive-web-experiences",
+        },
+      },
+    ],
+  },
+};
+
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
+        />
+      </head>
       <body>
         <ViewTransitions>
           <ClientLayout>{children}</ClientLayout>

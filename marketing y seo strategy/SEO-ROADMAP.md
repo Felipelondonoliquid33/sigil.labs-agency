@@ -4,20 +4,19 @@ Roadmap de trabajo para `sigillabs.agency`.
 
 ## Estado actual
 
-- [x] Google Search Console verificado.
-- [x] Sitemap enviado y aceptado.
-- [x] 17 páginas descubiertas por Google.
-- [x] `robots.txt` publicado.
-- [x] URLs limpias en `/work/[slug]`.
-- [x] Redirecciones permanentes desde `/sample-project?project=...`.
-- [x] Metadata dinámica por proyecto.
-- [x] Canonical URLs.
-- [x] Open Graph para WhatsApp, Facebook y LinkedIn.
-- [x] Twitter Cards.
-- [x] JSON-LD `CreativeWork`.
-- [x] Metadata específica para Home, Work, Studio, Stories y Contact.
-- [x] Build de producción validado.
-- [x] Skill `qiaomu-seo` instalada.
+- [x] Google Search Console verificado con sitemap procesado y 17+ páginas descubiertas.
+- [x] `robots.txt` publicado y validado en `https://www.sigillabs.agency/robots.txt`.
+- [x] URLs limpias en `/work/[slug]` con redirecciones permanentes 308 desde `/sample-project?project=...`.
+- [x] Metadata dinámica, Canonical URLs, Open Graph (1200x630) y Twitter Cards por proyecto.
+- [x] JSON-LD `CreativeWork` en proyectos y `Service` en páginas de servicios.
+- [x] JSON-LD `ProfessionalService` / `LocalBusiness` inyectado en `RootLayout` vinculando identidad NAP (Bogotá, teléfono, email, LinkedIn, servicios).
+- [x] 3 páginas de servicios publicadas con Canvas 3D e integradas al sitemap (`creative-engineering`, `agentic-ai-systems`, `interactive-web-experiences`).
+- [x] Ficha de **Google Business Profile** creada con datos NAP (Bogotá, +57 333 4016876, `sigillabs.agency`) y enviada a verificación.
+- [x] Primera campaña de **Google Ads** configurada con cupón de $300 USD, sitelinks expandidos (Selected Work, Contact Us, Studio Details, Agentic AI Systems), long headline de marca y **pausada estratégicamente** para priorizar SEO orgánico inicial.
+- [x] Capa de analítica Vercel Web Analytics (`@vercel/analytics/next`) integrada en `RootLayout`.
+- [x] Capa de analítica Google Analytics 4 (`@next/third-parties/google`) integrada en `RootLayout` con soporte para `NEXT_PUBLIC_GA_MEASUREMENT_ID`.
+- [x] Canales oficiales consolidados: correo `sigillabs@gmail.com` y LinkedIn de empresa `https://www.linkedin.com/company/sigil-labs/`.
+- [x] Estrategia reorientada a los 4 pilares de SEO orgánico inicial (anclaje de entidad local, densidad semántica de casos de estudio, servicios faltantes y backlinks de autoridad).
 
 ## Prioridad 1 — Próxima sesión
 
@@ -52,12 +51,12 @@ Roadmap de trabajo para `sigillabs.agency`.
 
 ## Páginas de servicios
 
-- [ ] `/services/creative-engineering`
-- [ ] `/services/agentic-ai-systems`
-- [ ] `/services/interactive-web-experiences`
+- [x] `/services/creative-engineering` — publicada y añadida al sitemap.
+- [x] `/services/agentic-ai-systems` — publicada y añadida al sitemap.
+- [x] `/services/interactive-web-experiences` — publicada y añadida al sitemap.
 - [ ] `/services/motion-webgl`
 - [ ] `/services/edtech-platforms`
-- [ ] Cada página debe tener un H1 claro, descripción, CTA y enlaces a casos relevantes.
+- [x] Cada página publicada tiene H1 claro, metadata, CTA, JSON-LD `Service` y enlaces a casos relevantes.
 
 ## Casos de estudio
 
@@ -68,15 +67,16 @@ Roadmap de trabajo para `sigillabs.agency`.
 
 ## SEO local
 
-- [ ] Crear o revisar Google Business Profile.
-- [ ] Usar Bogotá como base real y operación global.
-- [ ] Mantener consistentes nombre, teléfono, ubicación y redes.
+- [x] Crear Google Business Profile — creado y en proceso de verificación por Google.
+- [x] Usar Bogotá como base real y operación global.
+- [x] Mantener consistentes nombre (SIGIL LABS), teléfono (+57 333 4016876), ubicación y redes.
+- [ ] Completar verificación final de Google Business Profile.
 - [ ] Conseguir menciones legítimas de Colombia/Bogotá.
 
 ## Marketing y autoridad
 
 - [ ] Optimizar Instagram `@sigil.labs`.
-- [ ] Crear/optimizar LinkedIn de SIGIL LABS.
+- [x] Crear/optimizar LinkedIn de SIGIL LABS: `https://www.linkedin.com/company/sigil-labs/`.
 - [ ] Añadir Behance y perfiles profesionales reales.
 - [ ] Publicar casos de estudio en canales propios.
 - [ ] Evitar compra de enlaces, spam y testimonios inventados.
@@ -91,8 +91,8 @@ Roadmap de trabajo para `sigillabs.agency`.
 
 ## Validaciones técnicas
 
-- [ ] Revisar `https://www.sigillabs.agency/robots.txt`.
-- [ ] Revisar `https://www.sigillabs.agency/sitemap.xml`.
+- [x] Revisar `https://www.sigillabs.agency/robots.txt`.
+- [x] Revisar `https://www.sigillabs.agency/sitemap.xml`; incluye las 3 páginas de servicios.
 - [ ] Comprobar códigos `200` de páginas canónicas.
 - [ ] Comprobar redirecciones `308` de URLs antiguas.
 - [ ] Confirmar que no existan enlaces internos a `sample-project`.

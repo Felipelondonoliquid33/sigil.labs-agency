@@ -22,7 +22,7 @@ Unidad de ingeniería creativa y desarrollo inmersivo orientada a la construcci�
 - **Instagram Oficial**: [@sigil.labs](https://www.instagram.com/sigil.labs?stkn=MXhhOXE5M3RvN29sZw==)
 - **Instagram Portfolio**: [@yonosenadadevos](https://www.instagram.com/yonosenadadevos/)
 - **WhatsApp / Tel**: [+57 333 4016876](https://wa.me/573334016876)
-- **Contacto Directo**: `flondonohumar@gmail.com`
+- **Contacto Directo**: `sigillabs@gmail.com`
 - **Base**: Bogotá // Operación Global
 
 ---

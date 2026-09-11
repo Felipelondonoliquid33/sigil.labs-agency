@@ -490,7 +490,7 @@ const Menu = ({ pageRef }) => {
 
             <div className="menu-content-group">
               <p>Contact</p>
-              <a href="mailto:sigillabsdev@gmail.com">sigillabsdev@gmail.com</a>
+              <a href="mailto:sigillabs@gmail.com">sigillabs@gmail.com</a>
               <a href="tel:+573334016876">+57 333 4016876</a>
             </div>
 
@@ -516,7 +516,7 @@ const Menu = ({ pageRef }) => {
                 WhatsApp (+57 333 4016876)
               </a>
 
-              <a href="https://www.linkedin.com/in/felipe-londo%C3%B1o-humar/?locale=en" target="_blank" rel="noreferrer">
+              <a href="https://www.linkedin.com/company/sigil-labs/" target="_blank" rel="noreferrer">
                 LinkedIn
               </a>
             </div>

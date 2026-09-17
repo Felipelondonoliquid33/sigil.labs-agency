@@ -12,10 +12,10 @@ import SpotlightDeck from "@/components/SpotlightDeck/SpotlightDeck";
 // Per-project headline metrics. Falls back to values derived from the record.
 const METRICS = {
   pacifista: [
-    { v: "11,617", l: "Images rescued" },
-    { v: "4,175", l: "Articles archived" },
-    { v: "2014–25", l: "Coverage" },
-    { v: "100%", l: "Restored" },
+    { v: "4,229", l: "Pieces preserved" },
+    { v: "10,436", l: "Images placed" },
+    { v: "2014–25", l: "Archive coverage" },
+    { v: "0", l: "Broken legacy links" },
   ],
   "gsap-motion-vault": [
     { v: "295", l: "Motion modules" },
@@ -338,6 +338,11 @@ const ProjectDetail = ({ id }) => {
           <div className="project-overview-copy">
             <p className="mono">&#9654; Overview</p>
             <p>{project.concept}</p>
+            {project.externalUrl ? (
+              <a className="project-live-link" href={project.externalUrl} target="_blank" rel="noreferrer">
+                {project.externalLabel || "Visit live project"} <span aria-hidden="true">↗</span>
+              </a>
+            ) : null}
           </div>
         </div>
       </section>
@@ -399,6 +404,13 @@ const ProjectDetail = ({ id }) => {
             <p>Portfolio</p>
             <h3>Creative Engineering</h3>
           </div>
+
+          {project.externalUrl ? (
+            <div className="details">
+              <p>Live project</p>
+              <h3><a href={project.externalUrl} target="_blank" rel="noreferrer">pacifista.tv ↗</a></h3>
+            </div>
+          ) : null}
         </Copy>
       </section>
 

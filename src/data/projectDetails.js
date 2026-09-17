@@ -1,13 +1,15 @@
 export const projectDetails = {
   pacifista: {
-    eyebrow: "Editorial systems / Digital preservation",
+    eyebrow: "Peace journalism / Digital preservation / Editorial systems",
     title: "PACIFISTA",
     concept:
-      "A living peace journalism archive rebuilt as a cultural knowledge system, preserving memory while making it navigable, searchable, and alive.",
-    cycle: "2025",
-    form: "Digital archive and editorial platform",
-    medium: "WordPress, GSAP, ScrollTrigger and archival data",
+      "A complete peace journalism archive rebuilt after disappearing from the web: 4,229 publications, 10,436 placed images and every historical permalink preserved in a living editorial platform.",
+    cycle: "2026",
+    form: "Cultural archive, editorial platform and digital repository",
+    medium: "WordPress, PHP, GSAP, ScrollTrigger, Python, Wayback CDX and Dompdf",
     studio: "SIGIL LABS",
+    externalUrl: "https://pacifista.tv",
+    externalLabel: "Visit PACIFISTA live",
   },
   "gsap-motion-vault": {
     eyebrow: "Motion systems / Component library",

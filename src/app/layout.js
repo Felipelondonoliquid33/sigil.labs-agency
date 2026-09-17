@@ -29,9 +29,9 @@ export const metadata = {
     images: ["/showcase/opt/sigil_labs_updated_hero.webp"],
   },
   icons: {
-    icon: "/site-logo.png",
-    shortcut: "/site-logo.png",
-    apple: "/site-logo.png",
+    icon: "/favicon.svg",
+    shortcut: "/favicon.svg",
+    apple: "/favicon.svg",
   },
 };
 
@@ -42,7 +42,7 @@ const localBusinessSchema = {
   name: "SIGIL LABS",
   legalName: "SIGIL LABS",
   url: "https://www.sigillabs.agency",
-  logo: "https://www.sigillabs.agency/site-logo.png",
+  logo: "https://www.sigillabs.agency/favicon.svg",
   image: "https://www.sigillabs.agency/showcase/opt/sigil_labs_updated_hero.webp",
   description:
     "Creative engineering studio, agentic AI systems, and high-performance interactive web experiences.",

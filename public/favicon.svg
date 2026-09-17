@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" role="img" aria-labelledby="title">
+  <title>SIGIL LABS</title>
+  <rect width="500" height="500" rx="96" fill="#171717" />
+  <g fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="12">
+    <circle cx="250" cy="250" r="210" />
+    <path d="M250 60v380" />
+    <path d="M170 165c0-50 80-50 80 0 0-50 80-50 80 0" />
+    <path d="M115 250h85M300 250h85" />
+    <path d="M180 345c30 40 70 40 70 0 0 40 40 40 70 0" />
+    <circle cx="250" cy="250" r="50" />
+  </g>
+  <g fill="#fff">
+    <circle cx="250" cy="60" r="10" />
+    <circle cx="250" cy="440" r="10" />
+    <circle cx="170" cy="165" r="14" />
+    <circle cx="330" cy="165" r="14" />
+    <circle cx="110" cy="250" r="15" />
+    <circle cx="390" cy="250" r="15" />
+    <circle cx="180" cy="345" r="12" />
+    <circle cx="320" cy="345" r="12" />
+    <circle cx="250" cy="250" r="18" />
+  </g>
+</svg>

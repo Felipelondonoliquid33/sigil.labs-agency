@@ -221,8 +221,8 @@ const Page = () => {
           </div>
 
           <div className="contact-mail">
-            <Button delay={1.3} href="mailto:sigillabs@gmail.com">
-              sigillabs@gmail.com
+            <Button delay={1.3} href="mailto:sigillabsdevs@gmail.com">
+              sigillabsdevs@gmail.com
             </Button>
           </div>
 

@@ -490,7 +490,7 @@ const Menu = ({ pageRef }) => {
 
             <div className="menu-content-group">
               <p>Contact</p>
-              <a href="mailto:sigillabs@gmail.com">sigillabs@gmail.com</a>
+              <a href="mailto:sigillabsdevs@gmail.com">sigillabsdevs@gmail.com</a>
               <a href="tel:+573334016876">+57 333 4016876</a>
             </div>
 

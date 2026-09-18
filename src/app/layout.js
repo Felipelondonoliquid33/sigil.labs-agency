@@ -47,7 +47,7 @@ const localBusinessSchema = {
   description:
     "Creative engineering studio, agentic AI systems, and high-performance interactive web experiences.",
   telephone: "+57 333 4016876",
-  email: "sigillabs@gmail.com",
+  email: "sigillabsdevs@gmail.com",
   address: {
     "@type": "PostalAddress",
     addressLocality: "Bogotá",

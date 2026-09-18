@@ -5,7 +5,7 @@ Next.js 15 App Router application (React 19, GSAP 3, Lenis, WebGL) for **SIGIL L
 
 - **Live URL**: `https://www.sigillabs.agency`
 - **GitHub**: `https://github.com/Felipelondonoliquid33/sigil.labs-agency.git` (`main` auto-deploys to Vercel)
-- **Primary Contacts**: `sigillabs@gmail.com` | `+57 333 4016876` | Bogotá, Colombia
+- **Primary Contacts**: `sigillabsdevs@gmail.com` | `+57 333 4016876` | Bogotá, Colombia
 
 ## Key Commands
 ```bash

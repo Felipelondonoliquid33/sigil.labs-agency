@@ -17,6 +17,7 @@ export default function Button({
   icon,
   animateOnScroll = false,
   delay = 0,
+  onClick,
 }) {
   const IconComponent = icon || HiLightningBolt;
   const { navigateWithTransition } = useViewTransition();
@@ -138,6 +139,7 @@ export default function Button({
       href={href}
       className={`button button--${variant}`}
       onClick={(e) => {
+        onClick?.(e);
         if (!href) return;
         e.preventDefault();
         navigateWithTransition(e.currentTarget.getAttribute("href") || href);

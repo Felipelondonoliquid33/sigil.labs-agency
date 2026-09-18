@@ -15,6 +15,7 @@ Roadmap de trabajo para `sigillabs.agency`.
 - [x] Primera campaña de **Google Ads** configurada con cupón de $300 USD, sitelinks expandidos (Selected Work, Contact Us, Studio Details, Agentic AI Systems), long headline de marca y **pausada estratégicamente** para priorizar SEO orgánico inicial.
 - [x] Capa de analítica Vercel Web Analytics (`@vercel/analytics/next`) integrada en `RootLayout`.
 - [x] Capa de analítica Google Analytics 4 (`@next/third-parties/google`) integrada en `RootLayout` con soporte para `NEXT_PUBLIC_GA_MEASUREMENT_ID`.
+- [x] Evento GA4 `contact_click` integrado para email, teléfono y WhatsApp; falta marcarlo como conversión e importarlo en Google Ads.
 - [x] Canales oficiales consolidados: correo `sigillabsdevs@gmail.com` y LinkedIn de empresa `https://www.linkedin.com/company/sigil-labs/`.
 - [x] Estrategia reorientada a los 4 pilares de SEO orgánico inicial (anclaje de entidad local, densidad semántica de casos de estudio, servicios faltantes y backlinks de autoridad).
 

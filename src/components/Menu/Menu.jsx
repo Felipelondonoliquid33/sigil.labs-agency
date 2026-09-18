@@ -517,7 +517,7 @@ const Menu = ({ pageRef }) => {
                 Instagram (@sigil.labs)
               </a>
 
-              <a href="https://wa.me/573334016876" target="_blank" rel="noreferrer">
+              <a href="https://web.whatsapp.com/send?phone=573334016876" target="_blank" rel="noreferrer">
                 WhatsApp (+57 333 4016876)
               </a>
 

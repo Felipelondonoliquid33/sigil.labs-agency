@@ -277,7 +277,7 @@ const Page = () => {
             <Copy delay={1.8} animateOnScroll={false}>
               <a
                 className="sm"
-                href="https://wa.me/573334016876"
+                href="https://web.whatsapp.com/send?phone=573334016876"
                 target="_blank"
                 rel="noreferrer"
                 onClick={() => trackContactClick("whatsapp")}

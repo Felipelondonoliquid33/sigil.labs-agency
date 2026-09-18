@@ -8,8 +8,10 @@ export const projectDetails = {
     form: "Cultural archive, editorial platform and digital repository",
     medium: "WordPress, PHP, GSAP, ScrollTrigger, Python, Wayback CDX and Dompdf",
     studio: "SIGIL LABS",
-    externalUrl: "https://pacifista.tv",
-    externalLabel: "Visit PACIFISTA live",
+    // Live link intentionally disabled until the official PACIFISTA relaunch.
+    // Re-enable by restoring externalUrl + externalLabel below.
+    // externalUrl: "https://pacifista.tv",
+    // externalLabel: "Visit PACIFISTA live",
   },
   "gsap-motion-vault": {
     eyebrow: "Motion systems / Component library",

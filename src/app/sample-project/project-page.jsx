@@ -408,7 +408,7 @@ const ProjectDetail = ({ id }) => {
           {project.externalUrl ? (
             <div className="details">
               <p>Live project</p>
-              <h3><a href={project.externalUrl} target="_blank" rel="noreferrer">pacifista.tv ↗</a></h3>
+              <h3><a href={project.externalUrl} target="_blank" rel="noreferrer">{project.externalLabel || "Visit live project"} ↗</a></h3>
             </div>
           ) : null}
         </Copy>

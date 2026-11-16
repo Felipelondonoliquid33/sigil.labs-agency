@@ -1,0 +1,34 @@
+/* 2026 palette: subtle shifts that give "Generación Rebusque" its own tone
+   while staying in the original Highline hue families.
+   Every new color has relative luminance >= the original, so no text
+   contrast drops (black, blue #1446ff and magenta #fe36fb text included).
+   Only backgrounds/fills; no animations. Details: research/paleta/README.md */
+
+/* 1. Mint cyan #d3fcf4 -> softer Caribbean aqua (hue 168 -> 170, L 0.900 -> 0.907) */
+.house-trap,
+.sky-fall,
+.ftw,
+.splat,
+.dropcap,
+.section-one,
+.ftw-fallback { background-color: #d7fcf6; }
+
+/* 2. Peach #fbd6cd -> warm terracotta pastel (hue 12 -> 18, L 0.730 -> 0.735) */
+.rip,
+.section-three,
+.battle-fall,
+.house-chat { background-color: #f9d8ca; }
+
+/* 3. Fallback battle fade ends on the new terracotta pastel */
+.fallback .battle-fall__bg { background-image: linear-gradient(#000 0, #f9d8ca 100%); }
+
+/* 4. Final gradient: same 6 stops; peach->terracotta, yellows->mango,
+      cyan->Caribbean teal, pink->warmer orchid */
+.section-four {
+  background-image: linear-gradient(177deg, #f9d8ca 6%, #fee8ad 28%, #58e3da 56%, #fdc2e8 78%, #ffeaae 95%, #fff 100%);
+}
+
+/* 5. "LOL / everything / matters" words are drawn in the peach of the section bg */
+.lol__everything-word,
+.lol__lol-word,
+.lol__matters-word { fill: #f9d8ca; }

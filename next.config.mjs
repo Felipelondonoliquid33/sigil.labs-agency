@@ -6,6 +6,18 @@ const nextConfig = {
   distDir: process.env.SIGIL_BUILD_DIR || ".next",
   poweredByHeader: false,
   productionBrowserSourceMaps: false,
+  async rewrites() {
+    // El artículo es una carpeta estática en public/blog/<slug>/: la URL limpia sirve su index.html.
+    return {
+      beforeFiles: [
+        { source: "/blog/generacion-rebusque", destination: "/blog/generacion-rebusque/index.html" },
+      ],
+    };
+  },
+  async redirects() {
+    // URLs cortas para compartir.
+    return [{ source: "/rebusque", destination: "/blog/generacion-rebusque", permanent: false }];
+  },
   async headers() {
     return [
       {
@@ -17,6 +29,15 @@ const nextConfig = {
           { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=(), payment=()" },
           { key: "X-Frame-Options", value: "DENY" },
         ],
+      },
+      {
+        // JS y CSS del artículo van versionados con ?v=hash: caché largo. Imágenes y librerías: una semana.
+        source: "/blog/:slug/:dir(js|css)/:path*",
+        headers: [{ key: "Cache-Control", value: "public, max-age=31536000, immutable" }],
+      },
+      {
+        source: "/blog/:slug/:dir(media|vendor|fonts)/:path*",
+        headers: [{ key: "Cache-Control", value: "public, max-age=604800" }],
       },
     ];
   },

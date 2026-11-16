@@ -1,0 +1,76 @@
+/* 2026 version: hide HuffPost/Highline branding and banners.
+   Hidden (not removed) because js/main.js looks up these nodes on load
+   (subscribe modal, share buttons); removing them would break init. */
+
+/* Top bar: HuffPost logo, Highline, Twitter/Facebook/Subscribe. The reading progress bar stays. */
+.module-header .navbar { display: none !important; }
+
+/* Subscribe forms, comments, recirculation to other Highline stories */
+.content > .subscribe,
+.subscribe-modal,
+.comments,
+.recirculation,
+.inline-signup__container,
+.print-mode { display: none !important; }
+
+/* Credits: only the first item (author), which the copy file updates */
+.credits__item ~ .credits__item { display: none !important; }
+
+/* 601-1024 px: the original never showed the desktop layout in this range (it showed the "WHOA!" screen).
+   Keep the text panels of the scenes inside the viewport. */
+@media (min-width: 601px) and (max-width: 1024px) {
+  .appartment__sticky__inner .panel { left: 0 !important; }
+  .mcmansion .panels .panel { left: max(16px, 9vw) !important; max-width: calc(100vw - 32px); }
+  .panel { max-width: calc(100vw - 32px); }
+}
+
+/* Gráfica "La promoción del ay, no": ejes en porcentaje y años (datos DANE marzo-mayo 2019-2026) */
+.jobs-infographic .graph .x:nth-of-type(4):before{content:"35 %"}
+.jobs-infographic .graph .x:nth-of-type(8):before{content:"40 %"}
+.jobs-infographic .graph .x:nth-of-type(12):before{content:"45 %"}
+.jobs-infographic .graph .x:nth-of-type(16):before{content:"50 %"}
+.jobs-infographic .graph .x:nth-of-type(20):before{content:"55 %"}
+.jobs-infographic .graph .x:nth-of-type(24):before{content:"60 %"}
+.jobs-infographic .graph__container:after{content:"% de los jóvenes"}
+.jobs-infographic .graph__container--vertical:after{content:"trimestre marzo-mayo"}
+.jobs-infographic .graph__container--vertical:before{content:"2019"}
+.jobs-infographic .graph .y:nth-of-type(1){left:14.2857%}
+.jobs-infographic .graph .y:nth-of-type(2){left:28.5714%}
+.jobs-infographic .graph .y:nth-of-type(3){left:42.8571%}
+.jobs-infographic .graph .y:nth-of-type(4){left:57.1429%}
+.jobs-infographic .graph .y:nth-of-type(5){left:71.4286%}
+.jobs-infographic .graph .y:nth-of-type(6){left:85.7143%}
+.jobs-infographic .graph .y:nth-of-type(7){left:100%}
+.jobs-infographic .graph .y:nth-of-type(1):before{content:"2020"}
+.jobs-infographic .graph .y:nth-of-type(2):before{content:"2021"}
+.jobs-infographic .graph .y:nth-of-type(3):before{content:"2022"}
+.jobs-infographic .graph .y:nth-of-type(4):before{content:"2023"}
+.jobs-infographic .graph .y:nth-of-type(5):before{content:"2024"}
+.jobs-infographic .graph .y:nth-of-type(6):before{content:"2025"}
+.jobs-infographic .graph .y:nth-of-type(7):before{content:"2026"}
+.jobs-infographic .graph .y:nth-of-type(n+8){display:none}
+.jobs-infographic__fact .fact-number::before{content:"";display:none}
+.jobs-infographic .graph .y:nth-of-type(n):before,.jobs-infographic .graph__container--vertical:before{font-size:15px;letter-spacing:-.02em;white-space:nowrap}
+
+/* Gráfica "Arco de injusticia": brecha campo-ciudad (DANE, IPM 2018-2025) */
+.wage-infographic .graph .x:nth-of-type(1):before{content:"0 %"}
+.wage-infographic .graph .x:nth-of-type(2):before{content:"10 %"}
+.wage-infographic .graph .x:nth-of-type(3):before{content:"20 %"}
+.wage-infographic .graph .x:nth-of-type(4):before{content:"30 %"}
+.wage-infographic .graph .y:nth-of-type(5):before{content:"2018"}
+.wage-infographic .graph .y:nth-of-type(1){left:28.5714%}
+.wage-infographic .graph .y:nth-of-type(1):before{content:"2020"}
+.wage-infographic .graph .y:nth-of-type(2){left:57.1429%}
+.wage-infographic .graph .y:nth-of-type(2):before{content:"2022"}
+.wage-infographic .graph .y:nth-of-type(3){left:85.7143%}
+.wage-infographic .graph .y:nth-of-type(3):before{content:"2024"}
+
+/* Sección violeta (antes azul #1446ff): textos secundarios legibles sobre el nuevo fondo */
+.section-two .stats__source{color:#e3dcff}
+.wage-infographic .graph__title__key:nth-of-type(1){color:#fff}
+
+/* Móvil: etiquetas de años de la gráfica de empleo (cabían solo 2 dígitos) */
+@media (max-width: 600px) {
+  .jobs-infographic .graph .y:nth-of-type(n):before,
+  .jobs-infographic .graph__container--vertical:before { font-size: 9px; letter-spacing: -.04em; width: 34px; padding: 0; text-align: center; }
+}

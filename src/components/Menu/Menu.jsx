@@ -36,7 +36,8 @@ const Menu = ({ pageRef }) => {
     { label: "[01] Studio", route: "/studio" },
     { label: "[02] Protocols", route: "/work" },
     { label: "[03] Manifesto", route: "/stories" },
-    { label: "[04] Contact", route: "/contact" },
+    { label: "[04] Blog", route: "/blog" },
+    { label: "[05] Contact", route: "/contact" },
   ];
 
   const currentX = useRef(0);

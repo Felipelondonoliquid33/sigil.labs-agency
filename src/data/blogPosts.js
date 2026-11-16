@@ -13,9 +13,9 @@ export const blogPosts = [
     tagline: "Nacimos con la promesa de que el futuro era nuestro. Treinta y cinco años después, seguimos rebuscándonos la vida.",
     image: "/blog/generacion-rebusque/og.jpg",
     previews: [
-      "/blog/generacion-rebusque/preview-1.jpg",
-      "/blog/generacion-rebusque/preview-2.jpg",
-      "/blog/generacion-rebusque/preview-3.jpg",
+      "/blog/generacion-rebusque/preview-1.png",
+      "/blog/generacion-rebusque/preview-2.png",
+      "/blog/generacion-rebusque/preview-3.png",
     ],
   },
 ];

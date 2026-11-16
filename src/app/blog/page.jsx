@@ -32,8 +32,8 @@ const Page = () => {
           folders.forEach((f) => f !== folder && f.classList.add("disabled"));
           gsap.to(wrappers[index], { y: 0, duration: 0.25, ease: "back.out(1.7)" });
           previews.forEach((img, i) => {
-            const rotation = i === 0 ? gsap.utils.random(-20, -10) : i === 1 ? gsap.utils.random(-10, 10) : gsap.utils.random(10, 20);
-            gsap.to(img, { y: "-100%", rotation, duration: 0.25, ease: "back.out(1.7)", delay: i * 0.025 });
+            const rotation = i === 0 ? gsap.utils.random(-14, -8) : i === 1 ? gsap.utils.random(-5, 5) : gsap.utils.random(8, 14);
+            gsap.to(img, { y: "-135%", rotation, duration: 0.25, ease: "back.out(1.7)", delay: i * 0.025 });
           });
         };
         const onLeave = () => {

@@ -12,13 +12,13 @@
 .blog-intro p { width: 45%; color: var(--base-300); }
 
 /* Carpetas: calcadas de /work */
-.blog-folders { --disabled-folder-bg: #090c12; --disabled-folder-fg: #94a3b8; width: 100%; overflow-x: clip; padding-top: 4rem; padding-bottom: 6rem; }
+.blog-folders { --disabled-folder-bg: #090c12; --disabled-folder-fg: #94a3b8; width: 100%; overflow-x: clip; padding-top: 7rem; padding-bottom: 6rem; }
 .blog-entry { margin-bottom: 5rem; }
 .blog-folders .blog-folder-link { display: block; color: inherit; text-decoration: none; }
 .blog-folders .folder { position: relative; width: 100%; height: 210px; display: flex; flex-direction: column; cursor: pointer; }
 .blog-folders .folder-preview { position: absolute; top: 0; left: 0; width: 25rem; height: 100%; pointer-events: none; clip-path: inset(-300% -100% 0 -100%); }   /* recorta lo que cae bajo la carpeta; arriba quedan libres para saltar */
 .blog-folders .folder-preview-img { position: absolute; top: 50%; width: 12rem; height: 12rem; border-radius: 0.5rem; overflow: hidden; }
-.blog-folders .folder-preview-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.blog-folders .folder-preview-img img { width: 100%; height: 100%; object-fit: cover; display: block; image-rendering: pixelated; }
 .blog-folders .folder-preview-img:nth-child(1) { left: 20%; transform-origin: top left; }
 .blog-folders .folder-preview-img:nth-child(2) { left: 50%; transform-origin: center; }
 .blog-folders .folder-preview-img:nth-child(3) { left: 80%; transform-origin: top right; }

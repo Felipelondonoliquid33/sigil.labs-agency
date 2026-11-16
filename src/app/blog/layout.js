@@ -1,12 +1,12 @@
 export const metadata = {
-  title: "Blog | SIGIL LABS",
+  title: "Interactive Stories | SIGIL LABS Blog",
   description:
-    "Artículos interactivos de SIGIL LABS: investigación con datos, contada como experiencia web inmersiva.",
+    "Long-form research told as immersive web experiences: real data, original storytelling, built to be played, not just read.",
   alternates: { canonical: "/blog" },
   openGraph: {
-    title: "Blog | SIGIL LABS",
+    title: "Interactive Stories | SIGIL LABS Blog",
     description:
-      "Artículos interactivos de SIGIL LABS: investigación con datos, contada como experiencia web inmersiva.",
+      "Long-form research told as immersive web experiences: real data, original storytelling, built to be played, not just read.",
     url: "https://www.sigillabs.agency/blog",
     siteName: "SIGIL LABS",
     type: "website",

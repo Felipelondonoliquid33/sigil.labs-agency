@@ -708,7 +708,45 @@
   max-width: 760px;
 }
 
-@media (max-width: 1099px) {
+/* Mid widths (half-screen windows, zoomed laptops, tablets): the stage stays,
+   the columns even out and only the label being read is shown. */
+@media (min-width: 820px) and (max-width: 1099px) {
+  .journey {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    column-gap: 1.5rem;
+  }
+
+  .label[data-on="false"][data-lit="false"] .labelInner {
+    opacity: 0;
+  }
+
+  .labelInner {
+    font-size: 0.56rem;
+  }
+
+  .place h3 {
+    font-size: 1.9rem;
+  }
+
+  .way {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 1rem;
+  }
+
+  .readout {
+    grid-template-columns: 3.2rem minmax(0, 1fr);
+  }
+
+  .readoutPct {
+    grid-column: 2;
+  }
+
+  .lead {
+    grid-column: 4 / -1;
+  }
+}
+
+@media (max-width: 819px) {
   .journey {
     grid-template-columns: minmax(0, 1fr);
   }
@@ -1519,4 +1557,69 @@
   height: 100%;
   pointer-events: none;
   z-index: 0;
+}
+
+/* ══ Process agent — "A clear path. An open mind." ═══════════════════════
+   The list keeps the shared page styles; this adds the room the agent stands
+   in and marks the step it is acting out. */
+.processWrap {
+  position: relative;
+  padding-top: 12.5rem;
+}
+
+.processCanvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.processWrap li {
+  position: relative;
+  cursor: default;
+}
+
+.processWrap li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: -2px;
+  width: 100%;
+  height: 4px;
+  background: #ccff00;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.processWrap li[data-on="true"]::before {
+  transform: scaleX(1);
+}
+
+.processWrap li h3 {
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.processWrap li[data-on="true"] h3 {
+  transform: translateY(-6px);
+}
+
+/* Two columns below 900px: the second row needs headroom for the agent. */
+@media (max-width: 900px) {
+  .processWrap {
+    padding-top: 9rem;
+  }
+
+  .processWrap ol {
+    row-gap: 8.5rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .processWrap li::before,
+  .processWrap li h3 {
+    transition: none;
+  }
 }

@@ -96,10 +96,10 @@ function IntelligenceFlow({ service, direction, t }) {
   </div>;
 }
 
-/* `renderCapabilities` and `renderHeroVisual` are optional: a page may replace
-   the capabilities view or the hero visual with its own, receiving the same
-   language-resolved props. Pages that pass neither render exactly as before. */
-export default function ServiceExperience({ service, direction, projects, extra, renderCapabilities, renderHeroVisual }) {
+/* `renderCapabilities`, `renderHeroVisual` and `renderProcess` are optional: a
+   page may replace the capabilities view, hero visual or process list with its own, receiving the same
+   language-resolved props. Pages that pass none render exactly as before. */
+export default function ServiceExperience({ service, direction, projects, extra, renderCapabilities, renderHeroVisual, renderProcess }) {
   const root = useRef(null);
   const { lang } = useLanguage();
   const t = UI[lang] || UI.en;
@@ -262,7 +262,7 @@ export default function ServiceExperience({ service, direction, projects, extra,
 
     <section className={styles.process}>
       <div className={styles.sectionHeader}><p className={styles.eyebrow}>{t.workingTogether}</p><h2 data-reveal>{t.path}<br />{t.openMind}</h2></div>
-      <ol>{d.steps.map((step, i) => <li data-reveal key={step}><span>0{i + 1}</span><h3>{step}</h3></li>)}</ol>
+      {renderProcess ? renderProcess({ direction: d }) : <ol>{d.steps.map((step, i) => <li data-reveal key={step}><span>0{i + 1}</span><h3>{step}</h3></li>)}</ol>}
     </section>
     <footer className={styles.closing}>
       <p className={styles.eyebrow}>{t.haveSomething}</p>

@@ -6,6 +6,8 @@ import { useGSAP } from "@gsap/react";
 import Button from "../Button/Button";
 import { IoMail } from "react-icons/io5";
 import Copy from "../Copy/Copy";
+import Link from "next/link";
+import { serviceLinks } from "@/data/serviceLinks";
 
 gsap.registerPlugin(useGSAP);
 
@@ -217,6 +219,14 @@ const Footer = () => {
               Initiate Protocol
             </Button>
           </div>
+        </div>
+        {/* Not a <nav>: this site styles every <nav> as the fixed top bar. */}
+        <div className="footer-services" role="navigation" aria-label="Services">
+          {serviceLinks.map((service) => (
+            <Link key={service.href} href={service.href}>
+              {service.label}
+            </Link>
+          ))}
         </div>
         <div className="footer-byline">
           <div className="footer-time">

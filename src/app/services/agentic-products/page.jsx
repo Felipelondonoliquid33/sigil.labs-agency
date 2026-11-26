@@ -7,6 +7,7 @@ import { projectMedia } from "@/data/projectMedia";
 import dynamic from "next/dynamic";
 import UseCaseSection from "./UseCaseSection";
 import WorkDemos from "./WorkDemos";
+import ProcessAgent from "./ProcessAgent";
 import styles from "./agentic-products.module.css";
 import pageStyles from "../services.module.css";
 
@@ -110,6 +111,7 @@ function AgenticProductsContent() {
         projects={resolveProjects(service.projects)}
         extra={<UseCaseSection />}
         renderHeroVisual={() => <HeroAgent />}
+        renderProcess={({ direction }) => <ProcessAgent steps={direction.steps} />}
         renderCapabilities={({ service: s, direction, t }) => <WorkDemos service={s} direction={direction} t={t} />}
       />
     </main>

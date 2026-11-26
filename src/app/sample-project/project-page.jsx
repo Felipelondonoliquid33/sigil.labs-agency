@@ -450,5 +450,11 @@ const ProjectDetail = ({ id }) => {
 };
 
 export default function Page({ projectId }) {
+  /* A known id renders directly, so the case study is in the server HTML.
+     useSearchParams (legacy ?project= URLs) forces client-only rendering up
+     to the Suspense boundary, which left every /work page empty for crawlers. */
+  if (Object.hasOwn(projectDetails, projectId)) {
+    return <ProjectDetail key={projectId} id={projectId} />;
+  }
   return <Suspense fallback={<div className="sample-project-page" aria-busy="true" />}><ProjectSelection projectId={projectId} /></Suspense>;
 }

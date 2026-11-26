@@ -832,7 +832,9 @@ export function createDiorama(canvas, { reduced = false } = {}) {
     zoom += (zoomGoal - zoom) * damp(dt, 2.6);
     camera.position.copy(camTarget).addScaledVector(CAM_DIR, 30);
     camera.lookAt(camTarget);
-    camera.zoom = zoom;
+    // A narrow stage zooms out to keep the whole composition in frame.
+    const need = layout.tone === "dark" ? 10.4 : 8.8;
+    camera.zoom = zoom * Math.min(1, (VIEW_H * (width / height)) / need);
     camera.updateProjectionMatrix();
 
     renderer.render(scene, camera);
@@ -847,7 +849,8 @@ export function createDiorama(canvas, { reduced = false } = {}) {
       const x = ((tmp.x + 1) / 2) * width;
       const y = ((1 - tmp.y) / 2) * height;
       // A label that would be cut by the stage edge is hidden, not cropped.
-      const inside = x > 90 && x < width - 90 && y > 40 && y < height - 40;
+      const edge = Math.min(90, width * 0.13);
+      const inside = x > edge && x < width - edge && y > 40 && y < height - 40;
       return {
         x,
         y,

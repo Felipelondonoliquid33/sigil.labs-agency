@@ -31,10 +31,10 @@ const smooth = (t) => {
 };
 
 /* Critically-damped-ish spring: z < 1 overshoots a little, on purpose. */
-function makeSpring(v = 0) {
+export function makeSpring(v = 0) {
   return { v, vel: 0 };
 }
-function stepSpring(s, target, dt, k = 70, z = 0.62) {
+export function stepSpring(s, target, dt, k = 70, z = 0.62) {
   const c = 2 * Math.sqrt(k) * z;
   const a = k * (target - s.v) - c * s.vel;
   s.vel += a * dt;
@@ -42,7 +42,7 @@ function stepSpring(s, target, dt, k = 70, z = 0.62) {
   return s.v;
 }
 
-function buildRobot(track) {
+export function buildRobot(track) {
   const neutral = paintMatcap(
     [[0, "#ffffff"], [0.28, "#f2f4f7"], [0.62, "#cdd3db"], [1, "#8b95a2"]],
     "rgba(255,255,255,0.4)"

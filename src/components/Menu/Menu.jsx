@@ -8,6 +8,7 @@ import { useGSAP } from "@gsap/react";
 import { useLenis } from "lenis/react";
 import { useViewTransition } from "@/hooks/useViewTransition";
 import SolomonicCircuit from "../SolomonicCircuit";
+import { serviceLinks } from "@/data/serviceLinks";
 
 gsap.registerPlugin(useGSAP, SplitText);
 
@@ -511,6 +512,16 @@ const Menu = ({ pageRef }) => {
               menuColsRef.current[1] = el;
             }}
           >
+            <div className="menu-content-group">
+              <p>Services</p>
+
+              {serviceLinks.map((service) => (
+                <a key={service.href} href={service.href}>
+                  {service.label}
+                </a>
+              ))}
+            </div>
+
             <div className="menu-content-group">
               <p>Channels</p>
 

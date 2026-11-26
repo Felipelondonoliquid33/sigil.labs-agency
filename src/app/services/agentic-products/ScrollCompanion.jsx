@@ -25,7 +25,7 @@ gsap.registerPlugin(ScrollTrigger);
    ──────────────────────────────────────────────────────────────────────────── */
 
 const COUNTS = { overview: 4, place: 4, way: 3, audit: 4 };
-const WIDE = "(min-width: 1100px)";
+const WIDE = "(min-width: 820px)";
 
 export default function ScrollCompanion({ scope, labels, titles, onUnavailable }) {
   const host = useRef(null);

@@ -166,7 +166,7 @@ function UseCaseSection() {
   const [wide, setWide] = useState(false);
   useEffect(() => {
     if (typeof window === "undefined") return undefined;
-    const mq = window.matchMedia("(min-width: 1100px)");
+    const mq = window.matchMedia("(min-width: 820px)");
     const sync = () => setWide(mq.matches);
     sync();
     mq.addEventListener("change", sync);

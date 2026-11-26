@@ -105,6 +105,14 @@ const localBusinessSchema = {
           url: "https://www.sigillabs.agency/services/agentic-enablement",
         },
       },
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: "Agentic Products & AI Audit",
+          url: "https://www.sigillabs.agency/services/agentic-products",
+        },
+      },
     ],
   },
 };

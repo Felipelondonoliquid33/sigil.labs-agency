@@ -53,8 +53,9 @@ const Page = () => {
               <Copy animateOnScroll={false} delay={isInitialLoad ? 6.05 : 1.15}>
                 <p className="lg">
                   Creative Engineering, Agentic AI Systems and High-Scale EdTech
-                  Ecosystems. We transform strategic vision into immersive code
-                  and autonomous architectures.
+                  Ecosystems. We take a strategic intent and carry it to a working
+                  system: interfaces, agents and the delivery discipline that keeps
+                  them running.
                 </p>
               </Copy>
 
@@ -163,6 +164,55 @@ const Page = () => {
       </section>
 
       <ClientReviews />
+
+      <section className="client-reviews-header-container">
+        <div className="container">
+          <div className="client-reviews-header-content">
+            <div className="client-reviews-header">
+              <Copy animateOnScroll={true} delay={0.25}>
+                <h1>How We Deliver</h1>
+              </Copy>
+            </div>
+
+            <div className="arrow">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="100%"
+                viewBox="0 0 32 32"
+                fill="none"
+                className="icon"
+              >
+                <path
+                  d="M16 26.6665L16 5.33317"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                ></path>
+                <path
+                  d="M22.6667 19.9999L16 26.6665L9.33337 19.9998"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                ></path>
+              </svg>
+            </div>
+
+            <div className="client-reviews-header-copy">
+              <Copy animateOnScroll={true} delay={0.25}>
+                <p className="lg">
+                  Short, structured cycles inspired by XP and assisted by AI. We
+                  settle the decisions that are expensive to change, define one
+                  story at a time with verifiable acceptance criteria, and review
+                  experience, business rules and outcomes before calling a
+                  delivery done.
+                </p>
+              </Copy>
+            </div>
+          </div>
+        </div>
+      </section>
 
       <Spotlight />
 

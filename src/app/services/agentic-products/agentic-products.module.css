@@ -10,6 +10,24 @@
   background: #e5e8ea;
   color: var(--ink);
   border-top: 1px solid rgba(4, 5, 7, 0.18);
+  overflow: clip;
+}
+
+/* ── Scroll companion ─────────────────────────────────────────────────────
+   The lattice travels with the reader, so it lives in the right margin and
+   never crosses the copy. The section reserves that column at wide sizes;
+   below 1100px the artifact is dropped and the copy takes the full width. */
+.companion {
+  position: fixed;
+  top: 50%;
+  right: clamp(1rem, 2.5vw, 2.5rem);
+  width: clamp(220px, 19vw, 330px);
+  aspect-ratio: 1;
+  transform: translateY(-50%);
+  pointer-events: none;
+  z-index: 2;
+  opacity: 0;
+  mix-blend-mode: multiply;
 }
 
 .head {
@@ -61,6 +79,33 @@
   gap: 1px;
   background: rgba(4, 5, 7, 0.18);
   border: 1px solid rgba(4, 5, 7, 0.18);
+  position: relative;
+}
+
+/* Journey rail: a hairline on the left edge of each chapter that fills as the
+   reader moves through it. It is what turns a stack of cards into a route. */
+.rail {
+  position: absolute;
+  left: clamp(-2.5rem, -2vw, -1.25rem);
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: rgba(4, 5, 7, 0.16);
+  display: none;
+}
+
+.rail > span {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: var(--ink);
+  transform-origin: top;
+}
+
+@media (min-width: 1100px) {
+  .rail {
+    display: block;
+  }
 }
 
 .block {
@@ -69,11 +114,34 @@
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  position: relative;
   transition: background 0.35s ease;
 }
 
 .block:hover {
   background: #ffffff;
+}
+
+/* The step being read is marked, so the eye knows where it is in the journey. */
+.block[data-active="true"] {
+  background: #ffffff;
+}
+
+.block::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 2px;
+  width: 100%;
+  background: var(--ink);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.block[data-active="true"]::after {
+  transform: scaleX(1);
 }
 
 .blockHead {
@@ -155,6 +223,7 @@
 .ways {
   max-width: 1400px;
   margin: clamp(4rem, 8vw, 7rem) auto 0;
+  position: relative;
 }
 
 .subHead {
@@ -182,6 +251,29 @@
   display: flex;
   flex-direction: column;
   gap: 0.85rem;
+  position: relative;
+  transition: background 0.4s ease;
+}
+
+.way[data-active="true"] {
+  background: #ffffff;
+}
+
+.way::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 3px;
+  width: 100%;
+  background: var(--ink);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.way[data-active="true"]::after {
+  transform: scaleX(1);
 }
 
 .wayTag {
@@ -257,6 +349,26 @@
 .auditStep {
   border-top: 1px solid rgba(4, 5, 7, 0.3);
   padding-top: 1rem;
+  position: relative;
+}
+
+/* The scan: each audit step turns solid once the progress reaches its share,
+   which reads as a review being carried out rather than four static notes. */
+.auditStep::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: -1px;
+  height: 1px;
+  width: 100%;
+  background: var(--ink);
+  transform: scaleX(var(--lit, 0));
+  transform-origin: left;
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.auditStep h4 {
+  transition: opacity 0.5s ease;
 }
 
 .auditNum {
@@ -330,6 +442,21 @@
 }
 
 /* ── Responsive ───────────────────────────────────────────────────────── */
+
+/* At wide sizes the right margin belongs to the lattice, so the chapters stop
+   short of it and the artifact sits in real negative space instead of on top
+   of the cards. Declared here, after the base rules, so it wins the cascade. */
+@media (min-width: 1100px) {
+  .head,
+  .blocks,
+  .ways,
+  .audit {
+    max-width: min(1400px, calc(100% - clamp(220px, 19vw, 330px) - 4rem));
+    margin-right: auto;
+    margin-left: 0;
+  }
+}
+
 @media (max-width: 1000px) {
   .head {
     grid-template-columns: 1fr;
@@ -343,6 +470,12 @@
 
   .auditGrid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  /* The companion is a wide-screen passenger; on narrow screens the copy
+     needs the full width. */
+  .companion {
+    display: none;
   }
 }
 

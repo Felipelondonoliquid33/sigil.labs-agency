@@ -84,13 +84,13 @@ function CapabilityDeck({ service, direction }) {
 }
 
 function IntelligenceFlow({ service, direction, t }) {
-  return <div className={styles.flow}>
+  return <div className={styles.flow} data-flow>
     <svg className={styles.flowLine} viewBox="0 0 100 800" preserveAspectRatio="none" aria-hidden="true">
       <path d="M50 0 V800" stroke="currentColor" opacity=".15" fill="none" />
       <path data-flow-path d="M50 0 V800" stroke="currentColor" strokeWidth="3" fill="none" />
     </svg>
-    {service.capabilities.map((item, i) => <article data-reveal className={styles.flowStep} key={item.title}>
-      <span className={styles.flowNode}>0{i + 1}</span>
+    {service.capabilities.map((item, i) => <article data-flow-step className={styles.flowStep} key={item.title}>
+      <span className={styles.flowNode} data-flow-node>0{i + 1}</span>
       <div><p className={styles.eyebrow}>{t.aiLabels[i]}</p><h3>{item.title}</h3><p>{item.text}</p><p className={styles.flowOutcome}>{direction.outcomes[i]}</p></div>
     </article>)}
   </div>;
@@ -119,6 +119,26 @@ export default function ServiceExperience({ service, direction, projects, extra 
         const length = path.getTotalLength();
         gsap.fromTo(path, { strokeDasharray: length, strokeDashoffset: length }, { strokeDashoffset: 0, ease: "none", scrollTrigger: { trigger: path.closest("div"), start: "top 65%", end: "bottom 65%", scrub: 1 } });
       }
+
+      /* The flow is a sequence, so it is read as one: each step arrives as the
+         line reaches its node, and the node fills in ink once it is the step
+         being read. Scrubbed, so scrolling back up reverses the reading. */
+      const flowSteps = root.current.querySelectorAll("[data-flow-step]");
+      flowSteps.forEach((step) => {
+        gsap.fromTo(step, { y: 44, opacity: 0.25 }, {
+          y: 0,
+          opacity: 1,
+          duration: 0.6,
+          ease: "power3.out",
+          scrollTrigger: { trigger: step, start: "top 90%", once: true },
+        });
+        ScrollTrigger.create({
+          trigger: step,
+          start: "top 62%",
+          end: "bottom 42%",
+          onToggle: (self) => step.setAttribute("data-active", self.isActive ? "true" : "false"),
+        });
+      });
       // Animated closing CTA: masked line reveal + magnetic arrow on hover.
       const cta = root.current.querySelector("[data-cta]");
       let ctaCleanup;

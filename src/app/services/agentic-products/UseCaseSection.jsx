@@ -1,12 +1,20 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef } from "react";
+import dynamic from "next/dynamic";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
-import ServiceExperience from "../ServiceExperience";
 import { useLanguage } from "../LanguageContext";
 import styles from "./agentic-products.module.css";
+
+/* three.js is heavy, and the artifact is a desktop-only passenger. Loading it
+   through next/dynamic keeps it out of the initial bundle: the page is fully
+   readable before the lattice code is even requested. */
+const ScrollCompanion = dynamic(() => import("./ScrollCompanion"), {
+  ssr: false,
+  loading: () => null,
+});
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
@@ -134,40 +142,136 @@ function UseCaseSection() {
 
   const root = useRef(null);
 
+  /* Each chapter gets a real journey instead of a one-shot fade:
+     - the four places are read one by one as the reader scrolls through them
+     - the three ways alternate sides so the eye travels down the section
+     - the audit steps light up in sequence, like a scan passing over them
+     All of it is scrubbed, so scrolling back up plays it in reverse. */
   useGSAP(() => {
-    const cards = root.current.querySelectorAll("[data-block]");
-    cards.forEach((card) => {
-      // fromTo, not from: on a language switch the element is remounted and
-      // `from` would leave it stuck at opacity 0 if its trigger is already
-      // above the viewport. fromTo always ends at the visible state.
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    root.current.querySelectorAll("[data-journey]").forEach((chapter) => {
+      const items = chapter.querySelectorAll("[data-step]");
+
+      items.forEach((item, i) => {
+        gsap.fromTo(
+          item,
+          { y: 52, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.7,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: item,
+              start: "top 88%",
+              once: true,
+            },
+          }
+        );
+      });
+
+      // A progress rail fills as the chapter is read. It gives the section a
+      // sense of length, which is what was missing before.
+      const rail = chapter.querySelector("[data-rail] span");
+      if (rail) {
+        gsap.fromTo(
+          rail,
+          { scaleY: 0 },
+          {
+            scaleY: 1,
+            ease: "none",
+            scrollTrigger: {
+              trigger: chapter,
+              start: "top 65%",
+              end: "bottom 65%",
+              scrub: 0.6,
+            },
+          }
+        );
+      }
+
+      // The active step gets marked, so the reading order is unambiguous.
+      if (items.length) {
+        items.forEach((item) => {
+          ScrollTrigger.create({
+            trigger: item,
+            start: "top 60%",
+            end: "bottom 40%",
+            onToggle: (self) => item.setAttribute("data-active", self.isActive ? "true" : "false"),
+          });
+        });
+      }
+    });
+
+    // The audit steps are a sequence, so they light up in order rather than
+    // all at once: a scan passing over the four columns.
+    const auditSteps = root.current.querySelectorAll("[data-audit-step]");
+    auditSteps.forEach((step, i) => {
       gsap.fromTo(
-        card,
-        { y: 40, opacity: 0 },
+        step,
+        { opacity: 0.28, y: 18 },
         {
-          y: 0,
           opacity: 1,
-          duration: 0.7,
-          ease: "power3.out",
-          scrollTrigger: { trigger: card, start: "top 92%", once: true },
+          y: 0,
+          duration: 0.5,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: root.current.querySelector("[data-audit]" ),
+            start: "top 72%",
+            end: "bottom 70%",
+            scrub: 0.8,
+            onUpdate: (self) => {
+              // Reveal step i once the scan has passed its share.
+              const gate = (i + 1) / (auditSteps.length + 0.6);
+              step.style.setProperty("--lit", self.progress > gate ? "1" : "0");
+            },
+          },
         }
       );
     });
+
+    if (!reduced) {
+      // Gentle parallax on the chapter numbers: they lag behind the copy.
+      root.current.querySelectorAll("[data-drift]").forEach((el) => {
+        gsap.fromTo(
+          el,
+          { yPercent: 12 },
+          {
+            yPercent: -12,
+            ease: "none",
+            scrollTrigger: {
+              trigger: el,
+              start: "top bottom",
+              end: "bottom top",
+              scrub: 1,
+            },
+          }
+        );
+      });
+    }
+
+    // The copy changes length with the language, so every trigger must be
+    // remeasured or the later chapters stay invisible.
     ScrollTrigger.refresh();
   }, { scope: root, dependencies: [lang] });
 
   return (
     <section ref={root} className={styles.useCases}>
+      <ScrollCompanion className={styles.companion} />
+
       <div className={styles.head}>
         <p className={styles.eyebrow}>{t.eyebrow}</p>
         <h2 data-reveal>{t.title}</h2>
         <p className={styles.lead}>{t.lead}</p>
       </div>
 
-      <div className={styles.blocks}>
+      <div className={styles.blocks} data-journey data-companion-start>
+        <div className={styles.rail} data-rail aria-hidden="true"><span /></div>
         {blocks.map((b, i) => (
-          <article key={b.id} className={styles.block} data-block>
+          <article key={b.id} className={styles.block} data-block data-step>
             <div className={styles.blockHead}>
-              <span className={styles.blockNum}>0{i + 1}</span>
+              <span className={styles.blockNum} data-drift>0{i + 1}</span>
               <span className={styles.blockTag}>{b.tag}</span>
             </div>
             <h3>{b.title}</h3>
@@ -181,11 +285,12 @@ function UseCaseSection() {
         ))}
       </div>
 
-      <div className={styles.ways}>
+      <div className={styles.ways} data-journey>
+        <div className={styles.rail} data-rail aria-hidden="true"><span /></div>
         <h3 className={styles.subHead}>{t.waysTitle}</h3>
         <div className={styles.wayGrid}>
           {ways.map((w) => (
-            <article key={w.tag} className={styles.way}>
+            <article key={w.tag} className={styles.way} data-step>
               <span className={styles.wayTag}>{w.tag}</span>
               <h4>{w.title}</h4>
               <p className={styles.wayBody}>{w.body}</p>
@@ -195,14 +300,14 @@ function UseCaseSection() {
         </div>
       </div>
 
-      <div className={styles.audit}>
+      <div className={styles.audit} data-audit>
         <div className={styles.auditHead}>
           <p className={styles.eyebrow}>{t.auditTitle}</p>
           <p className={styles.auditLead}>{t.auditLead}</p>
         </div>
         <div className={styles.auditGrid}>
           {audit.map((a) => (
-            <div key={a.n} className={styles.auditStep}>
+            <div key={a.n} className={styles.auditStep} data-audit-step>
               <span className={styles.auditNum}>{a.n}</span>
               <h4>{a.t}</h4>
               <p>{a.b}</p>
@@ -210,6 +315,8 @@ function UseCaseSection() {
           ))}
         </div>
       </div>
+
+      <span data-companion-end hidden />
     </section>
   );
 }

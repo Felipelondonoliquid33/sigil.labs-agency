@@ -61,7 +61,18 @@
 .flowLine { position: absolute; top: 0; left: 0; width: 64px; height: 100%; }
 .flowStep { position: relative; display: grid; grid-template-columns: 64px 1fr; gap: 3rem; padding: 1.5rem 0 3.5rem; }
 .flowNode { width: 64px; height: 64px; border: 1px solid var(--ink); border-radius: 50%; background: #e5e8ea; display: grid; place-items: center; font: .8rem "Geist Mono", monospace; }
-.flowStep h3 { font-size: clamp(2.5rem, 4vw, 4.5rem); margin: 1rem 0; }
+.flowStep h3 { font-size: clamp(2.5rem, 4vw, 4.5rem); margin: 1rem 0; max-width: 100%; overflow-wrap: break-word; }
+
+/* The node of the step being read fills in, so the sequence has a cursor. */
+.flowStep[data-active="true"] .flowNode {
+  background: var(--ink);
+  color: var(--paper);
+  transition: background 0.4s ease, color 0.4s ease;
+}
+
+.flowNode {
+  transition: background 0.4s ease, color 0.4s ease;
+}
 .flowStep p { max-width: 550px; line-height: 1.4; }
 .flowOutcome { border-top: 1px solid var(--rule); padding-top: 1rem; margin-top: 1.5rem; font-size: 1rem; }
 .interactionLab { display: grid; grid-template-columns: 1.1fr 1fr; gap: 5vw; }

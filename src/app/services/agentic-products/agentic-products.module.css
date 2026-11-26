@@ -287,10 +287,13 @@
 }
 
 /* ── Language toggle ──────────────────────────────────────────────────── */
+/* The toggle is fixed, so it sits outside .useCases and cannot see --ink.
+   Colours are written out, and it is offset to the left of the site nav
+   (which spans ~1337-1408px on desktop) instead of sitting underneath it. */
 .toggleSlot {
   position: fixed;
   top: 1.5rem;
-  right: 1.5rem;
+  right: 7.5rem;
   z-index: 60;
 }
 
@@ -318,11 +321,11 @@
 }
 
 .toggle button:hover {
-  color: var(--ink);
+  color: #040507;
 }
 
 .toggle button[data-active="true"] {
-  background: var(--ink);
+  background: #040507;
   color: #f1f5f9;
 }
 
@@ -356,6 +359,6 @@
 
   .toggleSlot {
     top: 1rem;
-    right: 1rem;
+    right: 6.5rem;
   }
 }

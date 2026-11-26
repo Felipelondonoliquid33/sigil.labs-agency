@@ -153,4 +153,14 @@ export const projectDetails = {
     medium: "Three.js, custom physics, procedural low-poly assets and WebGL rendering",
     studio: "SIGIL LABS",
   },
+  praxuz: {
+    eyebrow: "Commerce systems / Conversion design",
+    title: "PRAXUZ",
+    concept:
+      "A commercial site for a consultancy that helps doctors open and enable their own private practice in Medellín, replacing a sales process that lived in Instagram DMs with a structured two-route intake flow.",
+    cycle: "2026",
+    form: "Commercial site and lead intake system",
+    medium: "Next.js, TypeScript, Tailwind, conversion-focused copy and local SEO",
+    studio: "SIGIL LABS",
+  },
 };

@@ -1,8 +1,6 @@
 export const workProjectIds = [
   "pacifista",
   "gsap-motion-vault",
-  "yoahorro-ia",
-  "synapsis-academy",
   "li4uid",
   "puente-de-equidad",
   "yen-galindo-photography",
@@ -12,4 +10,5 @@ export const workProjectIds = [
   "internal-r-and-d",
   "la-mar",
   "arcade-portfolio",
+  "praxuz",
 ];

@@ -116,4 +116,10 @@ export const projectMedia = {
     video: '/cases/arcade-portfolio/showcase.mp4',
     videoLabel: 'Arcade Portfolio — driving through the 3D world',
   },
+  praxuz: {
+    cover: image('praxuz', 'cover', 'Praxuz — medical practice enablement site'),
+    gallery: series('praxuz', 3, 'Praxuz'),
+    video: '/cases/praxuz/showcase.mp4',
+    videoLabel: 'Praxuz — commercial site and intake flow',
+  },
 };

@@ -15,9 +15,8 @@ const service = {
     { title: "Applied intelligence", text: "Move from abstract AI ambition to a focused workflow with a measurable job to do." },
   ],
   projects: [
-    { label: "YOAHORRO IA / price intelligence", href: "/work/yoahorro-ia" },
-    { label: "SYNAPSIS ACADEMY / adaptive learning", href: "/work/synapsis-academy" },
     { label: "LI4UID CORE WEB / systems-led identity", href: "/work/li4uid-core-web" },
+    { label: "ARCADE PORTFOLIO / real-time world systems", href: "/work/arcade-portfolio" },
   ],
 };
 

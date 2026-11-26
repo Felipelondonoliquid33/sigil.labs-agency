@@ -95,6 +95,18 @@ const METRICS = {
     { v: "Gamified", l: "Experience" },
     { v: "Social", l: "Impact" },
   ],
+  "arcade-portfolio": [
+    { v: "1", l: "Continuous world" },
+    { v: "7", l: "Drivable zones" },
+    { v: "60", l: "Target FPS" },
+    { v: "0", l: "Scroll events" },
+  ],
+  praxuz: [
+    { v: "2", l: "Service routes" },
+    { v: "0", l: "Manual DMs needed" },
+    { v: "3", l: "Trust pillars" },
+    { v: "1", l: "Free first call" },
+  ],
 };
 
 const fmt = (s) => {

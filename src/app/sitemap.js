@@ -20,10 +20,13 @@ export default function sitemap() {
   const projectRoutes = workProjectIds.map((slug) => `/work/${slug}`);
   const blogRoutes = blogPosts.map((post) => `/blog/${post.slug}`);
 
+  /* Pages with their own change date, so search engines see what is new. */
+  const updated = { "/services/agentic-products": "2026-11-26" };
+
   return [...staticRoutes, ...projectRoutes, ...blogRoutes].map((route) => ({
     url: `${SITE_URL}${route}`,
-    lastModified: "2026-09-08",
-    changeFrequency: route === "" ? "weekly" : "monthly",
-    priority: route === "" ? 1 : route === "/work" ? 0.9 : 0.7,
+    lastModified: updated[route] || "2026-09-08",
+    changeFrequency: route === "" || updated[route] ? "weekly" : "monthly",
+    priority: route === "" ? 1 : route === "/work" || updated[route] ? 0.9 : 0.7,
   }));
 }

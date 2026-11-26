@@ -37,6 +37,30 @@ export const serviceDirections = {
     proofTitle: "Capability, not dependency.",
     outcomes: ["A prioritised map of the workflows where AI actually pays, with the ones to skip.", "One production workflow built in the open with your engineers and operators.", "The routing rules, evaluation gates and cost model your team can extend alone."],
     steps: ["Diagnose the workflow", "Build the first system together", "Document the method", "Hand over and step back"],
-    closing: "KEEP THE CAPABILITY.\nNOT THE VENDOR.", next: "creative-engineering", nextName: "Creative Engineering",
+    closing: "KEEP THE CAPABILITY.\nNOT THE VENDOR.", next: "agentic-products", nextName: "Agentic Products",
+  },
+  /* Not a numbered service in the rail: this is the productised view of the
+     same practice, reached from the enablement page. The spine of the page is
+     "one less job per person" — every section answers that same sentence, which
+     is what keeps the page from reading as a pile of independent blocks. */
+  "agentic-products": {
+    number: "05", mode: "intelligence", lines: ["ONE LESS JOB", "PER PERSON."],
+    caption: "Agents that take a task off someone’s desk.",
+    approach: "We start from the task, not the model.",
+    deckTitle: "The work it takes over.",
+    proofTitle: "Agents already on shift.",
+    outcomes: ["A named task that no longer needs a person to do it.", "A rule for when it escalates, and a person who receives it.", "A cost per task you can compare against the salary line."],
+    steps: ["Name the task", "Measure what it costs", "Build the smallest agent", "Put it on shift"],
+    closing: "GIVE A TASK\nBACK ITS TIME.", next: "creative-engineering", nextName: "Creative Engineering",
+    es: {
+      lines: ["UNA TAREA MENOS", "POR PERSONA."],
+      caption: "Agentes que le quitan una tarea a alguien.",
+      approach: "Empezamos por la tarea, no por el modelo.",
+      deckTitle: "El trabajo que asume.",
+      proofTitle: "Agentes ya en turno.",
+      outcomes: ["Una tarea con nombre que ya no necesita a una persona.", "Una regla de cuándo escala, y una persona que lo recibe.", "Un costo por tarea comparable contra el costo laboral."],
+      steps: ["Nombrar la tarea", "Medir cuánto cuesta", "Construir el agente mínimo", "Ponerlo en turno"],
+      closing: "DEVUÉLVELE EL TIEMPO\nA UNA TAREA.", nextName: "Creative Engineering",
+    },
   },
 };

@@ -1,0 +1,361 @@
+/* Use-case section for /services/agentic-products.
+   Built on the same ground as services.module.css — light paper, ink display
+   type, mono eyebrows, hairline rules — so this chapter reads as part of the
+   service page rather than as a separate landing. No new colour system. */
+
+.useCases {
+  --ink: #040507;
+  position: relative;
+  padding: clamp(4.5rem, 9vw, 8rem) 5vw;
+  background: #e5e8ea;
+  color: var(--ink);
+  border-top: 1px solid rgba(4, 5, 7, 0.18);
+}
+
+.head {
+  max-width: 1400px;
+  margin: 0 auto clamp(2.5rem, 5vw, 4rem);
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 3rem;
+  align-items: start;
+}
+
+.eyebrow {
+  font-family: "Geist Mono", "DM Mono", monospace;
+  font-size: 0.7rem;
+  line-height: 1.5;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink);
+  margin: 0;
+}
+
+.head h2 {
+  font-family: "Barlow Condensed", "PP Pangram Sans", sans-serif;
+  font-weight: 900;
+  font-size: clamp(3rem, 6vw, 6rem);
+  line-height: 0.94;
+  letter-spacing: -0.025em;
+  text-transform: uppercase;
+  color: var(--ink);
+  margin: 0;
+  max-width: 14ch;
+}
+
+.lead {
+  grid-column: 2;
+  max-width: 52ch;
+  font-size: clamp(1rem, 1.15vw, 1.15rem);
+  line-height: 1.5;
+  color: rgba(4, 5, 7, 0.72);
+  margin: 1.5rem 0 0;
+}
+
+/* ── The four blocks ──────────────────────────────────────────────────── */
+.blocks {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  background: rgba(4, 5, 7, 0.18);
+  border: 1px solid rgba(4, 5, 7, 0.18);
+}
+
+.block {
+  background: #f1f5f9;
+  padding: clamp(1.75rem, 3vw, 2.75rem);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  transition: background 0.35s ease;
+}
+
+.block:hover {
+  background: #ffffff;
+}
+
+.blockHead {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.25rem;
+}
+
+.blockNum {
+  font-family: "Geist Mono", "DM Mono", monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.18em;
+  color: rgba(4, 5, 7, 0.55);
+}
+
+.blockTag {
+  font-family: "Geist Mono", "DM Mono", monospace;
+  font-size: 0.66rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink);
+  background: #ccff00;
+  padding: 0.32rem 0.65rem;
+  white-space: nowrap;
+}
+
+.block h3 {
+  font-family: "Barlow Condensed", "PP Pangram Sans", sans-serif;
+  font-weight: 900;
+  font-size: clamp(1.6rem, 2.6vw, 2.3rem);
+  line-height: 1.02;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  color: var(--ink);
+  margin: 0;
+  max-width: 20ch;
+}
+
+.blockBody {
+  font-size: 0.98rem;
+  line-height: 1.55;
+  color: rgba(4, 5, 7, 0.76);
+  margin: 0;
+  max-width: 46ch;
+}
+
+.blockItems {
+  list-style: none;
+  padding: 1rem 0 0;
+  margin: auto 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  border-top: 1px solid rgba(4, 5, 7, 0.18);
+}
+
+.blockItems li {
+  position: relative;
+  padding-left: 1.15rem;
+  font-family: "Geist Mono", "DM Mono", monospace;
+  font-size: 0.74rem;
+  line-height: 1.5;
+  color: rgba(4, 5, 7, 0.7);
+}
+
+.blockItems li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.5em;
+  width: 5px;
+  height: 5px;
+  background: var(--ink);
+}
+
+/* ── Three ways ───────────────────────────────────────────────────────── */
+.ways {
+  max-width: 1400px;
+  margin: clamp(4rem, 8vw, 7rem) auto 0;
+}
+
+.subHead {
+  font-family: "Barlow Condensed", "PP Pangram Sans", sans-serif;
+  font-weight: 900;
+  font-size: clamp(1.9rem, 3.6vw, 3rem);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  color: var(--ink);
+  margin: 0 0 2rem;
+}
+
+.wayGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1px;
+  background: rgba(4, 5, 7, 0.18);
+  border: 1px solid rgba(4, 5, 7, 0.18);
+}
+
+.way {
+  background: #f1f5f9;
+  padding: clamp(1.5rem, 2.5vw, 2.25rem);
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.wayTag {
+  align-self: flex-start;
+  font-family: "Geist Mono", "DM Mono", monospace;
+  font-size: 0.64rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #f1f5f9;
+  background: var(--ink);
+  padding: 0.32rem 0.65rem;
+}
+
+.way h4 {
+  font-family: "Barlow Condensed", "PP Pangram Sans", sans-serif;
+  font-weight: 900;
+  font-size: 1.4rem;
+  line-height: 1.06;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  color: var(--ink);
+  margin: 0;
+}
+
+.wayBody {
+  font-size: 0.94rem;
+  line-height: 1.55;
+  color: rgba(4, 5, 7, 0.76);
+  margin: 0;
+}
+
+.wayWhen {
+  margin: auto 0 0;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(4, 5, 7, 0.18);
+  font-family: "Geist Mono", "DM Mono", monospace;
+  font-size: 0.72rem;
+  line-height: 1.5;
+  color: rgba(4, 5, 7, 0.6);
+}
+
+/* ── Audit ────────────────────────────────────────────────────────────── */
+.audit {
+  max-width: 1400px;
+  margin: clamp(4rem, 8vw, 7rem) auto 0;
+  border: 1px solid rgba(4, 5, 7, 0.85);
+  background: #f1f5f9;
+  padding: clamp(1.75rem, 3.5vw, 3rem);
+}
+
+.auditHead {
+  max-width: 62ch;
+  margin-bottom: 2.25rem;
+}
+
+.auditHead .eyebrow {
+  margin-bottom: 0.85rem;
+}
+
+.auditLead {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: rgba(4, 5, 7, 0.76);
+  margin: 0;
+}
+
+.auditGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 2rem 1.5rem;
+}
+
+.auditStep {
+  border-top: 1px solid rgba(4, 5, 7, 0.3);
+  padding-top: 1rem;
+}
+
+.auditNum {
+  display: block;
+  font-family: "Geist Mono", "DM Mono", monospace;
+  font-size: 0.66rem;
+  letter-spacing: 0.18em;
+  color: rgba(4, 5, 7, 0.55);
+  margin-bottom: 0.75rem;
+}
+
+.auditStep h4 {
+  font-family: "Barlow Condensed", "PP Pangram Sans", sans-serif;
+  font-weight: 900;
+  font-size: 1.15rem;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  color: var(--ink);
+  margin: 0 0 0.5rem;
+}
+
+.auditStep p {
+  font-size: 0.88rem;
+  line-height: 1.55;
+  color: rgba(4, 5, 7, 0.72);
+  margin: 0;
+}
+
+/* ── Language toggle ──────────────────────────────────────────────────── */
+.toggleSlot {
+  position: fixed;
+  top: 1.5rem;
+  right: 1.5rem;
+  z-index: 60;
+}
+
+.toggle {
+  display: inline-flex;
+  gap: 2px;
+  padding: 3px;
+  border: 1px solid rgba(4, 5, 7, 0.85);
+  background: #f1f5f9;
+  box-shadow: 0 6px 20px rgba(4, 5, 7, 0.12);
+}
+
+.toggle button {
+  appearance: none;
+  border: 0;
+  cursor: pointer;
+  padding: 0.42rem 0.7rem;
+  background: transparent;
+  color: rgba(4, 5, 7, 0.6);
+  font-family: "Geist Mono", "DM Mono", monospace;
+  font-size: 0.66rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  transition: color 0.2s ease, background 0.2s ease;
+}
+
+.toggle button:hover {
+  color: var(--ink);
+}
+
+.toggle button[data-active="true"] {
+  background: var(--ink);
+  color: #f1f5f9;
+}
+
+/* ── Responsive ───────────────────────────────────────────────────────── */
+@media (max-width: 1000px) {
+  .head {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  .lead {
+    grid-column: 1;
+    margin-top: 0;
+  }
+
+  .auditGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 860px) {
+  .blocks,
+  .wayGrid,
+  .auditGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .head h2 {
+    max-width: 100%;
+  }
+
+  .toggleSlot {
+    top: 1rem;
+    right: 1rem;
+  }
+}

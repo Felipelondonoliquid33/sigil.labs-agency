@@ -9,8 +9,47 @@ import SignalField from "./components/SignalField";
 import AgenticField from "./components/AgenticField";
 import LiveSigil from "@/components/StorySlides/LiveSigil";
 import styles from "./services.module.css";
+import { useLanguage } from "./LanguageContext";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
+
+/* UI strings owned by the shared experience rather than by any single service.
+   Pages without a language provider resolve to "en", so the four original
+   service pages render exactly as before. */
+const UI = {
+  en: {
+    allServices: "← All services",
+    serviceLabel: (n) => `SIGIL LABS / SERVICE ${n}`,
+    pointOfView: "01 / The point of view",
+    whatWeBring: "02 / What we bring",
+    explorePossibilities: "Explore the possibilities",
+    selectedWork: "03 / Selected work",
+    workingTogether: "04 / Working together",
+    path: "A clear path.",
+    openMind: "An open mind.",
+    haveSomething: "Have something in mind?",
+    aiLabels: ["Understand", "Orchestrate", "Act & evaluate"],
+    phases: ["Structure", "Connections", "Interface", "Intelligence"],
+    next: "Next",
+    exploreWork: "Explore selected work",
+  },
+  es: {
+    allServices: "← Todos los servicios",
+    serviceLabel: (n) => `SIGIL LABS / SERVICIO ${n}`,
+    pointOfView: "01 / El punto de vista",
+    whatWeBring: "02 / Lo que aportamos",
+    explorePossibilities: "Explora las posibilidades",
+    selectedWork: "03 / Trabajo seleccionado",
+    workingTogether: "04 / Trabajar juntos",
+    path: "Un camino claro.",
+    openMind: "Una mente abierta.",
+    haveSomething: "¿Tienes algo en mente?",
+    aiLabels: ["Entender", "Orquestar", "Actuar y evaluar"],
+    phases: ["Estructura", "Conexiones", "Interfaz", "Inteligencia"],
+    next: "Siguiente",
+    exploreWork: "Explorar trabajo seleccionado",
+  },
+};
 
 function CapabilityDeck({ service, direction }) {
   const root = useRef(null);
@@ -44,7 +83,7 @@ function CapabilityDeck({ service, direction }) {
   </div>;
 }
 
-function IntelligenceFlow({ service, direction }) {
+function IntelligenceFlow({ service, direction, t }) {
   return <div className={styles.flow}>
     <svg className={styles.flowLine} viewBox="0 0 100 800" preserveAspectRatio="none" aria-hidden="true">
       <path d="M50 0 V800" stroke="currentColor" opacity=".15" fill="none" />
@@ -52,13 +91,18 @@ function IntelligenceFlow({ service, direction }) {
     </svg>
     {service.capabilities.map((item, i) => <article data-reveal className={styles.flowStep} key={item.title}>
       <span className={styles.flowNode}>0{i + 1}</span>
-      <div><p className={styles.eyebrow}>{["Understand", "Orchestrate", "Act & evaluate"][i]}</p><h3>{item.title}</h3><p>{item.text}</p><p className={styles.flowOutcome}>{direction.outcomes[i]}</p></div>
+      <div><p className={styles.eyebrow}>{t.aiLabels[i]}</p><h3>{item.title}</h3><p>{item.text}</p><p className={styles.flowOutcome}>{direction.outcomes[i]}</p></div>
     </article>)}
   </div>;
 }
 
-export default function ServiceExperience({ service, direction, projects }) {
+export default function ServiceExperience({ service, direction, projects, extra }) {
   const root = useRef(null);
+  const { lang } = useLanguage();
+  const t = UI[lang] || UI.en;
+  /* A direction may ship its own Spanish copy. When it does not, the English
+     copy is used untouched, which is why the four original pages need no edit. */
+  const d = (lang === "es" && direction.es) ? { ...direction, ...direction.es } : direction;
   const [phase, setPhase] = useState(direction.mode === "intelligence" ? 0 : 2);
   const [activeCapability, setActiveCapability] = useState(0);
   const lenis = useLenis(() => ScrollTrigger.update());
@@ -139,8 +183,8 @@ export default function ServiceExperience({ service, direction, projects }) {
 
   return <div ref={root} className={styles.experience} data-service={direction.mode}>
     <section className={styles.hero} data-hero>
-      <div className={styles.heroMeta}><a href="/stories">← All services</a><span>SIGIL LABS / SERVICE {direction.number}</span></div>
-      <h1 className={styles.heroTitle}>{direction.lines.map((line) => <span className={styles.lineMask} key={line}><span data-hero-line>{line}</span></span>)}</h1>
+      <div className={styles.heroMeta}><a href="/stories">{t.allServices}</a><span>{t.serviceLabel(d.number)}</span></div>
+      <h1 className={styles.heroTitle}>{d.lines.map((line) => <span className={styles.lineMask} key={line}><span data-hero-line>{line}</span></span>)}</h1>
       <div className={`${styles.heroVisual} ${styles[direction.mode]}`}>
         {direction.mode === "creative" ? <div className={styles.fan}>
           {projects.map((project, i) => <a data-fan href={project.href} className={styles.fanCard} key={project.href} style={{ "--fan-index": i }}>
@@ -157,33 +201,35 @@ export default function ServiceExperience({ service, direction, projects }) {
               </span>
             </a>)}
           </div>}
-          {direction.mode === "intelligence" && <div className={styles.fieldControls} aria-label="Explore the system">
-            {["Structure", "Connections", "Interface", "Intelligence"].map((label, i) => <button key={label} aria-pressed={phase === i} onClick={() => setPhase(i)}>{label}</button>)}
+          {direction.mode === "intelligence" && <div className={styles.fieldControls} aria-label={t.exploreWork}>
+            {t.phases.map((label, i) => <button key={label} aria-pressed={phase === i} onClick={() => setPhase(i)}>{label}</button>)}
           </div>}
         </>}
       </div>
-      <div className={styles.heroBottom}><p className={styles.eyebrow}>{direction.caption}</p><p>{service.description}</p><button onClick={goToWork} className={styles.roundLink} aria-label="Explore selected work">↓</button></div>
+      <div className={styles.heroBottom}><p className={styles.eyebrow}>{d.caption}</p><p>{service.description}</p><button onClick={goToWork} className={styles.roundLink} aria-label={t.exploreWork}>↓</button></div>
     </section>
 
     <section className={styles.approach}>
-      <p className={styles.eyebrow}>01 / The point of view</p>
-      <div><h2 data-reveal>{direction.approach}</h2><p data-reveal className={styles.approachText}>{service.intro}</p></div>
+      <p className={styles.eyebrow}>{t.pointOfView}</p>
+      <div><h2 data-reveal>{d.approach}</h2><p data-reveal className={styles.approachText}>{service.intro}</p></div>
     </section>
 
+    {extra}
+
     <section className={styles.capabilities}>
-      <div className={styles.sectionHeader}><p className={styles.eyebrow}>02 / What we bring</p><h2 data-reveal>{direction.deckTitle}</h2></div>
-      {direction.mode === "intelligence" ? <IntelligenceFlow service={service} direction={direction} /> : direction.mode === "creative" ? <CapabilityDeck service={service} direction={direction} /> : <div className={styles.interactionLab}>
+      <div className={styles.sectionHeader}><p className={styles.eyebrow}>{t.whatWeBring}</p><h2 data-reveal>{d.deckTitle}</h2></div>
+      {direction.mode === "intelligence" ? <IntelligenceFlow service={service} direction={d} t={t} /> : direction.mode === "creative" ? <CapabilityDeck service={service} direction={d} t={t} /> : <div className={styles.interactionLab}>
         <div className={styles.labVisual}><SignalField phase={activeCapability === 0 ? 2 : activeCapability === 1 ? 3 : 0} className={styles.signalField} /></div>
         <div className={styles.labCopy}>
-          <p className={styles.eyebrow}>Explore the possibilities</p>
+          <p className={styles.eyebrow}>{t.explorePossibilities}</p>
           <div className={styles.labButtons}>{service.capabilities.map((item, i) => <button key={item.title} aria-pressed={activeCapability === i} onClick={() => setActiveCapability(i)}><span>0{i + 1}</span>{item.title}<span>{activeCapability === i ? "−" : "+"}</span></button>)}</div>
-          <div aria-live="polite" className={styles.labDescription}><h3>{service.capabilities[activeCapability].title}</h3><p>{service.capabilities[activeCapability].text}</p><p>{direction.outcomes[activeCapability]}</p></div>
+          <div aria-live="polite" className={styles.labDescription}><h3>{service.capabilities[activeCapability].title}</h3><p>{service.capabilities[activeCapability].text}</p><p>{d.outcomes[activeCapability]}</p></div>
         </div>
       </div>}
     </section>
 
-    <section data-proof className={styles.proof} aria-label="Selected work">
-      <div className={styles.proofHeader}><p className={styles.eyebrow}>03 / Selected work</p><h2>{direction.proofTitle}</h2><span className={styles.eyebrow}>01 — 03</span></div>
+    <section data-proof className={styles.proof} aria-label={t.selectedWork}>
+      <div className={styles.proofHeader}><p className={styles.eyebrow}>{t.selectedWork}</p><h2>{d.proofTitle}</h2><span className={styles.eyebrow}>01 — 03</span></div>
       <div data-proof-rail className={styles.proofRail}>{projects.map((project, i) => <a className={styles.projectCard} href={project.href} key={project.href}>
         <div className={styles.projectImage}><img src={project.image.src} alt={project.image.alt} loading="lazy" /></div>
         <div className={styles.projectCaption}><span className={styles.eyebrow}>0{i + 1} / {project.discipline}</span><h3>{project.name}</h3><span className={styles.projectArrow}>↗</span></div>
@@ -192,13 +238,13 @@ export default function ServiceExperience({ service, direction, projects }) {
     </section>
 
     <section className={styles.process}>
-      <div className={styles.sectionHeader}><p className={styles.eyebrow}>04 / Working together</p><h2 data-reveal>A clear path.<br />An open mind.</h2></div>
-      <ol>{direction.steps.map((step, i) => <li data-reveal key={step}><span>0{i + 1}</span><h3>{step}</h3></li>)}</ol>
+      <div className={styles.sectionHeader}><p className={styles.eyebrow}>{t.workingTogether}</p><h2 data-reveal>{t.path}<br />{t.openMind}</h2></div>
+      <ol>{d.steps.map((step, i) => <li data-reveal key={step}><span>0{i + 1}</span><h3>{step}</h3></li>)}</ol>
     </section>
     <footer className={styles.closing}>
-      <p className={styles.eyebrow}>Have something in mind?</p>
-      <a className={styles.closingLink} href="/contact" data-cta><h2>{direction.closing.split("\n").map((line) => <span className={styles.ctaLineMask} key={line}><span data-cta-line>{line}</span></span>)}</h2><span data-cta-arrow>↗</span></a>
-      <div className={styles.closingBottom}><span>SIGIL LABS · BOGOTÁ / EVERYWHERE</span><a href={`/services/${direction.next}`}>Next / {direction.nextName} ↗</a></div>
+      <p className={styles.eyebrow}>{t.haveSomething}</p>
+      <a className={styles.closingLink} href="/contact" data-cta><h2>{d.closing.split("\n").map((line) => <span className={styles.ctaLineMask} key={line}><span data-cta-line>{line}</span></span>)}</h2><span data-cta-arrow>↗</span></a>
+      <div className={styles.closingBottom}><span>SIGIL LABS · BOGOTÁ / EVERYWHERE</span><a href={`/services/${d.next}`}>{t.next} / {d.nextName} ↗</a></div>
     </footer>
   </div>;
 }

@@ -14,6 +14,7 @@ export default function sitemap() {
     "/services/creative-engineering",
     "/services/agentic-ai-systems",
     "/services/interactive-web-experiences",
+    "/services/agentic-enablement",
   ];
   const projectRoutes = workProjectIds.map((slug) => `/work/${slug}`);
   const blogRoutes = blogPosts.map((post) => `/blog/${post.slug}`);

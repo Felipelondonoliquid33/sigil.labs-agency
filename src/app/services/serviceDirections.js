@@ -27,6 +27,16 @@ export const serviceDirections = {
     proofTitle: "Enter the experience.",
     outcomes: ["A motion language that makes the interface feel connected.", "Spatial experiences with a clear, usable path through them.", "A narrative that works with touch, a cursor or a keyboard."],
     steps: ["Shape the narrative", "Explore the motion", "Build the experience", "Tune every device"],
-    closing: "GIVE YOUR IDEA\nA WORLD.", next: "creative-engineering", nextName: "Creative Engineering",
+    closing: "GIVE YOUR IDEA\nA WORLD.", next: "agentic-enablement", nextName: "Agentic Enablement",
+  },
+  "agentic-enablement": {
+    number: "04", mode: "intelligence", lines: ["BUILD IT WITH", "YOUR OWN TEAM."],
+    caption: "Consulting that leaves the capability behind.",
+    approach: "Diagnose the work. Build one system together. Transfer the method.",
+    deckTitle: "The second workflow should not need us.",
+    proofTitle: "Capability, not dependency.",
+    outcomes: ["A prioritised map of the workflows where AI actually pays, with the ones to skip.", "One production workflow built in the open with your engineers and operators.", "The routing rules, evaluation gates and cost model your team can extend alone."],
+    steps: ["Diagnose the workflow", "Build the first system together", "Document the method", "Hand over and step back"],
+    closing: "KEEP THE CAPABILITY.\nNOT THE VENDOR.", next: "creative-engineering", nextName: "Creative Engineering",
   },
 };

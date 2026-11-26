@@ -97,6 +97,14 @@ const localBusinessSchema = {
           url: "https://www.sigillabs.agency/services/interactive-web-experiences",
         },
       },
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: "Agentic Enablement & AI Consulting",
+          url: "https://www.sigillabs.agency/services/agentic-enablement",
+        },
+      },
     ],
   },
 };

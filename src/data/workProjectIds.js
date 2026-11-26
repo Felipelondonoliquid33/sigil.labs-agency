@@ -11,4 +11,5 @@ export const workProjectIds = [
   "li4uid-core-web",
   "internal-r-and-d",
   "la-mar",
+  "arcade-portfolio",
 ];

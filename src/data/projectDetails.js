@@ -143,4 +143,14 @@ export const projectDetails = {
     medium: "Editorial direction, 35mm film, medium format and documentary photography",
     studio: "SIGIL LABS / Yen Galindo",
   },
+  "arcade-portfolio": {
+    eyebrow: "Real-time 3D / Interactive world",
+    title: "ARCADE PORTFOLIO",
+    concept:
+      "A portfolio you drive through instead of scroll: a low-poly 3D world built around a drivable vehicle, where each project is a place in the landscape rather than a card in a grid.",
+    cycle: "2026",
+    form: "Real-time 3D interactive portfolio",
+    medium: "Three.js, custom physics, procedural low-poly assets and WebGL rendering",
+    studio: "SIGIL LABS",
+  },
 };

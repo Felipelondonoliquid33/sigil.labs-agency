@@ -110,4 +110,10 @@ export const projectMedia = {
     video: '/showcase/yen_galindo_portfolio_showcase.webm',
     videoLabel: 'Yen Galindo Photography — portfolio reel',
   },
+  'arcade-portfolio': {
+    cover: image('arcade-portfolio', 'cover', 'Arcade Portfolio — 3D driving world'),
+    gallery: series('arcade-portfolio', 3, 'Arcade Portfolio'),
+    video: '/cases/arcade-portfolio/showcase.mp4',
+    videoLabel: 'Arcade Portfolio — driving through the 3D world',
+  },
 };

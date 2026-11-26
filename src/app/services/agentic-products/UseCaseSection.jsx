@@ -1,22 +1,24 @@
 "use client";
 
-import { useRef } from "react";
+import { Fragment, useCallback, useEffect, useRef, useState } from "react";
 import dynamic from "next/dynamic";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { useLanguage } from "../LanguageContext";
+import { AUDIT_SCAN, auditStepProgress } from "./stageStates";
 import styles from "./agentic-products.module.css";
 
-/* three.js is heavy, and the artifact is a desktop-only passenger. Loading it
-   through next/dynamic keeps it out of the initial bundle: the page is fully
-   readable before the lattice code is even requested. */
+/* three.js is heavy and the stage is desktop-only. next/dynamic keeps it out
+   of the route bundle: the section is fully readable before the diorama code
+   is even requested, and phones never request it. */
 const ScrollCompanion = dynamic(() => import("./ScrollCompanion"), {
   ssr: false,
   loading: () => null,
 });
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
+
 
 /* Use-case blocks. Copy is intentionally short and verb-first: this has to be
    readable by someone who does not know what an agent is. */
@@ -133,6 +135,21 @@ const COPY = {
   },
 };
 
+
+/* Words wrapped in masks so headlines can rise out of their own baseline. */
+function Masked({ text, className = "" }) {
+  return text.split(" ").map((word, i, all) => (
+    <Fragment key={`${word}-${i}`}>
+      <span className={`${styles.mask} ${className}`}>
+        <span data-word>{word}</span>
+      </span>
+      {i < all.length - 1 ? " " : null}
+    </Fragment>
+  ));
+}
+
+const pad = (n) => String(n).padStart(2, "0");
+
 function UseCaseSection() {
   const { lang } = useLanguage();
   const t = COPY[lang];
@@ -141,182 +158,260 @@ function UseCaseSection() {
   const audit = AUDIT[lang];
 
   const root = useRef(null);
+  const [stageOff, setStageOff] = useState(false);
+  const onUnavailable = useCallback(() => setStageOff(true), []);
 
-  /* Each chapter gets a real journey instead of a one-shot fade:
-     - the four places are read one by one as the reader scrolls through them
-     - the three ways alternate sides so the eye travels down the section
-     - the audit steps light up in sequence, like a scan passing over them
-     All of it is scrubbed, so scrolling back up plays it in reverse. */
-  useGSAP(() => {
-    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  /* The stage only exists at wide sizes. Gating the import here (not just
+     hiding it in CSS) means phones never download the three.js chunk. */
+  const [wide, setWide] = useState(false);
+  useEffect(() => {
+    if (typeof window === "undefined") return undefined;
+    const mq = window.matchMedia("(min-width: 1100px)");
+    const sync = () => setWide(mq.matches);
+    sync();
+    mq.addEventListener("change", sync);
+    return () => mq.removeEventListener("change", sync);
+  }, []);
 
-    root.current.querySelectorAll("[data-journey]").forEach((chapter) => {
-      const items = chapter.querySelectorAll("[data-step]");
+  /* Choreography. Each kind of element has its own entrance, on purpose:
+     - headlines rise word by word out of a mask
+     - the place numbers count up to their index, then the title slides in
+       from the rail it belongs to
+     - hairlines draw, tags snap in, supporting copy only fades
+     - the audit readouts rise at different speeds and are then filled by the
+       scan, in lockstep with the scanner crossing the diorama
+     Everything uses fromTo and is rebuilt when the language changes, then all
+     triggers are remeasured, so nothing can stay hidden after translating. */
+  useGSAP(
+    () => {
+      const el = root.current;
+      if (!el) return undefined;
+      const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const q = (s, scope = el) => Array.from(scope.querySelectorAll(s));
 
-      items.forEach((item, i) => {
-        gsap.fromTo(
-          item,
-          { y: 52, opacity: 0 },
-          {
-            y: 0,
-            opacity: 1,
-            duration: 0.7,
-            ease: "power3.out",
-            scrollTrigger: {
-              trigger: item,
-              start: "top 88%",
-              once: true,
-            },
-          }
-        );
-      });
+      // The step being read is marked, in every motion mode.
+      q("[data-step]").forEach((item) =>
+        ScrollTrigger.create({
+          trigger: item,
+          start: "top 55%",
+          end: "bottom 55%",
+          onToggle: (self) => item.setAttribute("data-active", self.isActive ? "true" : "false"),
+        })
+      );
 
-      // A progress rail fills as the chapter is read. It gives the section a
-      // sense of length, which is what was missing before.
-      const rail = chapter.querySelector("[data-rail] span");
-      if (rail) {
-        gsap.fromTo(
-          rail,
-          { scaleY: 0 },
-          {
-            scaleY: 1,
-            ease: "none",
-            scrollTrigger: {
-              trigger: chapter,
-              start: "top 65%",
-              end: "bottom 65%",
-              scrub: 0.6,
-            },
-          }
-        );
-      }
-
-      // The active step gets marked, so the reading order is unambiguous.
-      if (items.length) {
-        items.forEach((item) => {
-          ScrollTrigger.create({
-            trigger: item,
-            start: "top 60%",
-            end: "bottom 40%",
-            onToggle: (self) => item.setAttribute("data-active", self.isActive ? "true" : "false"),
-          });
+      // The audit readouts are filled by the same scroll range as the scanner.
+      const readouts = q("[data-readout]");
+      const paint = (progress) =>
+        readouts.forEach((r, i) => {
+          const v = reduced ? 1 : auditStepProgress(progress, i, readouts.length);
+          const meter = r.querySelector("[data-meter]");
+          const count = r.querySelector("[data-pct]");
+          if (meter) meter.style.transform = `scaleX(${v.toFixed(3)})`;
+          if (count) count.textContent = `${String(Math.round(v * 100)).padStart(3, "0")}%`;
+          r.setAttribute("data-lit", v >= 1 ? "true" : "false");
+        });
+      const scanEl = el.querySelector("[data-audit-scan]");
+      if (scanEl) {
+        ScrollTrigger.create({
+          trigger: scanEl,
+          start: AUDIT_SCAN.start,
+          end: AUDIT_SCAN.end,
+          onUpdate: (self) => paint(self.progress),
+          onRefresh: (self) => paint(self.progress),
         });
       }
-    });
+      paint(reduced ? 1 : 0);
 
-    // The audit steps are a sequence, so they light up in order rather than
-    // all at once: a scan passing over the four columns.
-    const auditSteps = root.current.querySelectorAll("[data-audit-step]");
-    auditSteps.forEach((step, i) => {
-      gsap.fromTo(
-        step,
-        { opacity: 0.28, y: 18 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.5,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: root.current.querySelector("[data-audit]" ),
-            start: "top 72%",
-            end: "bottom 70%",
-            scrub: 0.8,
-            onUpdate: (self) => {
-              // Reveal step i once the scan has passed its share.
-              const gate = (i + 1) / (auditSteps.length + 0.6);
-              step.style.setProperty("--lit", self.progress > gate ? "1" : "0");
-            },
-          },
-        }
-      );
-    });
+      if (reduced) {
+        ScrollTrigger.refresh();
+        return undefined;
+      }
 
-    if (!reduced) {
-      // Gentle parallax on the chapter numbers: they lag behind the copy.
-      root.current.querySelectorAll("[data-drift]").forEach((el) => {
+      const once = (trigger, start = "top 78%") => ({ trigger, start, once: true });
+
+      // Headlines: words rise out of their mask.
+      q("[data-rise]").forEach((h) => {
         gsap.fromTo(
-          el,
-          { yPercent: 12 },
-          {
-            yPercent: -12,
-            ease: "none",
-            scrollTrigger: {
-              trigger: el,
-              start: "top bottom",
-              end: "bottom top",
-              scrub: 1,
-            },
-          }
+          q("[data-word]", h),
+          { yPercent: 118 },
+          { yPercent: 0, duration: 1.15, ease: "power4.out", stagger: 0.07, scrollTrigger: once(h, "top 85%") }
         );
       });
-    }
 
-    // The copy changes length with the language, so every trigger must be
-    // remeasured or the later chapters stay invisible.
-    ScrollTrigger.refresh();
-  }, { scope: root, dependencies: [lang] });
+      // Hairlines draw from the left.
+      q("[data-draw]").forEach((line) => {
+        gsap.fromTo(
+          line,
+          { scaleX: 0 },
+          { scaleX: 1, duration: 1.2, ease: "expo.out", scrollTrigger: once(line, "top 88%") }
+        );
+      });
+
+      // Supporting copy only fades: it should never compete with the headline.
+      q("[data-fade]").forEach((p) => {
+        gsap.fromTo(
+          p,
+          { opacity: 0 },
+          { opacity: 1, duration: 1, delay: 0.25, ease: "power1.out", scrollTrigger: once(p, "top 86%") }
+        );
+      });
+
+      // Places: the number counts to its index, then the case enters.
+      q("[data-place]").forEach((place) => {
+        const num = place.querySelector("[data-count]");
+        const target = Number(num?.getAttribute("data-value") || 0);
+        const tl = gsap.timeline({ scrollTrigger: once(place, "top 72%") });
+        if (num) {
+          const counter = { v: 0 };
+          tl.fromTo(num, { yPercent: 100 }, { yPercent: 0, duration: 0.8, ease: "expo.out" }, 0);
+          tl.fromTo(
+            counter,
+            { v: 0 },
+            {
+              v: target,
+              duration: 0.7,
+              ease: "steps(4)",
+              onUpdate: () => (num.textContent = pad(Math.max(0, Math.round(counter.v)))),
+            },
+            0
+          );
+        }
+        tl.fromTo(place.querySelector("[data-tag]"), { xPercent: -30, opacity: 0 }, { xPercent: 0, opacity: 1, duration: 0.5, ease: "back.out(2)" }, 0.2)
+          .fromTo(place.querySelector("h3"), { x: -36, opacity: 0 }, { x: 0, opacity: 1, duration: 0.9, ease: "expo.out" }, 0.28)
+          .fromTo(place.querySelector("[data-body]"), { opacity: 0 }, { opacity: 1, duration: 0.8, ease: "power1.out" }, 0.5)
+          .fromTo(q("li", place), { y: 14, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: "power2.out", stagger: 0.08 }, 0.62);
+      });
+
+      // Ways: tag snaps, title lifts, the "when" line arrives last.
+      q("[data-way]").forEach((way) => {
+        gsap
+          .timeline({ scrollTrigger: once(way, "top 74%") })
+          .fromTo(way.querySelector("[data-tag]"), { scale: 0.4, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.45, ease: "back.out(2.4)" }, 0.1)
+          .fromTo(way.querySelector("h4"), { yPercent: 60, opacity: 0 }, { yPercent: 0, opacity: 1, duration: 0.8, ease: "power3.out" }, 0.18)
+          .fromTo(way.querySelector("[data-body]"), { opacity: 0 }, { opacity: 1, duration: 0.7 }, 0.4)
+          .fromTo(way.querySelector("[data-when]"), { x: 18, opacity: 0 }, { x: 0, opacity: 1, duration: 0.6, ease: "power2.out" }, 0.6);
+      });
+
+      // Audit readouts climb into place at different speeds, scrubbed.
+      q("[data-readout]").forEach((r, i) => {
+        gsap.fromTo(
+          r,
+          { y: 70 + i * 45 },
+          { y: 0, ease: "none", scrollTrigger: { trigger: scanEl || r, start: "top bottom", end: "top 45%", scrub: 0.8 + i * 0.25 } }
+        );
+      });
+
+      // Language changes the height of every block: remeasure everything.
+      ScrollTrigger.refresh();
+
+      // A counter left mid-tween by a language switch must read its real value.
+      return () => {
+        q("[data-count]").forEach((n) => (n.textContent = n.getAttribute("data-value").padStart(2, "0")));
+      };
+    },
+    { scope: root, dependencies: [lang] }
+  );
 
   return (
-    <section ref={root} className={styles.useCases}>
-      <ScrollCompanion className={styles.companion} />
+    <section ref={root} className={`${styles.useCases} ${stageOff ? styles.stageOff : ""}`}>
+      <header className={styles.head} data-stage="overview">
+        <div className={styles.headMeta}>
+          <p className={styles.eyebrow}>{t.eyebrow}</p>
+          <p className={styles.eyebrow}>{pad(blocks.length)} — {pad(ways.length)} — {pad(audit.length)}</p>
+          <span className={styles.headRule} data-draw />
+        </div>
+        <h2 className={styles.title} data-rise>
+          <Masked text={t.title} />
+        </h2>
+        <p className={styles.lead} data-fade>{t.lead}</p>
+      </header>
 
-      <div className={styles.head}>
-        <p className={styles.eyebrow}>{t.eyebrow}</p>
-        <h2 data-reveal>{t.title}</h2>
-        <p className={styles.lead}>{t.lead}</p>
-      </div>
+      <div className={styles.journey}>
+        <div className={styles.chapters}>
+          <div className={styles.places}>
+            {blocks.map((b, i) => (
+              <article key={b.id} className={styles.place} data-stage={`place-${i}`} data-step data-place>
+                <div className={styles.placeIndex}>
+                  <span className={styles.numMask}>
+                    <span className={styles.placeNum} data-count data-value={String(i + 1)}>{pad(i + 1)}</span>
+                  </span>
+                  <span className={styles.placeOf}>/ {pad(blocks.length)}</span>
+                  <span className={styles.blockTag} data-tag>{b.tag}</span>
+                </div>
+                <h3>{b.title}</h3>
+                <p className={styles.placeBody} data-body>{b.body}</p>
+                <ul className={styles.placeItems}>
+                  {b.items.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
+              </article>
+            ))}
+          </div>
 
-      <div className={styles.blocks} data-journey data-companion-start>
-        <div className={styles.rail} data-rail aria-hidden="true"><span /></div>
-        {blocks.map((b, i) => (
-          <article key={b.id} className={styles.block} data-block data-step>
-            <div className={styles.blockHead}>
-              <span className={styles.blockNum} data-drift>0{i + 1}</span>
-              <span className={styles.blockTag}>{b.tag}</span>
-            </div>
-            <h3>{b.title}</h3>
-            <p className={styles.blockBody}>{b.body}</p>
-            <ul className={styles.blockItems}>
-              {b.items.map((item) => (
-                <li key={item}>{item}</li>
+          <div className={styles.ways}>
+            <h3 className={styles.subHead} data-rise>
+              <Masked text={t.waysTitle} />
+            </h3>
+            {ways.map((w, i) => (
+              <article key={w.tag} className={styles.way} data-stage={`way-${i}`} data-step data-way>
+                <span className={styles.wayLine} data-draw />
+                <span className={styles.wayTag} data-tag>{w.tag}</span>
+                <div className={styles.wayText}>
+                  <h4>{w.title}</h4>
+                  <p className={styles.wayBody} data-body>{w.body}</p>
+                  <p className={styles.wayWhen} data-when>{w.when}</p>
+                </div>
+              </article>
+            ))}
+          </div>
+
+          <div className={styles.audit} data-stage="audit">
+            <p className={styles.auditEyebrow}>{pad(audit.length)} / {t.auditTitle}</p>
+            <h3 className={styles.auditTitle} data-rise>
+              <Masked text={t.auditTitle} />
+            </h3>
+            <p className={styles.auditLead} data-fade>{t.auditLead}</p>
+            <ol className={styles.readouts} data-audit-scan>
+              {audit.map((a) => (
+                <li key={a.n} className={styles.readout} data-readout data-step>
+                  <span className={styles.readoutNum}>{a.n}</span>
+                  <div className={styles.readoutText}>
+                    <h4>{a.t}</h4>
+                    <p>{a.b}</p>
+                    <div className={styles.meter}>
+                      <span data-meter />
+                    </div>
+                  </div>
+                  <span className={styles.readoutPct} data-pct>000%</span>
+                </li>
               ))}
-            </ul>
-          </article>
-        ))}
-      </div>
-
-      <div className={styles.ways} data-journey>
-        <div className={styles.rail} data-rail aria-hidden="true"><span /></div>
-        <h3 className={styles.subHead}>{t.waysTitle}</h3>
-        <div className={styles.wayGrid}>
-          {ways.map((w) => (
-            <article key={w.tag} className={styles.way} data-step>
-              <span className={styles.wayTag}>{w.tag}</span>
-              <h4>{w.title}</h4>
-              <p className={styles.wayBody}>{w.body}</p>
-              <p className={styles.wayWhen}>{w.when}</p>
-            </article>
-          ))}
+            </ol>
+          </div>
         </div>
-      </div>
 
-      <div className={styles.audit} data-audit>
-        <div className={styles.auditHead}>
-          <p className={styles.eyebrow}>{t.auditTitle}</p>
-          <p className={styles.auditLead}>{t.auditLead}</p>
-        </div>
-        <div className={styles.auditGrid}>
-          {audit.map((a) => (
-            <div key={a.n} className={styles.auditStep} data-audit-step>
-              <span className={styles.auditNum}>{a.n}</span>
-              <h4>{a.t}</h4>
-              <p>{a.b}</p>
+        {!stageOff && (
+          <div className={styles.stageCol}>
+            <div className={styles.stage}>
+              {wide && <ScrollCompanion
+                scope={root}
+                onUnavailable={onUnavailable}
+                labels={{
+                  place: blocks.map((b) => b.tag),
+                  way: ways.map((w) => w.tag),
+                  audit: audit.map((a) => a.t),
+                }}
+                titles={{
+                  overview: t.title,
+                  place: t.title,
+                  way: t.waysTitle,
+                  audit: t.auditTitle,
+                }}
+              />}
             </div>
-          ))}
-        </div>
+          </div>
+        )}
       </div>
-
-      <span data-companion-end hidden />
     </section>
   );
 }

@@ -96,7 +96,10 @@ function IntelligenceFlow({ service, direction, t }) {
   </div>;
 }
 
-export default function ServiceExperience({ service, direction, projects, extra }) {
+/* `renderCapabilities` and `renderHeroVisual` are optional: a page may replace
+   the capabilities view or the hero visual with its own, receiving the same
+   language-resolved props. Pages that pass neither render exactly as before. */
+export default function ServiceExperience({ service, direction, projects, extra, renderCapabilities, renderHeroVisual }) {
   const root = useRef(null);
   const { lang } = useLanguage();
   const t = UI[lang] || UI.en;
@@ -206,7 +209,7 @@ export default function ServiceExperience({ service, direction, projects, extra 
       <div className={styles.heroMeta}><a href="/stories">{t.allServices}</a><span>{t.serviceLabel(d.number)}</span></div>
       <h1 className={styles.heroTitle}>{d.lines.map((line) => <span className={styles.lineMask} key={line}><span data-hero-line>{line}</span></span>)}</h1>
       <div className={`${styles.heroVisual} ${styles[direction.mode]}`}>
-        {direction.mode === "creative" ? <div className={styles.fan}>
+        {renderHeroVisual ? renderHeroVisual({ service, direction: d, t }) : direction.mode === "creative" ? <div className={styles.fan}>
           {projects.map((project, i) => <a data-fan href={project.href} className={styles.fanCard} key={project.href} style={{ "--fan-index": i }}>
             <img src={project.image.src} alt={project.image.alt} fetchPriority={i === 1 ? "high" : "auto"} />
             <span>{project.name}<span>↗</span></span>
@@ -238,7 +241,7 @@ export default function ServiceExperience({ service, direction, projects, extra 
 
     <section className={styles.capabilities}>
       <div className={styles.sectionHeader}><p className={styles.eyebrow}>{t.whatWeBring}</p><h2 data-reveal>{d.deckTitle}</h2></div>
-      {direction.mode === "intelligence" ? <IntelligenceFlow service={service} direction={d} t={t} /> : direction.mode === "creative" ? <CapabilityDeck service={service} direction={d} t={t} /> : <div className={styles.interactionLab}>
+      {renderCapabilities ? renderCapabilities({ service, direction: d, t }) : direction.mode === "intelligence" ? <IntelligenceFlow service={service} direction={d} t={t} /> : direction.mode === "creative" ? <CapabilityDeck service={service} direction={d} t={t} /> : <div className={styles.interactionLab}>
         <div className={styles.labVisual}><SignalField phase={activeCapability === 0 ? 2 : activeCapability === 1 ? 3 : 0} className={styles.signalField} /></div>
         <div className={styles.labCopy}>
           <p className={styles.eyebrow}>{t.explorePossibilities}</p>

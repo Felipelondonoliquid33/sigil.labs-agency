@@ -4,11 +4,16 @@ import ServiceExperience from "../ServiceExperience";
 import { serviceDirections } from "../serviceDirections";
 import { LanguageProvider, LanguageToggle, useLanguage } from "../LanguageContext";
 import { projectMedia } from "@/data/projectMedia";
+import dynamic from "next/dynamic";
 import UseCaseSection from "./UseCaseSection";
+import WorkDemos from "./WorkDemos";
 import styles from "./agentic-products.module.css";
 import pageStyles from "../services.module.css";
 
 const PATH = "/services/agentic-products";
+
+/* The hero agent is three.js: loaded on the client only, after first paint. */
+const HeroAgent = dynamic(() => import("./HeroAgent"), { ssr: false, loading: () => null });
 
 /* The whole page answers one sentence: one less job per person.
    The hero names the promise, the use cases name the four tasks, the flow shows
@@ -104,6 +109,8 @@ function AgenticProductsContent() {
         direction={serviceDirections["agentic-products"]}
         projects={resolveProjects(service.projects)}
         extra={<UseCaseSection />}
+        renderHeroVisual={() => <HeroAgent />}
+        renderCapabilities={({ service: s, direction, t }) => <WorkDemos service={s} direction={direction} t={t} />}
       />
     </main>
   );

@@ -1,46 +1,27 @@
 /* Use-case section for /services/agentic-products.
-   Built on the same ground as services.module.css — light paper, ink display
-   type, mono eyebrows, hairline rules — so this chapter reads as part of the
-   service page rather than as a separate landing. No new colour system. */
+
+   Same ground as services.module.css — light paper, ink display type, mono
+   eyebrows, hairline rules — with one change of key at the end: the audit
+   drops into ink, full bleed, so the section closes on an instrument instead
+   of a fourth grid. No new colour system: ink, paper, volt to mark, cyan only
+   inside the diorama. */
 
 .useCases {
   --ink: #040507;
+  --paper: #f1f5f9;
+  --rule: rgba(4, 5, 7, 0.18);
+  --display: "Big Shoulders Display", "Barlow Condensed", sans-serif;
+  --mono: "Geist Mono", "DM Mono", monospace;
   position: relative;
-  padding: clamp(4.5rem, 9vw, 8rem) 5vw;
+  padding: clamp(5rem, 10vw, 9rem) 3.5vw 0;
   background: #e5e8ea;
   color: var(--ink);
-  border-top: 1px solid rgba(4, 5, 7, 0.18);
+  border-top: 1px solid var(--rule);
   overflow: clip;
 }
 
-/* ── Scroll companion ─────────────────────────────────────────────────────
-   The lattice travels with the reader, so it lives in the right margin and
-   never crosses the copy. The section reserves that column at wide sizes;
-   below 1100px the artifact is dropped and the copy takes the full width. */
-.companion {
-  position: fixed;
-  top: 50%;
-  right: clamp(1rem, 2.5vw, 2.5rem);
-  width: clamp(220px, 19vw, 330px);
-  aspect-ratio: 1;
-  transform: translateY(-50%);
-  pointer-events: none;
-  z-index: 2;
-  opacity: 0;
-  mix-blend-mode: multiply;
-}
-
-.head {
-  max-width: 1400px;
-  margin: 0 auto clamp(2.5rem, 5vw, 4rem);
-  display: grid;
-  grid-template-columns: 1fr 2fr;
-  gap: 3rem;
-  align-items: start;
-}
-
 .eyebrow {
-  font-family: "Geist Mono", "DM Mono", monospace;
+  font-family: var(--mono);
   font-size: 0.7rem;
   line-height: 1.5;
   letter-spacing: 0.06em;
@@ -49,118 +30,320 @@
   margin: 0;
 }
 
-.head h2 {
-  font-family: "Barlow Condensed", "PP Pangram Sans", sans-serif;
+/* Masked words: each word rises out of its own baseline. */
+.mask {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  padding-bottom: 0.06em;
+  margin-bottom: -0.06em;
+}
+
+.mask > span {
+  display: inline-block;
+}
+
+/* ── Head: the scale moment that opens the section ─────────────────────── */
+.head {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: 1.5rem;
+  margin-bottom: clamp(3rem, 7vw, 6rem);
+}
+
+.headMeta {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  position: relative;
+  padding-bottom: 1.25rem;
+  margin-bottom: clamp(2rem, 4vw, 3.5rem);
+}
+
+.headRule {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: var(--ink);
+  transform-origin: left;
+}
+
+.title {
+  grid-column: 1 / -1;
+  font-family: var(--display);
   font-weight: 900;
-  font-size: clamp(3rem, 6vw, 6rem);
-  line-height: 0.94;
-  letter-spacing: -0.025em;
+  font-size: clamp(4rem, 11.5vw, 13.5rem);
+  line-height: 0.84;
+  letter-spacing: -0.035em;
   text-transform: uppercase;
   color: var(--ink);
   margin: 0;
-  max-width: 14ch;
+  max-width: 11ch;
+  overflow-wrap: break-word;
 }
 
 .lead {
-  grid-column: 2;
-  max-width: 52ch;
-  font-size: clamp(1rem, 1.15vw, 1.15rem);
-  line-height: 1.5;
-  color: rgba(4, 5, 7, 0.72);
-  margin: 1.5rem 0 0;
+  grid-column: 7 / span 5;
+  max-width: 44ch;
+  font-size: clamp(1.05rem, 1.25vw, 1.3rem);
+  line-height: 1.45;
+  color: rgba(4, 5, 7, 0.74);
+  margin: clamp(1.5rem, 3vw, 2.5rem) 0 0;
 }
 
-/* ── The four blocks ──────────────────────────────────────────────────── */
-.blocks {
-  max-width: 1400px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1px;
-  background: rgba(4, 5, 7, 0.18);
-  border: 1px solid rgba(4, 5, 7, 0.18);
+/* ── Journey: copy on the left, the sticky stage on the right ──────────── */
+.journey {
   position: relative;
+  isolation: isolate;
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  column-gap: clamp(2rem, 4vw, 4.5rem);
 }
 
-/* Journey rail: a hairline on the left edge of each chapter that fills as the
-   reader moves through it. It is what turns a stack of cards into a route. */
-.rail {
-  position: absolute;
-  left: clamp(-2.5rem, -2vw, -1.25rem);
-  top: 0;
-  bottom: 0;
-  width: 2px;
-  background: rgba(4, 5, 7, 0.16);
-  display: none;
+.chapters {
+  min-width: 0;
 }
 
-.rail > span {
+.stageCol {
+  position: relative;
+  min-width: 0;
+}
+
+.stage {
+  position: sticky;
+  top: 9vh;
+  height: 82vh;
+}
+
+.stageInner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.8s ease;
+}
+
+.stageInner[data-ready="true"] {
+  opacity: 1;
+}
+
+.stageCanvas {
   display: block;
   width: 100%;
   height: 100%;
-  background: var(--ink);
-  transform-origin: top;
 }
 
-@media (min-width: 1100px) {
-  .rail {
-    display: block;
-  }
+/* Labels are projected from 3D: the outer box only carries the position, the
+   inner box centres itself above the anchor with a leader line down to it. */
+.labels {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
 }
 
-.block {
-  background: #f1f5f9;
-  padding: clamp(1.75rem, 3vw, 2.75rem);
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  position: relative;
-  transition: background 0.35s ease;
-}
-
-.block:hover {
-  background: #ffffff;
-}
-
-/* The step being read is marked, so the eye knows where it is in the journey. */
-.block[data-active="true"] {
-  background: #ffffff;
-}
-
-.block::after {
-  content: "";
+.label {
   position: absolute;
   left: 0;
   top: 0;
-  height: 2px;
+  will-change: transform;
+}
+
+.labelInner {
+  position: absolute;
+  left: 0;
+  bottom: 30px;
+  transform: translateX(-50%);
+  display: inline-flex;
+  gap: 0.55rem;
+  align-items: baseline;
+  white-space: nowrap;
+  padding: 0.38rem 0.6rem;
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink);
+  background: #f1f5f9;
+  border: 1px solid rgba(4, 5, 7, 0.55);
+  transition: opacity 0.4s ease, background-color 0.35s ease, color 0.35s ease;
+}
+
+.labelInner b {
+  font-weight: 500;
+  color: rgba(4, 5, 7, 0.5);
+}
+
+.labelInner::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 100%;
+  width: 1px;
+  height: 30px;
+  background: rgba(4, 5, 7, 0.55);
+}
+
+.label[data-hidden="true"] .labelInner,
+.label[data-empty="true"] .labelInner {
+  opacity: 0;
+}
+
+.label[data-on="true"] .labelInner {
+  background: #040507;
+  color: #f1f5f9;
+  border-color: #040507;
+}
+
+.label[data-on="true"] .labelInner b {
+  color: #ccff00;
+}
+
+.label[data-lit="true"] .labelInner {
+  background: #ccff00;
+  color: #040507;
+  border-color: #ccff00;
+}
+
+.label[data-lit="true"] .labelInner b {
+  color: #040507;
+}
+
+.stageInner[data-tone="dark"] .labelInner {
+  background: #040507;
+  color: #f1f5f9;
+  border-color: rgba(241, 245, 249, 0.45);
+}
+
+.stageInner[data-tone="dark"] .labelInner b {
+  color: rgba(241, 245, 249, 0.55);
+}
+
+.stageInner[data-tone="dark"] .labelInner::after {
+  background: rgba(241, 245, 249, 0.45);
+}
+
+.stageInner[data-tone="dark"] .label[data-lit="true"] .labelInner {
+  background: #ccff00;
+  color: #040507;
+  border-color: #ccff00;
+}
+
+.stageInner[data-tone="dark"] .label[data-lit="true"] .labelInner b {
+  color: #040507;
+}
+
+.hud {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-top: 0.85rem;
+  font-family: var(--mono);
+  font-size: 0.64rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(4, 5, 7, 0.7);
+  border-top: 1px solid var(--rule);
+  transition: color 0.4s ease, border-color 0.4s ease;
+}
+
+.hud i {
+  position: absolute;
+  left: 0;
+  top: -1px;
   width: 100%;
+  height: 1px;
+  background: var(--ink);
+  transform-origin: left;
+  transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1), background-color 0.4s ease;
+}
+
+.stageInner[data-tone="dark"] .hud {
+  color: rgba(241, 245, 249, 0.7);
+  border-color: rgba(241, 245, 249, 0.2);
+}
+
+.stageInner[data-tone="dark"] .hud i {
+  background: #ccff00;
+}
+
+/* ── Four places ───────────────────────────────────────────────────────── */
+.place {
+  min-height: 74vh;
+  padding: clamp(2.5rem, 5vh, 4rem) 0;
+  border-top: 1px solid var(--rule);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1.1rem;
+  position: relative;
+}
+
+/* The case being read gets an ink rule along the top, drawn in. */
+.place::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: -1px;
+  width: 100%;
+  height: 2px;
   background: var(--ink);
   transform: scaleX(0);
   transform-origin: left;
-  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.block[data-active="true"]::after {
+.place[data-active="true"]::before {
   transform: scaleX(1);
 }
 
-.blockHead {
+.placeIndex {
   display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 1rem;
-  margin-bottom: 0.25rem;
+  align-items: flex-end;
+  gap: 0.9rem;
+  flex-wrap: wrap;
 }
 
-.blockNum {
-  font-family: "Geist Mono", "DM Mono", monospace;
-  font-size: 0.68rem;
-  letter-spacing: 0.18em;
+.numMask {
+  display: inline-block;
+  overflow: hidden;
+  line-height: 0.8;
+}
+
+.placeNum {
+  display: inline-block;
+  font-family: var(--display);
+  font-weight: 900;
+  font-size: clamp(4.5rem, 7vw, 7.5rem);
+  line-height: 0.8;
+  letter-spacing: -0.03em;
+  color: transparent;
+  -webkit-text-stroke: 1.5px var(--ink);
+  transition: color 0.5s ease;
+}
+
+.place[data-active="true"] .placeNum {
+  color: var(--ink);
+}
+
+.placeOf {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
   color: rgba(4, 5, 7, 0.55);
+  padding-bottom: 0.35rem;
 }
 
 .blockTag {
-  font-family: "Geist Mono", "DM Mono", monospace;
+  margin-left: auto;
+  margin-bottom: 0.2rem;
+  font-family: var(--mono);
   font-size: 0.66rem;
   letter-spacing: 0.16em;
   text-transform: uppercase;
@@ -170,46 +353,50 @@
   white-space: nowrap;
 }
 
-.block h3 {
-  font-family: "Barlow Condensed", "PP Pangram Sans", sans-serif;
+/* globals.css gives h3 -0.15rem tracking, which collapses word spaces at this
+   size; it is reset here. */
+.place h3 {
+  font-family: var(--display);
   font-weight: 900;
-  font-size: clamp(1.6rem, 2.6vw, 2.3rem);
-  line-height: 1.02;
-  letter-spacing: -0.01em;
+  font-size: clamp(2rem, 3.1vw, 3.2rem);
+  line-height: 0.95;
+  letter-spacing: -0.005em;
   text-transform: uppercase;
   color: var(--ink);
-  margin: 0;
-  max-width: 20ch;
+  margin: 0.4rem 0 0;
+  max-width: 15ch;
+  overflow-wrap: break-word;
 }
 
-.blockBody {
-  font-size: 0.98rem;
+.placeBody {
+  font-size: 1.02rem;
   line-height: 1.55;
   color: rgba(4, 5, 7, 0.76);
   margin: 0;
-  max-width: 46ch;
+  max-width: 44ch;
 }
 
-.blockItems {
+.placeItems {
   list-style: none;
   padding: 1rem 0 0;
-  margin: auto 0 0;
+  margin: 0.4rem 0 0;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  border-top: 1px solid rgba(4, 5, 7, 0.18);
+  border-top: 1px solid var(--rule);
+  max-width: 44ch;
 }
 
-.blockItems li {
+.placeItems li {
   position: relative;
   padding-left: 1.15rem;
-  font-family: "Geist Mono", "DM Mono", monospace;
+  font-family: var(--mono);
   font-size: 0.74rem;
   line-height: 1.5;
   color: rgba(4, 5, 7, 0.7);
 }
 
-.blockItems li::before {
+.placeItems li::before {
   content: "";
   position: absolute;
   left: 0;
@@ -219,57 +406,56 @@
   background: var(--ink);
 }
 
-/* ── Three ways ───────────────────────────────────────────────────────── */
+/* ── Three ways ────────────────────────────────────────────────────────── */
 .ways {
-  max-width: 1400px;
-  margin: clamp(4rem, 8vw, 7rem) auto 0;
-  position: relative;
+  padding-top: clamp(6rem, 12vw, 10rem);
 }
 
 .subHead {
-  font-family: "Barlow Condensed", "PP Pangram Sans", sans-serif;
+  font-family: var(--display);
   font-weight: 900;
-  font-size: clamp(1.9rem, 3.6vw, 3rem);
-  line-height: 1;
+  font-size: clamp(2.8rem, 5.2vw, 5.4rem);
+  line-height: 0.88;
   letter-spacing: -0.02em;
   text-transform: uppercase;
   color: var(--ink);
-  margin: 0 0 2rem;
-}
-
-.wayGrid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1px;
-  background: rgba(4, 5, 7, 0.18);
-  border: 1px solid rgba(4, 5, 7, 0.18);
+  margin: 0 0 clamp(2rem, 4vw, 3rem);
+  max-width: 11ch;
+  overflow-wrap: break-word;
 }
 
 .way {
-  background: #f1f5f9;
-  padding: clamp(1.5rem, 2.5vw, 2.25rem);
-  display: flex;
-  flex-direction: column;
-  gap: 0.85rem;
   position: relative;
-  transition: background 0.4s ease;
+  min-height: 58vh;
+  display: grid;
+  grid-template-columns: 6.5rem minmax(0, 1fr);
+  column-gap: 1.5rem;
+  align-content: center;
+  padding: clamp(2.5rem, 5vh, 4rem) 0;
 }
 
-.way[data-active="true"] {
-  background: #ffffff;
+.wayLine {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 1px;
+  background: var(--rule);
+  transform-origin: left;
 }
 
+/* The active way thickens its rule into ink. */
 .way::after {
   content: "";
   position: absolute;
   left: 0;
-  bottom: 0;
-  height: 3px;
+  top: -1px;
   width: 100%;
+  height: 3px;
   background: var(--ink);
   transform: scaleX(0);
   transform-origin: left;
-  transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .way[data-active="true"]::after {
@@ -277,125 +463,195 @@
 }
 
 .wayTag {
-  align-self: flex-start;
-  font-family: "Geist Mono", "DM Mono", monospace;
-  font-size: 0.64rem;
+  align-self: start;
+  justify-self: start;
+  font-family: var(--mono);
+  font-size: 0.66rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: #f1f5f9;
   background: var(--ink);
-  padding: 0.32rem 0.65rem;
+  padding: 0.38rem 0.7rem;
+  transform-origin: left center;
+}
+
+.way[data-active="true"] .wayTag {
+  background: #ccff00;
+  color: var(--ink);
+}
+
+.wayText {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
 }
 
 .way h4 {
-  font-family: "Barlow Condensed", "PP Pangram Sans", sans-serif;
+  font-family: var(--display);
   font-weight: 900;
-  font-size: 1.4rem;
-  line-height: 1.06;
-  letter-spacing: -0.01em;
+  font-size: clamp(1.8rem, 2.6vw, 2.6rem);
+  line-height: 0.98;
+  letter-spacing: -0.005em;
   text-transform: uppercase;
   color: var(--ink);
   margin: 0;
+  max-width: 16ch;
+  overflow-wrap: break-word;
 }
 
 .wayBody {
-  font-size: 0.94rem;
+  font-size: 1rem;
   line-height: 1.55;
   color: rgba(4, 5, 7, 0.76);
   margin: 0;
+  max-width: 44ch;
 }
 
 .wayWhen {
-  margin: auto 0 0;
-  padding-top: 1rem;
-  border-top: 1px solid rgba(4, 5, 7, 0.18);
-  font-family: "Geist Mono", "DM Mono", monospace;
-  font-size: 0.72rem;
+  margin: 0.3rem 0 0;
+  padding-left: 0.9rem;
+  border-left: 2px solid var(--ink);
+  font-family: var(--mono);
+  font-size: 0.74rem;
   line-height: 1.5;
-  color: rgba(4, 5, 7, 0.6);
+  color: rgba(4, 5, 7, 0.68);
+  max-width: 44ch;
 }
 
-/* ── Audit ────────────────────────────────────────────────────────────── */
+/* ── Audit: full-bleed ink band, read as an instrument ─────────────────── */
 .audit {
-  max-width: 1400px;
-  margin: clamp(4rem, 8vw, 7rem) auto 0;
-  border: 1px solid rgba(4, 5, 7, 0.85);
-  background: #f1f5f9;
-  padding: clamp(1.75rem, 3.5vw, 3rem);
+  position: relative;
+  color: #f1f5f9;
+  margin-top: clamp(5rem, 10vw, 9rem);
+  padding: clamp(6rem, 12vw, 10rem) 0 clamp(6rem, 12vw, 10rem);
 }
 
-.auditHead {
-  max-width: 62ch;
-  margin-bottom: 2.25rem;
+/* The band spans the whole section, behind the stage column too. */
+.audit::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -100vw;
+  right: -100vw;
+  background: #040507;
+  z-index: -1;
 }
 
-.auditHead .eyebrow {
-  margin-bottom: 0.85rem;
+.auditEyebrow {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #ccff00;
+  margin: 0 0 1.5rem;
+}
+
+.auditTitle {
+  font-family: var(--display);
+  font-weight: 900;
+  font-size: clamp(3.2rem, 6.4vw, 7rem);
+  line-height: 0.86;
+  letter-spacing: -0.025em;
+  text-transform: uppercase;
+  color: #f1f5f9;
+  margin: 0;
+  max-width: 10ch;
+  overflow-wrap: break-word;
 }
 
 .auditLead {
-  font-size: 1rem;
+  font-size: 1.05rem;
   line-height: 1.6;
-  color: rgba(4, 5, 7, 0.76);
-  margin: 0;
+  color: rgba(241, 245, 249, 0.72);
+  margin: clamp(1.5rem, 3vw, 2.25rem) 0 0;
+  max-width: 46ch;
 }
 
-.auditGrid {
+.readouts {
+  list-style: none;
+  margin: clamp(3rem, 6vw, 5rem) 0 0;
+  padding: 0;
+  border-top: 1px solid rgba(241, 245, 249, 0.22);
+}
+
+.readout {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 2rem 1.5rem;
+  grid-template-columns: 4.5rem minmax(0, 1fr) auto;
+  column-gap: 1.25rem;
+  align-items: start;
+  min-height: 24vh;
+  padding: 1.75rem 0;
+  border-bottom: 1px solid rgba(241, 245, 249, 0.22);
 }
 
-.auditStep {
-  border-top: 1px solid rgba(4, 5, 7, 0.3);
-  padding-top: 1rem;
-  position: relative;
-}
-
-/* The scan: each audit step turns solid once the progress reaches its share,
-   which reads as a review being carried out rather than four static notes. */
-.auditStep::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: -1px;
-  height: 1px;
-  width: 100%;
-  background: var(--ink);
-  transform: scaleX(var(--lit, 0));
-  transform-origin: left;
-  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.auditStep h4 {
-  transition: opacity 0.5s ease;
-}
-
-.auditNum {
-  display: block;
-  font-family: "Geist Mono", "DM Mono", monospace;
-  font-size: 0.66rem;
-  letter-spacing: 0.18em;
-  color: rgba(4, 5, 7, 0.55);
-  margin-bottom: 0.75rem;
-}
-
-.auditStep h4 {
-  font-family: "Barlow Condensed", "PP Pangram Sans", sans-serif;
+.readoutNum {
+  font-family: var(--display);
   font-weight: 900;
-  font-size: 1.15rem;
-  line-height: 1.15;
-  letter-spacing: -0.01em;
-  text-transform: uppercase;
-  color: var(--ink);
-  margin: 0 0 0.5rem;
+  font-size: 3.4rem;
+  line-height: 0.8;
+  color: transparent;
+  -webkit-text-stroke: 1.2px rgba(241, 245, 249, 0.6);
+  transition: color 0.5s ease, -webkit-text-stroke-color 0.5s ease;
 }
 
-.auditStep p {
-  font-size: 0.88rem;
-  line-height: 1.55;
-  color: rgba(4, 5, 7, 0.72);
+.readout[data-lit="true"] .readoutNum {
+  color: #ccff00;
+  -webkit-text-stroke-color: #ccff00;
+}
+
+.readoutText {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.readout h4 {
+  font-family: var(--display);
+  font-weight: 900;
+  font-size: clamp(1.4rem, 1.9vw, 1.9rem);
+  line-height: 1;
+  letter-spacing: -0.005em;
+  text-transform: uppercase;
+  color: #f1f5f9;
   margin: 0;
+}
+
+.readout p {
+  font-size: 0.95rem;
+  line-height: 1.55;
+  color: rgba(241, 245, 249, 0.68);
+  margin: 0;
+  max-width: 42ch;
+}
+
+.meter {
+  position: relative;
+  height: 2px;
+  margin-top: 0.6rem;
+  background: rgba(241, 245, 249, 0.16);
+  max-width: 28rem;
+}
+
+.meter > span {
+  position: absolute;
+  inset: 0;
+  background: #ccff00;
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
+.readoutPct {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  color: rgba(241, 245, 249, 0.55);
+  font-variant-numeric: tabular-nums;
+  padding-top: 0.2rem;
+}
+
+.readout[data-lit="true"] .readoutPct {
+  color: #ccff00;
 }
 
 /* ── Language toggle ──────────────────────────────────────────────────── */
@@ -441,57 +697,826 @@
   color: #f1f5f9;
 }
 
-/* ── Responsive ───────────────────────────────────────────────────────── */
+/* ── Responsive (declared after the base rules so they win the cascade) ─ */
 
-/* At wide sizes the right margin belongs to the lattice, so the chapters stop
-   short of it and the artifact sits in real negative space instead of on top
-   of the cards. Declared here, after the base rules, so it wins the cascade. */
-@media (min-width: 1100px) {
-  .head,
-  .blocks,
-  .ways,
-  .audit {
-    max-width: min(1400px, calc(100% - clamp(220px, 19vw, 330px) - 4rem));
-    margin-right: auto;
-    margin-left: 0;
-  }
+/* No stage (no WebGL): the copy takes a comfortable single column. */
+.stageOff .journey {
+  grid-template-columns: minmax(0, 1fr);
 }
 
-@media (max-width: 1000px) {
-  .head {
-    grid-template-columns: 1fr;
-    gap: 1.25rem;
+.stageOff .chapters {
+  max-width: 760px;
+}
+
+@media (max-width: 1099px) {
+  .journey {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .stageCol {
+    display: none;
   }
 
   .lead {
-    grid-column: 1;
-    margin-top: 0;
+    grid-column: 1 / -1;
   }
 
-  .auditGrid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+  .place,
+  .way {
+    min-height: 0;
   }
 
-  /* The companion is a wide-screen passenger; on narrow screens the copy
-     needs the full width. */
-  .companion {
-    display: none;
+  .readout {
+    min-height: 0;
   }
 }
 
-@media (max-width: 860px) {
-  .blocks,
-  .wayGrid,
-  .auditGrid {
-    grid-template-columns: 1fr;
+@media (max-width: 640px) {
+  .useCases {
+    padding-left: 5vw;
+    padding-right: 5vw;
   }
 
-  .head h2 {
-    max-width: 100%;
+  .headMeta p:last-of-type {
+    display: none;
+  }
+
+  .way {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 1rem;
+  }
+
+  .readout {
+    grid-template-columns: 3.2rem minmax(0, 1fr);
+  }
+
+  .readoutNum {
+    font-size: 2.6rem;
+  }
+
+  .readoutPct {
+    grid-column: 2;
+  }
+
+  .blockTag {
+    margin-left: 0;
   }
 
   .toggleSlot {
     top: 1rem;
     right: 6.5rem;
   }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stageInner,
+  .labelInner,
+  .hud i,
+  .place::before,
+  .way::after,
+  .placeNum,
+  .readoutNum {
+    transition: none;
+  }
+}
+
+/* ══ Work demos — "The work it takes over", shown happening ══════════════
+   One sticky ink window plays three demos scrubbed by scroll. Mirrored from
+   the use-case journey above (screen left, copy right) so the two chapters
+   do not read as the same layout twice. */
+.demos {
+  --ink: #040507;
+  --mono: "Geist Mono", "DM Mono", monospace;
+  --display: "Big Shoulders Display", "Barlow Condensed", sans-serif;
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  column-gap: clamp(2rem, 4vw, 4.5rem);
+  color: var(--ink);
+  font-family: "PP Neue Montreal", sans-serif;
+}
+
+.screenCol {
+  position: relative;
+  min-width: 0;
+}
+
+.screen {
+  position: sticky;
+  top: calc(50vh - min(34vh, 310px));
+  height: min(68vh, 620px);
+  display: flex;
+  flex-direction: column;
+  background: #040507;
+  border: 1px solid #040507;
+  box-shadow: 0 40px 80px -40px rgba(4, 5, 7, 0.45);
+}
+
+.screenBar {
+  height: 2.6rem;
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0 1rem;
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(241, 245, 249, 0.7);
+}
+
+.screenDots {
+  display: inline-flex;
+  gap: 5px;
+}
+
+.screenDots i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: rgba(241, 245, 249, 0.25);
+}
+
+.screenTabs {
+  display: inline-flex;
+  gap: 4px;
+}
+
+.screenTabs span {
+  padding: 0.2rem 0.45rem;
+  border: 1px solid rgba(241, 245, 249, 0.2);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.screenTabs span[data-on="true"] {
+  background: #ccff00;
+  border-color: #ccff00;
+  color: #040507;
+}
+
+.screenTitle {
+  margin-left: auto;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.screenBody {
+  position: relative;
+  flex: 1;
+  margin: 0 10px 10px;
+  background: #f1f5f9;
+  overflow: hidden;
+}
+
+.scene {
+  position: absolute;
+  inset: 0;
+  padding: clamp(1.25rem, 2.4vw, 2rem);
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.5s ease, transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  pointer-events: none;
+}
+
+.scene[data-on="true"] {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 01 chat */
+.chatHead {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(4, 5, 7, 0.12);
+}
+
+.avatar {
+  width: 2.3rem;
+  height: 2.3rem;
+  flex: none;
+  border-radius: 50%;
+  background: #040507;
+  color: #ccff00;
+  display: grid;
+  place-items: center;
+  font-family: var(--display);
+  font-weight: 900;
+  font-size: 1.1rem;
+}
+
+.chatHead b {
+  display: block;
+  font-family: "PP Neue Montreal", sans-serif;
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+
+.chatHead small {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(4, 5, 7, 0.55);
+}
+
+.typing {
+  display: inline-flex;
+  gap: 3px;
+}
+
+.typing i {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #040507;
+  animation: typingDot 1s ease-in-out infinite;
+}
+
+.typing i:nth-child(2) {
+  animation-delay: 0.15s;
+}
+
+.typing i:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+@keyframes typingDot {
+  0%, 100% { opacity: 0.25; transform: translateY(0); }
+  50% { opacity: 1; transform: translateY(-2px); }
+}
+
+.timer {
+  margin-left: auto;
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(4, 5, 7, 0.55);
+  white-space: nowrap;
+}
+
+.timer b {
+  display: inline-block;
+  margin-left: 0.35rem;
+  padding: 0.15rem 0.35rem;
+  background: #ccff00;
+  color: #040507;
+  font-family: var(--mono);
+  font-weight: 500;
+  font-size: 0.66rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.chatBody {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding-top: 1.1rem;
+}
+
+.msgIn,
+.msgOut {
+  max-width: 76%;
+  margin: 0;
+  padding: 0.7rem 0.9rem;
+  font-size: clamp(0.92rem, 1.05vw, 1.08rem);
+  line-height: 1.4;
+}
+
+.msgIn {
+  align-self: flex-start;
+  background: #ffffff;
+  border: 1px solid rgba(4, 5, 7, 0.12);
+}
+
+.msgOut {
+  align-self: flex-end;
+  background: #040507;
+  color: #f1f5f9;
+}
+
+.bookCard {
+  align-self: flex-end;
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  max-width: 76%;
+  padding: 0.7rem 0.9rem;
+  background: #ccff00;
+}
+
+.bookCard b {
+  display: block;
+  font-family: var(--display);
+  font-weight: 900;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+}
+
+.bookCard small {
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.04em;
+}
+
+.bookIcon {
+  position: relative;
+  width: 1.7rem;
+  height: 1.7rem;
+  flex: none;
+  border: 2px solid #040507;
+}
+
+.bookIcon i {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 0.4rem;
+  background: #040507;
+}
+
+.sysChip {
+  align-self: center;
+  margin: 0.4rem 0 0;
+  padding: 0.35rem 0.7rem;
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(4, 5, 7, 0.65);
+  border: 1px dashed rgba(4, 5, 7, 0.4);
+}
+
+/* 02 quote */
+.docGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+  gap: 1.5rem;
+  align-items: start;
+}
+
+.sheet {
+  background: #ffffff;
+  border: 1px solid rgba(4, 5, 7, 0.12);
+  padding: 1rem;
+}
+
+.sheetHead,
+.pageHead {
+  margin: 0 0 0.8rem;
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(4, 5, 7, 0.55);
+}
+
+.sheetRow {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 2.4rem 3.8rem;
+  gap: 0.5rem;
+  padding: 0.7rem 0.45rem;
+  font-size: 0.9rem;
+  border-top: 1px solid rgba(4, 5, 7, 0.08);
+}
+
+.sheetRow[data-cols] {
+  font-family: var(--mono);
+  font-size: 0.56rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(4, 5, 7, 0.5);
+}
+
+.sheetRow > i {
+  position: absolute;
+  inset: 0;
+  background: rgba(204, 255, 0, 0.6);
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
+.sheetRow > span {
+  position: relative;
+}
+
+.quote {
+  position: relative;
+  background: #ffffff;
+  border: 1px solid #040507;
+  padding: 1.25rem 1.25rem 1.6rem;
+  box-shadow: 8px 8px 0 #040507;
+}
+
+.quoteHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding-bottom: 0.6rem;
+  border-bottom: 2px solid #040507;
+}
+
+.quoteHead b {
+  font-family: var(--display);
+  font-weight: 900;
+  font-size: 1.7rem;
+  text-transform: uppercase;
+}
+
+.quoteHead span,
+.quoteClient {
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.06em;
+  color: rgba(4, 5, 7, 0.6);
+}
+
+.quoteClient {
+  margin: 0.7rem 0 0.9rem;
+}
+
+.quoteLine {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.6rem 0;
+  font-size: 0.92rem;
+  border-bottom: 1px dashed rgba(4, 5, 7, 0.18);
+}
+
+.quoteLine small {
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  color: rgba(4, 5, 7, 0.5);
+}
+
+.quoteTotal {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-top: 1rem;
+}
+
+.quoteTotal span {
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.quoteTotal b {
+  font-family: var(--display);
+  font-weight: 900;
+  font-size: 2.4rem;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.stamp {
+  position: absolute;
+  right: 1rem;
+  bottom: -1.1rem;
+  padding: 0.45rem 0.7rem;
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #040507;
+  background: #ccff00;
+  border: 1.5px solid #040507;
+  transform: rotate(-6deg);
+}
+
+/* 03 grounded answer */
+.answerGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  gap: 1.5rem;
+  align-items: start;
+}
+
+.thread {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.thread .msgIn {
+  max-width: 100%;
+}
+
+.reply {
+  padding: 0.9rem 1rem;
+  background: #040507;
+  color: #f1f5f9;
+}
+
+.reply p {
+  margin: 0;
+  font-size: clamp(0.88rem, 1vw, 1rem);
+  line-height: 1.45;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 0.85rem;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.3rem 0.5rem;
+  font-family: var(--mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #f1f5f9;
+  border: 1px solid rgba(241, 245, 249, 0.35);
+}
+
+.chip b {
+  padding: 0 0.3rem;
+  background: #ccff00;
+  color: #040507;
+  font-weight: 500;
+}
+
+.answerStatus {
+  margin: 0.25rem 0 0;
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(4, 5, 7, 0.6);
+}
+
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  padding: 1.1rem;
+  background: #ffffff;
+  border: 1px solid rgba(4, 5, 7, 0.12);
+}
+
+.pageLine {
+  display: block;
+  height: 6px;
+  background: rgba(4, 5, 7, 0.1);
+}
+
+.passage {
+  position: relative;
+  margin: 0.3rem 0;
+  padding: 0.45rem 0.5rem;
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
+
+.passage > i {
+  position: absolute;
+  inset: 0;
+  background: #ccff00;
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
+.passage > span {
+  position: relative;
+}
+
+/* Steps */
+.demoStep {
+  position: relative;
+  min-height: 105vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1rem;
+  padding: 3rem 0;
+  border-top: 1px solid rgba(4, 5, 7, 0.18);
+}
+
+.demoStep::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: -1px;
+  width: 100%;
+  height: 2px;
+  background: #040507;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.demoStep[data-active="true"]::before {
+  transform: scaleX(1);
+}
+
+.demoEyebrow {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0;
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.demoEyebrow span {
+  padding: 0.12rem 0.4rem;
+  border: 1px solid #040507;
+}
+
+.demoStep[data-active="true"] .demoEyebrow span {
+  background: #ccff00;
+  border-color: #ccff00;
+}
+
+.demoStep h3 {
+  margin: 0;
+  font-family: var(--display);
+  font-weight: 900;
+  font-size: clamp(2.2rem, 3.6vw, 3.8rem);
+  line-height: 0.92;
+  letter-spacing: -0.005em;
+  text-transform: uppercase;
+  max-width: 12ch;
+  overflow-wrap: break-word;
+}
+
+.demoText {
+  margin: 0;
+  font-size: 1.05rem;
+  line-height: 1.5;
+  color: rgba(4, 5, 7, 0.76);
+  max-width: 40ch;
+}
+
+.receipt {
+  margin: 0.8rem 0 0;
+  max-width: 40ch;
+  padding: 0.9rem 1rem;
+  font-size: 0.95rem;
+  line-height: 1.4;
+  background: #f1f5f9;
+  border: 1px solid #040507;
+  box-shadow: 5px 5px 0 #040507;
+}
+
+.receipt span {
+  display: block;
+  margin-bottom: 0.4rem;
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(4, 5, 7, 0.55);
+}
+
+/* Narrow: the window rides at the top and the copy scrolls beneath it. The
+   sticky box must share a parent with the steps, so the grid becomes a block. */
+@media (max-width: 1099px) {
+  .demos {
+    display: block;
+  }
+
+  /* The window rides under the site nav, on a band of page colour so the
+     copy scrolling beneath it never peeks out above it. */
+  .screenCol {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    padding: 5.5rem 0 1rem;
+    /* Paint the band below the nav strip only, so the site logo stays visible. */
+    background: linear-gradient(#e5e8ea, #e5e8ea) bottom / 100% calc(100% - 5rem) no-repeat;
+  }
+
+  .screen {
+    position: relative;
+    top: 0;
+    height: 42vh;
+  }
+
+  .scene {
+    padding: 1rem;
+  }
+
+  .demoStep {
+    min-height: 72vh;
+  }
+
+  .docGrid,
+  .answerGrid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .sheet,
+  .page {
+    display: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .screenTitle,
+  .timer {
+    display: none;
+  }
+
+  .chatBody {
+    gap: 0.4rem;
+    padding-top: 0.7rem;
+  }
+
+  .chatHead {
+    padding-bottom: 0.6rem;
+  }
+
+  .msgIn,
+  .msgOut,
+  .bookCard {
+    max-width: 88%;
+    padding: 0.5rem 0.65rem;
+    font-size: 0.76rem;
+  }
+
+  .quote {
+    padding: 0.8rem 0.9rem 1.1rem;
+    box-shadow: 5px 5px 0 #040507;
+  }
+
+  .quoteHead b {
+    font-size: 1.2rem;
+  }
+
+  .quoteClient {
+    margin: 0.4rem 0 0.5rem;
+  }
+
+  .quoteLine {
+    padding: 0.35rem 0;
+    font-size: 0.78rem;
+  }
+
+  .quoteTotal {
+    margin-top: 0.5rem;
+  }
+
+  .quoteTotal b {
+    font-size: 1.6rem;
+  }
+
+  .stamp {
+    bottom: -0.8rem;
+    font-size: 0.56rem;
+  }
+
+  .reply p,
+  .thread .msgIn {
+    font-size: 0.8rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scene,
+  .screenTabs span,
+  .demoStep::before {
+    transition: none;
+  }
+
+  .typing i {
+    animation: none;
+  }
+}
+
+/* ══ Hero agent ══════════════════════════════════════════════════════════
+   The slot marks where the agent stands in the hero; the canvas is fixed to
+   the viewport so the agent can travel down to the approach section. Later
+   sections are positioned and paint over it, which is how it "leaves". */
+.heroAgentSlot {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.heroAgentCanvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
 }

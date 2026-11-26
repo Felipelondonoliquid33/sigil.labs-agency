@@ -41,7 +41,7 @@ const SERVICES = {
       },
     ],
     projects: [
-      { label: "PRAXUZ / replacing a manual sales process", href: "/work/praxuz" },
+      { label: "PRAXUZ / replacing a manual sales and delivery process", href: "/work/praxuz" },
       { label: "ARCADE PORTFOLIO / real-time systems under constraint", href: "/work/arcade-portfolio" },
       { label: "LI4UID CORE WEB / systems-led identity", href: "/work/li4uid-core-web" },
     ],
@@ -70,7 +70,7 @@ const SERVICES = {
       },
     ],
     projects: [
-      { label: "PRAXUZ / reemplazar un proceso de venta manual", href: "/work/praxuz" },
+      { label: "PRAXUZ / reemplazar un proceso manual de venta y entrega", href: "/work/praxuz" },
       { label: "ARCADE PORTFOLIO / sistemas en tiempo real bajo restricción", href: "/work/arcade-portfolio" },
       { label: "LI4UID CORE WEB / identidad dirigida por sistemas", href: "/work/li4uid-core-web" },
     ],

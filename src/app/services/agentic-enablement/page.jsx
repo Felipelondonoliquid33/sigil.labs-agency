@@ -25,7 +25,7 @@ const service = {
   ],
   projects: [
     { label: "ARCADE PORTFOLIO / real-time systems under constraint", href: "/work/arcade-portfolio" },
-    { label: "PRAXUZ / replacing a manual sales process", href: "/work/praxuz" },
+    { label: "PRAXUZ / replacing a manual sales and delivery process", href: "/work/praxuz" },
   ],
 };
 

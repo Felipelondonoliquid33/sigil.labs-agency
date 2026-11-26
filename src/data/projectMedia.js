@@ -116,10 +116,11 @@ export const projectMedia = {
     video: '/cases/arcade-portfolio/showcase.mp4',
     videoLabel: 'Arcade Portfolio — driving through the 3D world',
   },
+  /* No showcase video on purpose: the only reel we had belonged to a different
+     site. Better to show stills of the real build than moving footage of the
+     wrong product. */
   praxuz: {
-    cover: image('praxuz', 'cover', 'Praxuz — medical practice enablement site'),
+    cover: image('praxuz', 'cover', 'Praxuz — sports-science academy storefront'),
     gallery: series('praxuz', 3, 'Praxuz'),
-    video: '/cases/praxuz/showcase.mp4',
-    videoLabel: 'Praxuz — commercial site and intake flow',
   },
 };

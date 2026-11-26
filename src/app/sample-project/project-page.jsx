@@ -102,10 +102,10 @@ const METRICS = {
     { v: "0", l: "Scroll events" },
   ],
   praxuz: [
-    { v: "2", l: "Service routes" },
-    { v: "0", l: "Manual DMs needed" },
-    { v: "3", l: "Trust pillars" },
-    { v: "1", l: "Free first call" },
+    { v: "2", l: "Platforms, one bridge" },
+    { v: "0", l: "Manual enrolments" },
+    { v: "6", l: "Months of access" },
+    { v: "15", l: "Countries reached" },
   ],
 };
 

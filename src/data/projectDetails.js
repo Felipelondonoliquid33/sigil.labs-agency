@@ -154,13 +154,14 @@ export const projectDetails = {
     studio: "SIGIL LABS",
   },
   praxuz: {
-    eyebrow: "Commerce systems / Conversion design",
+    eyebrow: "Commerce + LMS / Platform integration",
     title: "PRAXUZ",
     concept:
-      "A commercial site for a consultancy that helps doctors open and enable their own private practice in Medellín, replacing a sales process that lived in Instagram DMs with a structured two-route intake flow.",
+      "A sports-science academy selling six-to-nine week courses across LATAM. Sales lived in Instagram DMs, WhatsApp and Drive links, so buying a course and getting access to it were two separate manual jobs. We split it into a WooCommerce storefront and a Moodle campus, joined by Edwiser Bridge: the purchase creates the account and the enrolment, and the student lands in class already signed in.",
     cycle: "2026",
-    form: "Commercial site and lead intake system",
-    medium: "Next.js, TypeScript, Tailwind, conversion-focused copy and local SEO",
+    form: "Course storefront, academic campus and the bridge between them",
+    medium:
+      "WordPress, WooCommerce, Moodle, Edwiser Bridge with SSO, H5P, certificates and six-month access windows",
     studio: "SIGIL LABS",
   },
 };

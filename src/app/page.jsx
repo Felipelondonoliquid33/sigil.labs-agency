@@ -54,15 +54,15 @@ const Page = () => {
             <div className="hero-footer">
               <Copy animateOnScroll={false} delay={isInitialLoad ? 6.05 : 1.15}>
                 <p className="lg">
-                  Creative Engineering, Agentic AI Systems and High-Scale EdTech
-                  Ecosystems. We take a strategic intent and carry it to a working
-                  system: interfaces, agents and the delivery discipline that keeps
-                  them running.
+                  AI agents that answer your customers on WhatsApp, qualify leads
+                  and prepare quotes and reports from your data. Plus the web
+                  experiences and the delivery discipline around them. Built in
+                  Bogotá.
                 </p>
               </Copy>
 
-              <Button delay={isInitialLoad ? 6.35 : 1.55} href="/studio">
-                [ INITIATE PROTOCOL ]
+              <Button delay={isInitialLoad ? 6.35 : 1.55} href="/services/agentic-products">
+                [ SEE OUR AI AGENTS ]
               </Button>
             </div>
           </div>

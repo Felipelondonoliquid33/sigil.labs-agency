@@ -3,7 +3,7 @@ import "./contact.css";
 import { useEffect, useRef } from "react";
 import Button from "@/components/Button/Button";
 import Copy from "@/components/Copy/Copy";
-import { trackContactClick } from "@/lib/analytics";
+import { trackContactClick, whatsappHref } from "@/lib/analytics";
 
 const Page = () => {
   const screensaverRef = useRef(null);
@@ -225,7 +225,7 @@ const Page = () => {
             <Button
               delay={1.3}
               href="mailto:sigillabsdevs@gmail.com"
-              onClick={() => trackContactClick("email")}
+              onClick={() => trackContactClick("email", "contact")}
             >
               sigillabsdevs@gmail.com
             </Button>
@@ -237,7 +237,7 @@ const Page = () => {
               <p>
                 <a
                   href="tel:+573334016876"
-                  onClick={() => trackContactClick("phone")}
+                  onClick={() => trackContactClick("phone", "contact")}
                   style={{ color: "inherit", textDecoration: "none" }}
                 >
                   +57 333 4016876
@@ -277,10 +277,10 @@ const Page = () => {
             <Copy delay={1.8} animateOnScroll={false}>
               <a
                 className="sm"
-                href="https://web.whatsapp.com/send?phone=573334016876"
+                href={whatsappHref()}
                 target="_blank"
                 rel="noreferrer"
-                onClick={() => trackContactClick("whatsapp")}
+                onClick={() => trackContactClick("whatsapp", "contact")}
               >
                 WhatsApp (+57 333 4016876)
               </a>

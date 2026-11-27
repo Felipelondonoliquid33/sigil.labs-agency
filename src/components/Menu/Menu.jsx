@@ -1,6 +1,6 @@
 "use client";
 import "./Menu.css";
-import { trackContactClick } from "@/lib/analytics";
+import { trackContactClick, whatsappHref } from "@/lib/analytics";
 import { useRef, useState, useEffect } from "react";
 import { gsap } from "gsap";
 import { SplitText } from "gsap/all";
@@ -52,6 +52,12 @@ const Menu = ({ pageRef }) => {
       document.body.removeAttribute("data-nav-ink");
     };
   }, [pathname]);
+
+  // Floating UI outside the nav (the WhatsApp dock) steps aside for the menu.
+  useEffect(() => {
+    document.body.toggleAttribute("data-menu-open", isMenuOpen);
+    return () => document.body.removeAttribute("data-menu-open");
+  }, [isMenuOpen]);
 
   const { navigateWithTransition } = useViewTransition();
 
@@ -526,10 +532,10 @@ const Menu = ({ pageRef }) => {
 
             <div className="menu-content-group">
               <p>Contact</p>
-              <a href="mailto:sigillabsdevs@gmail.com" onClick={() => trackContactClick("email")}>
+              <a href="mailto:sigillabsdevs@gmail.com" onClick={() => trackContactClick("email", "menu")}>
                 sigillabsdevs@gmail.com
               </a>
-              <a href="tel:+573334016876" onClick={() => trackContactClick("phone")}>
+              <a href="tel:+573334016876" onClick={() => trackContactClick("phone", "menu")}>
                 +57 333 4016876
               </a>
             </div>
@@ -562,7 +568,7 @@ const Menu = ({ pageRef }) => {
                 Instagram (@sigil.labs)
               </a>
 
-              <a href="https://web.whatsapp.com/send?phone=573334016876" target="_blank" rel="noreferrer">
+              <a href={whatsappHref()} target="_blank" rel="noreferrer" onClick={() => trackContactClick("whatsapp", "menu")}>
                 WhatsApp (+57 333 4016876)
               </a>
 

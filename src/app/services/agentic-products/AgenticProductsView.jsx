@@ -10,6 +10,7 @@ import WorkDemos from "./WorkDemos";
 import ProcessAgent from "./ProcessAgent";
 import CaseShowcase from "@/app/cases/CaseShowcase";
 import AgentFaq from "./AgentFaq";
+import AgentOffer from "./AgentOffer";
 import styles from "./agentic-products.module.css";
 import pageStyles from "../services.module.css";
 
@@ -117,6 +118,7 @@ function AgenticProductsContent() {
         renderProof={({ direction }) => (
           <>
             <CaseShowcase lang={lang} title={direction.proofTitle} />
+            <AgentOffer lang={lang} />
             <AgentFaq lang={lang} />
           </>
         )}

@@ -143,3 +143,10 @@
     flex-direction: column;
   }
 }
+
+/* Phones: lift the status lines clear of the WhatsApp button. */
+@media (max-width: 1000px) {
+  .hero .container .hero-footer-outer {
+    padding-bottom: 5.25rem;
+  }
+}

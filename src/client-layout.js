@@ -2,6 +2,7 @@
 import { useEffect, useState, useRef } from "react";
 import { ReactLenis } from "lenis/react";
 import Menu from "./components/Menu/Menu";
+import WhatsAppDock from "./components/WhatsAppDock/WhatsAppDock";
 
 export default function ClientLayout({ children }) {
   const pageRef = useRef();
@@ -59,6 +60,8 @@ export default function ClientLayout({ children }) {
       <div className="page" ref={pageRef}>
         {children}
       </div>
+
+      <WhatsAppDock />
     </ReactLenis>
   );
 }

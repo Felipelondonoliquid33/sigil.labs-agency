@@ -1,0 +1,49 @@
+.dock {
+  font-family: "PP Neue Montreal", system-ui, sans-serif;
+  position: fixed;
+  right: max(1rem, env(safe-area-inset-right));
+  bottom: max(1rem, env(safe-area-inset-bottom));
+  /* Above sticky 3D stages (also 1, but earlier in the DOM), under the menu. */
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  min-height: 3rem;
+  padding: 0 1.15rem;
+  border: 1px solid rgba(204, 255, 0, 0.45);
+  border-radius: 999px;
+  background: #090c12;
+  color: #f1f5f9;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.28);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  transition: transform 0.25s ease;
+}
+
+:global(body[data-menu-open]) .dock {
+  visibility: hidden;
+}
+
+.dock i {
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 50%;
+  background: var(--accent-volt, #ccff00);
+}
+
+.dock:hover {
+  transform: translateY(-2px);
+}
+
+.dock:focus-visible {
+  outline: 2px solid var(--accent-volt, #ccff00);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dock {
+    transition: none;
+  }
+}

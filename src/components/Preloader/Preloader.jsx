@@ -187,7 +187,7 @@ const Preloader = () => {
         </div>
 
         <div className="preloader-brand">
-          <h1 className="preloader-wordmark">SIGIL LABS</h1>
+          <p className="preloader-wordmark">SIGIL LABS</p>
           <p className="preloader-tagline">ENGINEERED WILL // AUTONOMOUS REALITY</p>
         </div>
 

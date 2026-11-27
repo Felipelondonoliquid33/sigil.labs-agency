@@ -20,7 +20,7 @@ const Spotlight = () => {
 
       root.querySelectorAll(".marquee-container").forEach((container, index) => {
         const marquee = container.querySelector(".marquee");
-        const textEl = container.querySelector(".marquee-text-item h1");
+        const textEl = container.querySelector(".marquee-text-item h1, .marquee-text-item .display-h1");
 
         // Horizontal drift — transform only (GPU composited, no reflow).
         gsap.to(marquee, {
@@ -83,7 +83,7 @@ const Spotlight = () => {
               <img src="/showcase/opt/mar_shop_hero.webp" alt="Mar Shop Hero" loading="lazy" />
             </div>
             <div className="marquee-img-item marquee-text-item">
-              <h1>MAR SHOP</h1>
+              <h2 className="display-h1">MAR SHOP</h2>
             </div>
             <div className="marquee-img-item">
               <img src="/showcase/opt/mar_shop_full.webp" alt="Mar Shop Catalogo" loading="lazy" />
@@ -109,7 +109,7 @@ const Spotlight = () => {
               <img src="/showcase/opt/empanadas_app_hero.webp" alt="Empanadas UI" loading="lazy" />
             </div>
             <div className="marquee-img-item marquee-text-item">
-              <h1>ANTOJOS LA BOCA</h1>
+              <h2 className="display-h1">ANTOJOS LA BOCA</h2>
             </div>
             <div className="marquee-img-item">
               <img src="/showcase/opt/empanadas_app_full.webp" alt="Empanadas Interfaz" loading="lazy" />
@@ -123,7 +123,7 @@ const Spotlight = () => {
               <img src="/showcase/opt/el_susurro_del_tiempo_hero.webp" alt="El Susurro del Tiempo Hero" loading="lazy" />
             </div>
             <div className="marquee-img-item marquee-text-item">
-              <h1>3D ARCHIVE</h1>
+              <h2 className="display-h1">3D ARCHIVE</h2>
             </div>
             <div className="marquee-img-item">
               <img src="/showcase/opt/el_susurro_del_tiempo_full.webp" alt="El Susurro del Tiempo 3D" loading="lazy" />
@@ -149,7 +149,7 @@ const Spotlight = () => {
               <img src="/showcase/opt/liquid_new_landing_hero.webp" alt="Li4uid 2.0 UI" loading="lazy" />
             </div>
             <div className="marquee-img-item marquee-text-item">
-              <h1>LI4UID 2.0</h1>
+              <h2 className="display-h1">LI4UID 2.0</h2>
             </div>
             <div className="marquee-img-item">
               <img src="/showcase/opt/liquid_new_landing_full.webp" alt="Li4uid 2.0 Motion" loading="lazy" />

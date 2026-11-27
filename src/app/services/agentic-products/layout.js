@@ -15,7 +15,10 @@ const IMAGE = {
 export const metadata = {
   title: TITLE,
   description: DESCRIPTION,
-  alternates: { canonical: PATH },
+  alternates: {
+    canonical: PATH,
+    languages: { en: PATH, es: `/es${PATH}`, "x-default": PATH },
+  },
   openGraph: {
     title: TITLE,
     description: DESCRIPTION,

@@ -17,6 +17,7 @@ export default function sitemap() {
     "/services/interactive-web-experiences",
     "/services/agentic-enablement",
     "/services/agentic-products",
+    "/es/services/agentic-products",
     "/cases",
     ...Object.keys(caseStories).map((slug) => `/cases/${slug}`),
   ];
@@ -24,7 +25,9 @@ export default function sitemap() {
   const blogRoutes = blogPosts.map((post) => `/blog/${post.slug}`);
 
   /* Pages with their own change date, so search engines see what is new. */
-  const updated = { "/services/agentic-products": "2026-11-26" };
+  const updated = Object.fromEntries(
+    ["/services/agentic-products", "/es/services/agentic-products", "/cases", ...Object.keys(caseStories).map((s) => `/cases/${s}`)].map((route) => [route, "2026-11-26"])
+  );
 
   return [...staticRoutes, ...projectRoutes, ...blogRoutes].map((route) => ({
     url: `${SITE_URL}${route}`,

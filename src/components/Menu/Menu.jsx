@@ -34,6 +34,25 @@ const Menu = ({ pageRef }) => {
   const lenis = useLenis();
   const pathname = usePathname();
 
+  // Any block marked data-nav-light turns the white sigil to ink while under it.
+  useEffect(() => {
+    const sync = () => {
+      const under = Array.from(document.querySelectorAll("[data-nav-light]")).some((el) => {
+        const r = el.getBoundingClientRect();
+        return r.top < 64 && r.bottom > 64;
+      });
+      document.body.toggleAttribute("data-nav-ink", under);
+    };
+    sync();
+    window.addEventListener("scroll", sync, { passive: true });
+    window.addEventListener("resize", sync);
+    return () => {
+      window.removeEventListener("scroll", sync);
+      window.removeEventListener("resize", sync);
+      document.body.removeAttribute("data-nav-ink");
+    };
+  }, [pathname]);
+
   const { navigateWithTransition } = useViewTransition();
 
   const menuItems = [
@@ -466,7 +485,7 @@ const Menu = ({ pageRef }) => {
 
         {/* The flagship page, one click away without opening the menu. It is
             hidden there, where the language switch uses the same spot. */}
-        {pathname !== "/services/agentic-products" && !isMenuOpen && (
+        {!pathname?.endsWith("/services/agentic-products") && !isMenuOpen && (
           <Link href="/services/agentic-products" className="nav-agents">
             <span aria-hidden="true" />
             AI Agents

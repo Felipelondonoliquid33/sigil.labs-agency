@@ -540,3 +540,6 @@
   .sample-project-page .pm-metric-val { font-size: 1.75rem; }
   .sample-project-page .pm-title { font-size: 1.9rem; }
 }
+
+/* The glow bleeds 4px past the screen on phones; clip it without breaking sticky. */
+.sample-project-page { overflow-x: clip; }

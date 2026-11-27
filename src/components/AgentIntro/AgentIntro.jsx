@@ -1,6 +1,5 @@
 "use client";
 
-import { useEffect, useRef } from "react";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import styles from "./AgentIntro.module.css";
@@ -16,26 +15,8 @@ const JOBS = [
 ];
 
 export default function AgentIntro() {
-  const root = useRef(null);
-
-  // While this light section sits under the nav, the white sigil turns ink.
-  useEffect(() => {
-    const el = root.current;
-    if (!el) return undefined;
-    const sync = () => {
-      const r = el.getBoundingClientRect();
-      document.body.toggleAttribute("data-nav-ink", r.top < 64 && r.bottom > 64);
-    };
-    sync();
-    window.addEventListener("scroll", sync, { passive: true });
-    return () => {
-      window.removeEventListener("scroll", sync);
-      document.body.removeAttribute("data-nav-ink");
-    };
-  }, []);
-
   return (
-    <section ref={root} className={styles.intro}>
+    <section className={styles.intro} data-nav-light>
       <p className={styles.eyebrow}>
         <span>New</span> Agentic Products
       </p>

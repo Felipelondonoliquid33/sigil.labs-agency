@@ -82,7 +82,7 @@ const Page = () => {
           </div>
           <div className="blog-header-row">
             <Copy delay={0.95}>
-              <h1>Stories</h1>
+              <h2 className="display-h1">Stories</h2>
             </Copy>
           </div>
         </div>

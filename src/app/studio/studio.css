@@ -31,7 +31,7 @@
   justify-content: flex-start;
 }
 
-.studio-page .studio-header .container .studio-header-row h1 {
+.studio-page .studio-header .container .studio-header-row :is(h1, h2.display-h1, p.display-h1) {
   font-size: 14vw;
 }
 
@@ -71,7 +71,7 @@
 }
 
 @media (min-width: 2400px) {
-  .studio-page .studio-header .container .studio-header-row h1  {
+  .studio-page .studio-header .container .studio-header-row :is(h1, h2.display-h1, p.display-h1)  {
     font-size: 20rem;
   }
 }

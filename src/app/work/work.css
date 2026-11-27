@@ -123,7 +123,7 @@
   border-top-right-radius: 0.75rem;
 }
 
-.folders .folder-name h1 {
+.folders .folder-name :is(h1, h2.display-h1, p.display-h1) {
   font-size: 3rem;
   transition: color 250ms ease;
   line-height: 1;
@@ -163,7 +163,7 @@
 }
 
 .folders .folder.disabled p,
-.folders .folder.disabled h1 {
+.folders .folder.disabled :is(h1, h2.display-h1, p.display-h1) {
   color: var(--disabled-folder-fg);
 }
 
@@ -180,7 +180,7 @@
 }
 
 @media (max-width: 1000px) {
-  .folders h1 {
+  .folders :is(h1, h2.display-h1, p.display-h1) {
     font-size: 2rem;
     width: 100%;
     text-align: center;
@@ -209,7 +209,7 @@
     border-top-right-radius: 0 !important;
   }
 
-  .folders .folder-name h1 {
+  .folders .folder-name :is(h1, h2.display-h1, p.display-h1) {
     font-size: 2rem;
     position: absolute;
     top: 50%;

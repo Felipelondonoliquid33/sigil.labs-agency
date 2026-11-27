@@ -43,6 +43,10 @@ body {
 }
 
 h1,
+
+h2.display-h1,
+
+p.display-h1,
 h2,
 h3,
 h4 {
@@ -53,7 +57,11 @@ h4 {
   letter-spacing: -0.125rem;
 }
 
-h1 {
+h1,
+
+h2.display-h1,
+
+p.display-h1 {
   font-size: 8rem;
 }
 
@@ -134,7 +142,9 @@ p.cap {
 }
 
 @media (max-width: 1000px) {
-  h1 {
+  h1,
+  h2.display-h1,
+  p.display-h1 {
     font-size: 3rem;
   }
 
@@ -151,6 +161,10 @@ p.cap {
   }
 
   h1,
+
+  h2.display-h1,
+
+  p.display-h1,
   h2,
   h3,
   h4 {
@@ -172,7 +186,19 @@ p.cap {
 }
 
 @media (min-width: 2400px) {
-  h1 {
+  h1,
+  h2.display-h1,
+  p.display-h1 {
     font-size: 10rem;
   }
+}
+
+/* Read by assistive tech and search engines, not drawn. */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
 }

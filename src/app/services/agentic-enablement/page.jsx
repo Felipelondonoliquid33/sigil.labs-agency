@@ -32,7 +32,7 @@ const service = {
 export const metadata = {
   title: "Agentic Enablement & AI Consulting | SIGIL LABS",
   description:
-    "Enterprise consulting that teaches your team to build and run agentic AI workflows: workflow diagnostic, co-built first system, and method transfer. SIGIL LABS, Bogotá.",
+    "Consulting that teaches your team to build and run agentic AI workflows: diagnostic, a co-built first system and method transfer. SIGIL LABS, Bogotá.",
   alternates: { canonical: service.path },
 };
 

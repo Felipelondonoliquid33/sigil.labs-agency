@@ -1,6 +1,7 @@
 footer {
   position: relative;
-  width: 100vw;
+  /* 100%, not 100vw: vw includes the scrollbar and caused sideways scroll. */
+  width: 100%;
   height: 100.5svh;
   background-color: var(--base-400);
   color: var(--base-100);

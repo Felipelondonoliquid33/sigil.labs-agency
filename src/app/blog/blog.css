@@ -6,7 +6,7 @@
 .blog-eyebrow { font-family: "Geist Mono"; font-size: 0.85rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent-2); margin-bottom: 1.5rem; }
 .blog-header-row { display: flex; justify-content: flex-start; }
 .blog-header-row--right { justify-content: flex-end; }
-.blog-header-row h1 { font-size: 14vw; }
+.blog-header-row :is(h1, h2.display-h1, p.display-h1) { font-size: 14vw; }
 
 .blog-intro { padding-top: 2rem; padding-bottom: 6rem; display: flex; justify-content: flex-end; }
 .blog-intro p { width: 45%; color: var(--base-300); }
@@ -48,7 +48,7 @@
 
 @media (max-width: 1000px) {
   .blog-header { min-height: 70svh; }
-  .blog-header-row h1 { font-size: 17vw; }
+  .blog-header-row :is(h1, h2.display-h1, p.display-h1) { font-size: 17vw; }
   .blog-intro { justify-content: flex-start; padding-bottom: 3rem; }
   .blog-intro p { width: 100%; }
   .blog-folders { padding: 0 1.25rem 4rem; }

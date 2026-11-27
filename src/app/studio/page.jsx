@@ -38,7 +38,7 @@ const Page = () => {
 
           <div className="studio-header-row">
             <Copy delay={0.95}>
-              <h1>the extraordinary</h1>
+              <h2 className="display-h1">the extraordinary</h2>
             </Copy>
           </div>
         </div>

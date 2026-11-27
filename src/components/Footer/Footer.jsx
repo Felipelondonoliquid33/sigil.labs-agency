@@ -200,12 +200,12 @@ const Footer = () => {
   );
 
   return (
-    <footer ref={footerRef}>
+    <footer ref={footerRef} data-nav-light>
       <div className="container">
         <div className="footer-header-content">
           <div className="footer-header">
             <Copy animateOnScroll={true} delay={0.2}>
-              <h1>Code is magic.</h1>
+              <h2 className="display-h1">Code is magic.</h2>
             </Copy>
           </div>
           <div className="footer-link">
@@ -223,6 +223,9 @@ const Footer = () => {
         {/* Not a <nav>: this site styles every <nav> as the fixed top bar. */}
         <div className="footer-services" role="navigation" aria-label="Services">
           <Link href="/cases">Case Studies</Link>
+          <Link href="/es/services/agentic-products" hrefLang="es">
+            Agentes de IA (ES)
+          </Link>
           {serviceLinks.map((service) => (
             <Link key={service.href} href={service.href}>
               {service.label}

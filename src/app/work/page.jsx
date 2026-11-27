@@ -146,6 +146,7 @@ const Page = () => {
 
   return (
     <>
+      <h1 className="sr-only">Selected work</h1>
       <div ref={workPageContainer}>
       {Array.from({ length: Math.ceil(workItems.length / 6) }, (_, groupIndex) => (
       <section className="folders" key={groupIndex} aria-label={groupIndex === 0 ? "Selected projects" : "More projects"}>
@@ -176,7 +177,7 @@ const Page = () => {
                       <p>{item.index}</p>
                     </div>
                     <div className="folder-name">
-                      <h1>{item.name}</h1>
+                      <h2 className="display-h1">{item.name}</h2>
                     </div>
                   </div>
                 </div>

@@ -80,7 +80,7 @@ const Page = () => {
           <div className="featured-work-header-content">
           <div className="featured-work-header">
               <Copy animateOnScroll={true} delay={0.25}>
-                <h1>Selected Work</h1>
+                <h2 className="display-h1">Selected Work</h2>
               </Copy>
             </div>
 
@@ -128,7 +128,7 @@ const Page = () => {
           <div className="client-reviews-header-content">
             <div className="client-reviews-header">
               <Copy animateOnScroll={true} delay={0.25}>
-                <h1>Endorsements & Testimonials</h1>
+                <h2 className="display-h1">Endorsements & Testimonials</h2>
               </Copy>
             </div>
 
@@ -176,7 +176,7 @@ const Page = () => {
           <div className="client-reviews-header-content">
             <div className="client-reviews-header">
               <Copy animateOnScroll={true} delay={0.25}>
-                <h1>How We Deliver</h1>
+                <h2 className="display-h1">How We Deliver</h2>
               </Copy>
             </div>
 

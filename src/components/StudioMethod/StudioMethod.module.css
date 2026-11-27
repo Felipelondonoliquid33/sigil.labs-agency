@@ -1,0 +1,503 @@
+/* Paper band inside the dark studio page, so the method reads like a spec. */
+.method {
+  /* sticky needs the section not to clip */
+  --ink: #040507;
+  --rule: rgba(4, 5, 7, 0.2);
+  --display: "Big Shoulders Display", "Barlow Condensed", sans-serif;
+  --mono: "Geist Mono", "DM Mono", monospace;
+  --text: "PP Neue Montreal", sans-serif;
+  position: relative;
+  padding: clamp(5rem, 10vw, 9rem) 3.5vw;
+  background: #f1f5f9;
+  color: var(--ink);
+}
+
+.method p,
+.method h2,
+.method h3 {
+  margin: 0;
+  color: inherit;
+}
+
+.eyebrow {
+  font: 0.72rem var(--mono) !important;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.head h2 {
+  max-width: 11ch;
+  margin: 1.2rem 0 1.5rem;
+  font-family: var(--display);
+  font-weight: 900;
+  font-size: clamp(3.6rem, 10vw, 11rem);
+  line-height: 0.85;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+}
+
+.method .lead {
+  max-width: 40ch;
+  font-family: var(--text);
+  font-size: clamp(1.15rem, 1.6vw, 1.5rem);
+  line-height: 1.4;
+}
+
+.principles,
+.stages,
+.stops ol {
+  list-style: none;
+  padding: 0;
+}
+
+.principles {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.5rem;
+  margin: clamp(3.5rem, 6vw, 6rem) 0 clamp(5rem, 9vw, 8rem);
+}
+
+.principles li {
+  position: relative;
+  padding-top: 1.2rem;
+}
+
+.principles li > i {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 3px;
+  background: var(--ink);
+  transform-origin: left;
+}
+
+.principles span {
+  font: 0.7rem var(--mono);
+}
+
+.method .principles h3 {
+  margin: 1.4rem 0 1rem;
+  font-family: var(--display);
+  font-weight: 900;
+  font-size: clamp(2.2rem, 3.4vw, 3.4rem);
+  line-height: 0.92;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+}
+
+.method .principles p {
+  font-family: var(--text);
+  font-size: 1.05rem;
+  line-height: 1.55;
+}
+
+.loopHead {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem 2rem;
+  padding-bottom: 1.2rem;
+  border-bottom: 1px solid var(--ink);
+}
+
+.method .loop {
+  font: 500 clamp(0.95rem, 2vw, 1.5rem) var(--mono);
+}
+
+.loop i {
+  padding: 0 0.4em;
+  font-style: normal;
+  opacity: 0.45;
+}
+
+.stages {
+  margin: 0;
+}
+
+/* The journey: the copy on the left, the model acting it out on the right. */
+.journey {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  column-gap: clamp(1.5rem, 3.5vw, 3.5rem);
+}
+
+.chapters {
+  min-width: 0;
+}
+
+.stages > li {
+  position: relative;
+  min-height: 96vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1.3rem;
+  padding: 3rem 0;
+  border-bottom: 1px solid var(--rule);
+}
+
+.stages > li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 3px;
+  background: var(--ink);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.stages > li[data-on="true"]::before {
+  transform: scaleX(1);
+}
+
+.stageCol {
+  position: relative;
+  min-width: 0;
+}
+
+.stage {
+  position: sticky;
+  top: 7vh;
+  height: 86vh;
+  display: flex;
+  flex-direction: column;
+  margin-top: 1.5rem;
+  border: 1px solid var(--ink);
+  background: #e5e8ea;
+  box-shadow: 10px 10px 0 var(--ink);
+  transition: background-color 0.5s ease;
+}
+
+.stageCol[data-tone="dark"] .stage {
+  background: #0b0d12;
+  color: #f1f5f9;
+}
+
+.method .tracker {
+  display: flex;
+  gap: 4px;
+  padding: 0.7rem;
+  border-bottom: 1px solid rgba(127, 135, 148, 0.35);
+}
+
+.tracker span {
+  flex: 1;
+  padding: 0.45rem 0.3rem;
+  border: 1px solid rgba(127, 135, 148, 0.45);
+  font: 0.66rem var(--mono);
+  letter-spacing: 0.08em;
+  text-align: center;
+  text-transform: uppercase;
+  transition: background-color 0.35s ease, color 0.35s ease;
+}
+
+.tracker span[data-on="true"] {
+  border-color: #ccff00;
+  background: #ccff00;
+  color: #040507;
+}
+
+.tracker span[data-on="true"]:last-child {
+  border-color: #ff4d4d;
+  background: #ff4d4d;
+}
+
+.canvasHost {
+  flex: 1;
+  min-height: 0;
+  position: relative;
+  opacity: 0;
+  transition: opacity 0.7s ease;
+}
+
+.canvasHost[data-ready="true"] {
+  opacity: 1;
+}
+
+.canvasHost canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.caption {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem 1.5rem;
+  min-height: 4.2rem;
+  padding: 0.9rem 1.2rem;
+  border-top: 1px solid rgba(127, 135, 148, 0.35);
+}
+
+.caption > span {
+  font: 0.66rem var(--mono);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.caption strong {
+  padding: 0.45rem 0.7rem;
+  font: 500 0.78rem var(--mono);
+  color: #040507;
+  background: #ccff00;
+}
+
+.caption strong[data-state="red"] {
+  background: #ff4d4d;
+}
+
+.caption i {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 4px;
+  background: currentColor;
+  transform-origin: left;
+  transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.method .command {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 0.8rem;
+  font: 500 clamp(1.1rem, 1.6vw, 1.5rem) var(--mono);
+}
+
+.command span {
+  padding: 0.2rem 0.5rem;
+  background: #ccff00;
+  font-size: 0.7rem;
+}
+
+.method .stageMain h3 {
+  margin-bottom: 0.9rem;
+  font-family: var(--display);
+  font-weight: 900;
+  font-size: clamp(1.9rem, 2.8vw, 2.8rem);
+  line-height: 0.95;
+  letter-spacing: -0.005em;
+  text-transform: uppercase;
+}
+
+.method .stageMain p {
+  font-family: var(--text);
+  font-size: 1.02rem;
+  line-height: 1.45;
+}
+
+.stages ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.stages ul li {
+  position: relative;
+  padding: 0.45rem 0 0.45rem 1.2rem;
+  font-family: var(--text);
+  font-size: 0.98rem;
+  line-height: 1.45;
+}
+
+.stages ul li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 1.05rem;
+  width: 6px;
+  height: 6px;
+  background: var(--ink);
+}
+
+.method .out {
+  padding: 1rem;
+  border: 1px solid var(--ink);
+  box-shadow: 5px 5px 0 var(--ink);
+  font-family: var(--text);
+  font-size: 0.98rem;
+  line-height: 1.4;
+}
+
+.out span {
+  display: block;
+  margin-bottom: 0.4rem;
+  font: 0.6rem var(--mono);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: 0.6;
+}
+
+.stops {
+  margin-top: 3rem;
+  padding: clamp(5rem, 9vh, 7rem) clamp(1.4rem, 2.6vw, 2.6rem);
+  min-height: 100vh;
+  background: var(--ink);
+  color: #f1f5f9;
+}
+
+.method .stops h3 {
+  font-family: var(--display);
+  font-weight: 900;
+  font-size: clamp(3rem, 5.4vw, 5.6rem);
+  line-height: 0.88;
+  letter-spacing: -0.025em;
+  text-transform: uppercase;
+}
+
+.method .stops > p {
+  max-width: 46ch;
+  margin: 1.2rem 0 2rem;
+  font-family: var(--text);
+  font-size: 1.15rem;
+  line-height: 1.45;
+}
+
+.stops ol {
+  margin: 0;
+  counter-reset: stop;
+}
+
+.stops li {
+  counter-increment: stop;
+  display: grid;
+  grid-template-columns: 3.5rem 1fr;
+  gap: 1rem;
+  align-items: baseline;
+  padding: 1.1rem 0;
+  border-top: 1px solid rgba(241, 245, 249, 0.25);
+  font-family: var(--display);
+  font-weight: 900;
+  font-size: clamp(1.4rem, 2vw, 2rem);
+  line-height: 1.05;
+  text-transform: uppercase;
+}
+
+.stops li::before {
+  content: "0" counter(stop);
+  color: #ccff00;
+  font: 0.75rem var(--mono);
+}
+
+.exit {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 2.5rem;
+}
+
+.exit a {
+  padding: 1rem 1.4rem;
+  border: 1px solid var(--ink);
+  color: var(--ink);
+  font: 0.75rem var(--mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+.exit a:first-child {
+  background: var(--ink);
+  color: #f1f5f9;
+}
+
+.exit a:hover {
+  background: #ccff00;
+  color: var(--ink);
+}
+
+@media (max-width: 899px) {
+  .journey {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .stageCol {
+    order: -1;
+    position: sticky;
+    top: 0;
+    /* Below the site nav (z-index 2), so the menu button always takes the tap. */
+    z-index: 1;
+    margin: 0 -5vw;
+    padding: 4.8rem 5vw 0.8rem;
+    background: #f1f5f9;
+  }
+
+  .stage {
+    position: relative;
+    top: 0;
+    height: 44svh;
+    margin: 0;
+    box-shadow: 5px 5px 0 var(--ink);
+  }
+
+  .method .tracker {
+    padding: 0.4rem;
+    gap: 2px;
+  }
+
+  .tracker span {
+    padding: 0.3rem 0.1rem;
+    font-size: 0.52rem;
+    letter-spacing: 0.02em;
+  }
+
+  .caption {
+    min-height: 3rem;
+    padding: 0.5rem 0.7rem;
+  }
+
+  .caption > span {
+    font-size: 0.54rem;
+  }
+
+  .caption strong {
+    font-size: 0.62rem;
+    padding: 0.3rem 0.45rem;
+  }
+
+  .stages > li {
+    min-height: 78svh;
+    justify-content: flex-start;
+  }
+
+  .stops {
+    min-height: 90svh;
+  }
+}
+
+@media (max-width: 800px) {
+  .method {
+    padding-left: 5vw;
+    padding-right: 5vw;
+  }
+
+  .principles {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .stops li {
+    grid-template-columns: 2.2rem 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stage,
+  .stages > li::before,
+  .canvasHost,
+  .caption i,
+  .tracker span {
+    transition: none;
+  }
+}

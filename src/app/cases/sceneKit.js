@@ -66,6 +66,12 @@ export function createStoryScene(canvas, { reduced = false } = {}, spec) {
 
   const kit = {
     THREE,
+    /* A second agent for scenes that need more than the one on stage. */
+    robot: () => buildRobot(track),
+    texture: (tx) => {
+      track.textures.push(tx);
+      return tx;
+    },
     scene,
     reduced,
     geo,

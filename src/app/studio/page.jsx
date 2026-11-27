@@ -8,6 +8,7 @@ import React, { useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Copy from "@/components/Copy/Copy";
+import StudioMethod from "@/components/StudioMethod/StudioMethod";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -64,18 +65,11 @@ const Page = () => {
               system of decisions, interactions and outcomes that transcend the
               screen.
             </p>
-
-            <p className="lg">
-              We work in short, structured cycles inspired by XP and assisted by
-              AI. We settle the decisions that are expensive to change, define one
-              story at a time with verifiable acceptance criteria, coordinate
-              agents and tools to produce prototypes, and review experience,
-              business rules and outcomes before a delivery is approved. That is
-              how a strategic intent becomes something a team can actually run.
-            </p>
           </Copy>
         </div>
       </section>
+
+      <StudioMethod />
 
       <TeamCards />
 

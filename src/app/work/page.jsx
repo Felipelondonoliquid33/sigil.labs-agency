@@ -6,7 +6,7 @@ import { useGSAP } from "@gsap/react";
 import { useViewTransition } from "@/hooks/useViewTransition";
 import { projectDetails } from "@/data/projectDetails";
 import { projectMedia } from "@/data/projectMedia";
-import { workProjectIds } from "@/data/workProjectIds";
+import { workListing } from "@/data/workProjectIds";
 
 gsap.registerPlugin(useGSAP);
 
@@ -16,14 +16,22 @@ const Page = () => {
   const workPageContainer = useRef(null);
 
   const workItems = useMemo(
-    () => workProjectIds.map((id, index) => {
-      const project = projectDetails[id];
-      const media = projectMedia[id];
-      const previews = [media.cover.src, ...media.gallery.map((item) => item.src)];
+    () => workListing.map((entry, index) => {
+      let name, href, previews;
+      if (typeof entry === "string") {
+        const media = projectMedia[entry];
+        name = projectDetails[entry].title;
+        href = `/work/${entry}`;
+        previews = [media.cover.src, ...media.gallery.map((item) => item.src)];
+      } else {
+        name = entry.name;
+        href = `/cases/${entry.story}`;
+        previews = ["cover", "image-1", "image-2"].map((f) => `/cases/${entry.story}/${f}.webp`);
+      }
       return {
           index: String(index + 1).padStart(2, "0"),
-          name: project.title,
-          href: `/work/${id}`,
+          name,
+          href,
           variant: ["variant-1", "variant-2", "variant-3"][index % 3],
           images: Array.from({ length: 3 }, (_, i) => previews[i % previews.length]),
         };

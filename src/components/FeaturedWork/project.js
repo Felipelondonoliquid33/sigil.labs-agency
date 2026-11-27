@@ -37,7 +37,7 @@ export const projects = [
       "Next-generation digital identity engineered with motion design and micro-interactions.",
     img: "/showcase/opt/liquid_new_landing_hero.webp",
     video: "/showcase/liquid_new_landing_showcase_90s_60fps.webm",
-    route: "/work/li4uid",
+    route: "/work/li4uid-core-web",
   },
   {
     name: "Portfolio FLH",

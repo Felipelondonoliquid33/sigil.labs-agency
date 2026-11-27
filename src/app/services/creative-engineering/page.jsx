@@ -17,7 +17,7 @@ const service = {
   projects: [
     { label: "PACIFISTA / editorial system", href: "/work/pacifista" },
     { label: "LA MAR / commerce experience", href: "/work/la-mar" },
-    { label: "LI4UID / digital identity", href: "/work/li4uid" },
+    { label: "LI4UID CORE WEB / digital identity", href: "/work/li4uid-core-web" },
   ],
 };
 

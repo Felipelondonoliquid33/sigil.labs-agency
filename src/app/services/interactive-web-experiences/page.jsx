@@ -17,7 +17,7 @@ const service = {
   projects: [
     { label: "GSAP MOTION VAULT / motion library", href: "/work/gsap-motion-vault" },
     { label: "EL SUSURRO / digital archive", href: "/work/el-susurro-del-tiempo" },
-    { label: "PUENTE DE EQUIDAD / simulation", href: "/work/puente-de-equidad" },
+    { label: "ARCADE PORTFOLIO / playable portfolio", href: "/work/arcade-portfolio" },
   ],
 };
 

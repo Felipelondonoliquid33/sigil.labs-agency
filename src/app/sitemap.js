@@ -1,4 +1,4 @@
-import { workProjectIds } from "@/data/workProjectIds";
+import { workProjectIds, unlistedWorkIds } from "@/data/workProjectIds";
 import { blogPosts } from "@/data/blogPosts";
 import { caseStories } from "./cases/data";
 
@@ -23,7 +23,7 @@ export default function sitemap() {
     "/es/cases",
     ...Object.keys(caseStories).map((slug) => `/es/cases/${slug}`),
   ];
-  const projectRoutes = workProjectIds.map((slug) => `/work/${slug}`);
+  const projectRoutes = workProjectIds.filter((slug) => !unlistedWorkIds.includes(slug)).map((slug) => `/work/${slug}`);
   const blogRoutes = blogPosts.map((post) => `/blog/${post.slug}`);
 
   /* Pages with their own change date, so search engines see what is new. */

@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { caseStories } from "./data";
+import { caseStoriesEs } from "./data/es";
 import { SCENES } from "./sceneRegistry";
 import styles from "./showcase.module.css";
 
@@ -53,7 +54,8 @@ export default function CaseShowcase({ lang = "en", title }) {
   const chapterRef = useRef(caseStories[ORDER[0]].chapters[0].id);
   const taken = useRef(false);
   const visible = useRef(false);
-  const story = caseStories[slug];
+  const story = (lang === "es" ? caseStoriesEs : caseStories)[slug];
+  const base = lang === "es" ? "/es/cases" : "/cases";
 
   const select = (next) => {
     taken.current = true;
@@ -152,7 +154,7 @@ export default function CaseShowcase({ lang = "en", title }) {
       <header className={styles.head}>
         <p className={styles.eyebrow}>{t.eyebrow}</p>
         <h2>{title || t.title}</h2>
-        <Link href="/cases" className={styles.all}>{t.all} ↗</Link>
+        <Link href={base} className={styles.all}>{t.all} ↗</Link>
       </header>
 
       <div className={styles.grid}>
@@ -174,7 +176,7 @@ export default function CaseShowcase({ lang = "en", title }) {
                     <small>{label}</small>
                   </span>
                 </button>
-                <Link href={`/cases/${key}`} className={styles.open}>{t.open} ↗</Link>
+                <Link href={`${base}/${key}`} className={styles.open}>{t.open} ↗</Link>
                 <i aria-hidden="true" />
               </li>
             );
@@ -186,16 +188,15 @@ export default function CaseShowcase({ lang = "en", title }) {
             {near && <canvas key={slug} ref={canvas} />}
           </div>
           <div className={styles.caption} aria-hidden="true">
-            {/* The chapters are written in English; other languages get the case summary. */}
-            <span>{story.client}{lang === "en" ? ` / ${current.label}` : ` / ${t.step} ${chapter + 1}`}</span>
-            <strong>{lang === "en" ? current.title : SUMMARY[slug][lang][0]}</strong>
+            <span>{story.client} / {current.label}</span>
+            <strong>{current.title}</strong>
             <div className={styles.dots}>
               {story.chapters.map((c, i) => (
                 <i key={c.id} data-on={i <= chapter} />
               ))}
             </div>
           </div>
-          <Link href={`/cases/${slug}`} className={styles.stageLink} tabIndex={-1}>{t.open} ↗</Link>
+          <Link href={`${base}/${slug}`} className={styles.stageLink} tabIndex={-1}>{t.open} ↗</Link>
         </div>
       </div>
     </section>

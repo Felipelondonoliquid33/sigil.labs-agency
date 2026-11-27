@@ -20,13 +20,15 @@ export default function sitemap() {
     "/es/services/agentic-products",
     "/cases",
     ...Object.keys(caseStories).map((slug) => `/cases/${slug}`),
+    "/es/cases",
+    ...Object.keys(caseStories).map((slug) => `/es/cases/${slug}`),
   ];
   const projectRoutes = workProjectIds.map((slug) => `/work/${slug}`);
   const blogRoutes = blogPosts.map((post) => `/blog/${post.slug}`);
 
   /* Pages with their own change date, so search engines see what is new. */
   const updated = Object.fromEntries(
-    ["/services/agentic-products", "/es/services/agentic-products", "/cases", ...Object.keys(caseStories).map((s) => `/cases/${s}`)].map((route) => [route, "2026-11-26"])
+    ["/services/agentic-products", "/es/services/agentic-products", "/", "/cases", "/es/cases", ...Object.keys(caseStories).flatMap((s) => [`/cases/${s}`, `/es/cases/${s}`])].map((route) => [route, "2026-11-26"])
   );
 
   return [...staticRoutes, ...projectRoutes, ...blogRoutes].map((route) => ({

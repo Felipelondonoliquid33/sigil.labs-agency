@@ -2,7 +2,7 @@
    file the route inherited the /services layout, whose canonical points at a
    URL that returns 404 + noindex: Google was being told not to index it. */
 const PATH = "/services/agentic-products";
-const TITLE = "AI Agents for Business: WhatsApp & Automation | SIGIL LABS";
+const TITLE = "AI Agents for Business: WhatsApp Automation | SIGIL LABS";
 const DESCRIPTION =
   "Custom AI agents that answer on WhatsApp, qualify leads, build quotes and reports from your data, and answer from your documents. SIGIL LABS, Bogotá.";
 const IMAGE = {

@@ -15,7 +15,7 @@ export async function generateMetadata({ params }) {
   return {
     title: story.seoTitle,
     description: story.seoDescription,
-    alternates: { canonical: url },
+    alternates: { canonical: url, languages: { en: url, es: `/es${url}`, "x-default": url } },
     openGraph: { title: story.seoTitle, description: story.seoDescription, url, siteName: "SIGIL LABS", type: "article" },
   };
 }

@@ -2,7 +2,7 @@ import AgenticProductsView from "@/app/services/agentic-products/AgenticProducts
 
 const EN = "/services/agentic-products";
 const PATH = `/es${EN}`;
-const TITLE = "Agentes de IA para empresas: WhatsApp | SIGIL LABS";
+const TITLE = "Agentes de IA y automatización de WhatsApp | SIGIL LABS";
 const DESCRIPTION =
   "Agentes de IA a la medida: responden en WhatsApp, califican leads, arman cotizaciones e informes con tus datos y responden desde tus documentos. Bogotá.";
 

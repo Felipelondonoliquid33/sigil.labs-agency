@@ -10,9 +10,18 @@ import { SCENES } from "./sceneRegistry";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
-const fmt = (n, plain) => (plain ? String(n) : n.toLocaleString("en-US"));
+const fmt = (n, plain, lang) => (plain ? String(n) : n.toLocaleString(lang === "es" ? "de-DE" : "en-US"));
+
+const UI = {
+  en: { all: "← All case studies", allShort: "All case studies", start: "Start a project", other: "ES", continue: "Continue" },
+  es: { all: "← Todos los casos", allShort: "Todos los casos", start: "Empezar un proyecto", other: "EN", continue: "Continuar" },
+};
 
 export default function CaseStory({ story }) {
+  const lang = story.lang || "en";
+  const t = UI[lang];
+  const base = lang === "es" ? "/es/cases" : "/cases";
+  const otherHref = `${lang === "es" ? "/cases" : "/es/cases"}/${story.slug}`;
   const root = useRef(null);
   const host = useRef(null);
   const canvas = useRef(null);
@@ -61,14 +70,14 @@ export default function CaseStory({ story }) {
           v: target,
           duration: 1.4,
           ease: "power3.out",
-          onUpdate: () => (node.textContent = fmt(Math.round(box.v), plain)),
+          onUpdate: () => (node.textContent = fmt(Math.round(box.v), plain, lang)),
           scrollTrigger: { trigger: node, start: "top 88%", once: true },
         });
       });
       q("[data-step]").forEach((step, i) => {
         gsap.fromTo(step, { x: -28, opacity: 0 }, { x: 0, opacity: 1, duration: 0.8, delay: i * 0.08, ease: "expo.out", scrollTrigger: { trigger: step, start: "top 90%", once: true } });
       });
-      return () => counters.forEach((n) => (n.textContent = fmt(Number(n.dataset.count), n.dataset.plain === "true")));
+      return () => counters.forEach((n) => (n.textContent = fmt(Number(n.dataset.count), n.dataset.plain === "true", lang)));
     },
     { scope: root }
   );
@@ -153,11 +162,11 @@ export default function CaseStory({ story }) {
   const chapter = story.chapters[active];
 
   return (
-    <main ref={root} className={styles.page}>
+    <main ref={root} className={styles.page} lang={lang}>
       <header className={styles.hero}>
         <div className={styles.heroMeta}>
-          <a href="/cases">← All case studies</a>
-          <span>{story.eyebrow}</span>
+          <a href={base}>{t.all}</a>
+          <span>{story.eyebrow} · <a href={otherHref} hrefLang={t.other.toLowerCase()}>{t.other}</a></span>
         </div>
         <p className={styles.client}>{story.client}</p>
         <h1 data-rise>{words(story.title)}</h1>
@@ -204,7 +213,7 @@ export default function CaseStory({ story }) {
                   <li key={m.label}>
                     <strong>
                       {m.prefix}
-                      <b data-count={m.value} data-plain={m.plain ? "true" : "false"}>{fmt(m.value, m.plain)}</b>
+                      <b data-count={m.value} data-plain={m.plain ? "true" : "false"}>{fmt(m.value, m.plain, lang)}</b>
                       {m.to}
                     </strong>
                     <span>{m.label}</span>
@@ -232,10 +241,10 @@ export default function CaseStory({ story }) {
         </ol>
       </section>
 
-      <nav className={styles.exit} role="navigation" aria-label="Continue">
+      <nav className={styles.exit} role="navigation" aria-label={t.continue}>
         <a href={story.next.href}>{story.next.label} ↗</a>
-        {story.work ? <a href={story.work.href}>{story.work.label} ↗</a> : <a href="/cases">All case studies ↗</a>}
-        <a href="/contact">Start a project ↗</a>
+        {story.work ? <a href={story.work.href}>{story.work.label} ↗</a> : <a href={base}>{t.allShort} ↗</a>}
+        <a href="/contact">{t.start} ↗</a>
       </nav>
     </main>
   );

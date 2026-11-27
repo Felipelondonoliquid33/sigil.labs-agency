@@ -8,14 +8,14 @@ const gaMeasurementId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
 
 export const metadata = {
   metadataBase: new URL("https://www.sigillabs.agency"),
-  title: "SIGIL LABS | Creative Engineering & Autonomous Systems",
+  title: "AI Agents, Automation & Web Design in Bogotá | SIGIL LABS",
   description:
-    "Creative engineering, agentic AI systems, and high-scale EdTech ecosystems.",
+    "AI agents for business, WhatsApp automation, AI consulting, Moodle campuses and web design. SIGIL LABS, a studio in Bogotá, Colombia, working globally.",
   alternates: { canonical: "/" },
   openGraph: {
-    title: "SIGIL LABS | Creative Engineering & Autonomous Systems",
+    title: "AI Agents, Automation & Web Design in Bogotá | SIGIL LABS",
     description:
-      "Creative engineering, agentic AI systems, and high-scale EdTech ecosystems.",
+      "AI agents for business, WhatsApp automation, AI consulting, Moodle campuses and web design. SIGIL LABS, a studio in Bogotá, Colombia, working globally.",
     url: "https://www.sigillabs.agency",
     siteName: "SIGIL LABS",
     type: "website",
@@ -23,9 +23,9 @@ export const metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "SIGIL LABS | Creative Engineering & Autonomous Systems",
+    title: "AI Agents, Automation & Web Design in Bogotá | SIGIL LABS",
     description:
-      "Creative engineering, agentic AI systems, and high-scale EdTech ecosystems.",
+      "AI agents for business, WhatsApp automation, AI consulting, Moodle campuses and web design. SIGIL LABS, a studio in Bogotá, Colombia, working globally.",
     images: ["/showcase/opt/sigil_labs_updated_hero.webp"],
   },
   icons: {
@@ -45,7 +45,11 @@ const localBusinessSchema = {
   logo: "https://www.sigillabs.agency/favicon.svg",
   image: "https://www.sigillabs.agency/showcase/opt/sigil_labs_updated_hero.webp",
   description:
-    "Creative engineering studio, agentic AI systems, and high-performance interactive web experiences.",
+    "AI agents, WhatsApp and workflow automation, AI consulting, Moodle campuses and interactive web design.",
+  knowsAbout: [
+    "AI agents", "WhatsApp automation", "AI consulting", "Workflow automation", "Moodle development", "Web design",
+    "Agentes de IA", "Automatización con inteligencia artificial", "Consultoría en IA", "Diseño web",
+  ],
   telephone: "+57 333 4016876",
   email: "sigillabsdevs@gmail.com",
   address: {

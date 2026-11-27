@@ -399,9 +399,10 @@ nav.exit {
   .stageCol {
     position: sticky;
     top: 0;
-    z-index: 2;
+    /* Below the site nav (z-index 2), so the menu button always takes the tap. */
+    z-index: 1;
     padding-top: 5rem;
-    background: linear-gradient(#e5e8ea, #e5e8ea) bottom / 100% calc(100% - 4.5rem) no-repeat;
+    background: #e5e8ea;
   }
 
   .stage {
@@ -520,4 +521,12 @@ nav.exit {
   .indexPage li a > span[aria-hidden] {
     display: none;
   }
+}
+
+.langLink {
+  margin-left: auto;
+  padding: 0.3rem 0.6rem;
+  border: 1px solid var(--ink);
+  color: var(--ink);
+  text-decoration: none;
 }

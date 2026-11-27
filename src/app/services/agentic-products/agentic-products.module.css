@@ -1437,10 +1437,10 @@
   .screenCol {
     position: sticky;
     top: 0;
-    z-index: 2;
+    /* Below the site nav (z-index 2), so the menu button always takes the tap. */
+    z-index: 1;
     padding: 5.5rem 0 1rem;
-    /* Paint the band below the nav strip only, so the site logo stays visible. */
-    background: linear-gradient(#e5e8ea, #e5e8ea) bottom / 100% calc(100% - 5rem) no-repeat;
+    background: #e5e8ea;
   }
 
   .screen {
@@ -1629,4 +1629,141 @@
   inset: 0;
   width: 100%;
   height: 100%;
+}
+
+/* ══ FAQ ═════════════════════════════════════════════════════════════════ */
+.faq {
+  padding: clamp(5rem, 9vw, 8rem) 5vw;
+  background: #e5e8ea;
+  color: #040507;
+}
+
+.faqEyebrow {
+  margin: 0 0 1.2rem;
+  font: 0.7rem "Geist Mono", monospace;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.faq h2 {
+  margin: 0 0 3rem;
+  max-width: 16ch;
+  font-size: clamp(2.6rem, 5.4vw, 5.4rem);
+  letter-spacing: -0.02em;
+}
+
+.faqList {
+  border-top: 1px solid #040507;
+}
+
+.faqList details {
+  border-bottom: 1px solid rgba(4, 5, 7, 0.3);
+}
+
+.faqList summary {
+  display: flex;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding: 1.5rem 0;
+  cursor: pointer;
+  list-style: none;
+  font-family: "Big Shoulders Display", sans-serif;
+  font-weight: 900;
+  font-size: clamp(1.4rem, 2.2vw, 2rem);
+  line-height: 1.05;
+  text-transform: uppercase;
+}
+
+.faqList summary::-webkit-details-marker {
+  display: none;
+}
+
+.faqList summary::after {
+  content: "+";
+  flex: none;
+}
+
+.faqList details[open] summary::after {
+  content: "−";
+}
+
+.faqList p {
+  max-width: 62ch;
+  margin: 0 0 1.6rem;
+  font-size: 1.05rem;
+  line-height: 1.55;
+}
+
+/* ══ Phones: the diorama rides on top and the copy scrolls under it ═══════
+   Declared last so it wins over the earlier narrow-screen rules. */
+@media (max-width: 819px) {
+  .useCases {
+    overflow: clip;
+  }
+
+  .journey {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .stageCol {
+    display: block;
+    order: -1;
+    position: sticky;
+    top: 0;
+    /* Below the site nav (z-index 2), so the menu button always takes the tap. */
+    z-index: 1;
+    margin: 0 -5vw;
+    padding: 4.6rem 5vw 0.4rem;
+    background: #e5e8ea;
+    transition: background-color 0.3s ease;
+  }
+
+  .stageCol:has([data-tone="dark"]) {
+    background: #040507;
+  }
+
+  /* The sigil turns light while the audit holds the top of a phone screen. */
+  :global(body):has(.stageCol [data-tone="dark"]) :global(nav .nav-sigil) {
+    color: #f1f5f9 !important;
+  }
+
+  .stage {
+    position: relative;
+    top: 0;
+    height: 38svh;
+  }
+
+  .stageOff .stageCol {
+    display: none;
+  }
+
+  .label[data-on="false"][data-lit="false"] .labelInner,
+  .stageInner[data-tone="dark"] .labelInner {
+    opacity: 0;
+  }
+
+  .labelInner {
+    bottom: 12px;
+    font-size: 0.52rem;
+  }
+
+  .labelInner::after {
+    height: 12px;
+  }
+
+  .hud {
+    font-size: 0.55rem;
+    padding-top: 0.5rem;
+  }
+
+  .place,
+  .way {
+    min-height: 62svh;
+    justify-content: flex-start;
+  }
+
+  .readout {
+    min-height: 30svh;
+  }
 }

@@ -25,7 +25,6 @@ gsap.registerPlugin(ScrollTrigger);
    ──────────────────────────────────────────────────────────────────────────── */
 
 const COUNTS = { overview: 4, place: 4, way: 3, audit: 4 };
-const WIDE = "(min-width: 820px)";
 
 export default function ScrollCompanion({ scope, labels, titles, onUnavailable }) {
   const host = useRef(null);
@@ -41,7 +40,6 @@ export default function ScrollCompanion({ scope, labels, titles, onUnavailable }
     const root = scope?.current;
     if (!hostEl || !canvas || !root) return undefined;
 
-    const wide = window.matchMedia(WIDE);
     let supports = false;
     try {
       const probe = document.createElement("canvas");
@@ -78,8 +76,10 @@ export default function ScrollCompanion({ scope, labels, titles, onUnavailable }
       const triggers = Array.from(root.querySelectorAll("[data-stage]")).map((el) =>
         ScrollTrigger.create({
           trigger: el,
-          start: "top 55%",
-          end: "bottom 55%",
+          // On phones the stage covers the top of the screen, so a step takes
+          // over lower down.
+          start: () => (window.innerWidth < 820 ? "top 72%" : "top 55%"),
+          end: () => (window.innerWidth < 820 ? "bottom 72%" : "bottom 55%"),
           onToggle: (self) => {
             if (!self.isActive) return;
             const next = parseStageKey(el.getAttribute("data-stage"));
@@ -158,18 +158,9 @@ export default function ScrollCompanion({ scope, labels, titles, onUnavailable }
       };
     };
 
-    const sync = () => {
-      if (wide.matches && !teardown) teardown = boot();
-      else if (!wide.matches && teardown) {
-        teardown();
-        teardown = null;
-      }
-    };
-    sync();
-    wide.addEventListener("change", sync);
+    teardown = boot();
 
     return () => {
-      wide.removeEventListener("change", sync);
       if (teardown) teardown();
     };
   }, [scope, onUnavailable]);

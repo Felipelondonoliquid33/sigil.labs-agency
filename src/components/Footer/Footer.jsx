@@ -223,6 +223,9 @@ const Footer = () => {
         {/* Not a <nav>: this site styles every <nav> as the fixed top bar. */}
         <div className="footer-services" role="navigation" aria-label="Services">
           <Link href="/cases">Case Studies</Link>
+          <Link href="/es/cases" hrefLang="es">
+            Casos de éxito (ES)
+          </Link>
           <Link href="/es/services/agentic-products" hrefLang="es">
             Agentes de IA (ES)
           </Link>

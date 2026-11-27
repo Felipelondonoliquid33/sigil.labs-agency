@@ -161,16 +161,22 @@ function UseCaseSection() {
   const [stageOff, setStageOff] = useState(false);
   const onUnavailable = useCallback(() => setStageOff(true), []);
 
-  /* The stage only exists at wide sizes. Gating the import here (not just
-     hiding it in CSS) means phones never download the three.js chunk. */
-  const [wide, setWide] = useState(false);
+  /* The stage runs at every width. three.js is still only requested when the
+     section is getting close, so it never competes with the first paint. */
+  const [near, setNear] = useState(false);
   useEffect(() => {
-    if (typeof window === "undefined") return undefined;
-    const mq = window.matchMedia("(min-width: 820px)");
-    const sync = () => setWide(mq.matches);
-    sync();
-    mq.addEventListener("change", sync);
-    return () => mq.removeEventListener("change", sync);
+    const el = root.current;
+    if (!el) return undefined;
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) return;
+        setNear(true);
+        io.disconnect();
+      },
+      { rootMargin: "120% 0px" }
+    );
+    io.observe(el);
+    return () => io.disconnect();
   }, []);
 
   /* Choreography. Each kind of element has its own entrance, on purpose:
@@ -395,7 +401,7 @@ function UseCaseSection() {
         {!stageOff && (
           <div className={styles.stageCol}>
             <div className={styles.stage}>
-              {wide && <ScrollCompanion
+              {near && <ScrollCompanion
                 scope={root}
                 onUnavailable={onUnavailable}
                 labels={{

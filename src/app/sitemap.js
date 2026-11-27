@@ -1,5 +1,6 @@
 import { workProjectIds } from "@/data/workProjectIds";
 import { blogPosts } from "@/data/blogPosts";
+import { caseStories } from "./cases/data";
 
 const SITE_URL = "https://www.sigillabs.agency";
 
@@ -16,6 +17,8 @@ export default function sitemap() {
     "/services/interactive-web-experiences",
     "/services/agentic-enablement",
     "/services/agentic-products",
+    "/cases",
+    ...Object.keys(caseStories).map((slug) => `/cases/${slug}`),
   ];
   const projectRoutes = workProjectIds.map((slug) => `/work/${slug}`);
   const blogRoutes = blogPosts.map((post) => `/blog/${post.slug}`);

@@ -1,0 +1,523 @@
+/* Case stories. Same system as the service pages: paper, ink display type,
+   mono labels, hairlines; volt marks what is active. */
+.page {
+  --ink: #040507;
+  --rule: rgba(4, 5, 7, 0.18);
+  --display: "Big Shoulders Display", "Barlow Condensed", sans-serif;
+  --mono: "Geist Mono", "DM Mono", monospace;
+  background: #e5e8ea;
+  color: var(--ink);
+  overflow: clip;
+}
+
+/* Light page: the nav sigil must be ink, as on the service pages. */
+:global(body):has(.page) :global(nav .nav-sigil) {
+  color: #040507 !important;
+}
+
+.mask {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  padding-bottom: 0.06em;
+  margin-bottom: -0.06em;
+}
+
+.mask > span {
+  display: inline-block;
+}
+
+.hero {
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 2.5rem;
+  padding: 8.5rem 3.5vw 3rem;
+  background: #f1f5f9;
+}
+
+.heroMeta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-bottom: 1.2rem;
+  border-bottom: 1px solid var(--rule);
+  font: 0.7rem var(--mono);
+  text-transform: uppercase;
+}
+
+.heroMeta a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.client {
+  align-self: flex-start;
+  margin: 0;
+  padding: 0.35rem 0.7rem;
+  background: #ccff00;
+  font: 0.75rem var(--mono);
+  letter-spacing: 0.16em;
+}
+
+.hero h1 {
+  margin: 0;
+  max-width: 12ch;
+  font-family: var(--display);
+  font-weight: 900;
+  font-size: clamp(3.6rem, 10vw, 11.5rem);
+  line-height: 0.86;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+}
+
+.heroBottom {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 3rem;
+  align-items: end;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--ink);
+}
+
+.lead {
+  margin: 0;
+  max-width: 44ch;
+  font-size: clamp(1.1rem, 1.4vw, 1.4rem);
+  line-height: 1.45;
+}
+
+.heroBottom dl {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.heroBottom dt {
+  font: 0.6rem var(--mono);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(4, 5, 7, 0.55);
+  margin-bottom: 0.4rem;
+}
+
+.heroBottom dd {
+  margin: 0;
+  font-family: "PP Neue Montreal", sans-serif;
+  font-size: 0.95rem;
+  line-height: 1.35;
+}
+
+.journey {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  column-gap: clamp(1.5rem, 4vw, 4rem);
+  padding: 0 3.5vw;
+}
+
+.chapters {
+  grid-column: 1;
+  grid-row: 1;
+  min-width: 0;
+}
+
+.stageCol {
+  grid-column: 2;
+  grid-row: 1;
+  position: relative;
+  min-width: 0;
+}
+
+.stage {
+  position: sticky;
+  top: 8vh;
+  height: 84vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.stageInner {
+  flex: 1;
+  min-height: 0;
+  opacity: 0;
+  transition: opacity 0.8s ease, filter 0.8s ease;
+}
+
+.stageInner[data-ready="true"] {
+  opacity: 1;
+}
+
+.stageInner canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.stage[data-tone="dim"] .stageInner {
+  filter: saturate(0.85) contrast(1.08);
+}
+
+.hud {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  padding-top: 0.8rem;
+  border-top: 1px solid var(--rule);
+  font: 0.64rem var(--mono);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.hud i {
+  position: absolute;
+  left: 0;
+  top: -1px;
+  width: 100%;
+  height: 2px;
+  background: var(--ink);
+  transform-origin: left;
+  transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.chapter {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1.2rem;
+  padding: 4rem 0;
+  border-top: 1px solid var(--rule);
+}
+
+.chapter::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: -1px;
+  width: 100%;
+  height: 3px;
+  background: var(--ink);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.chapter[data-on="true"]::before {
+  transform: scaleX(1);
+}
+
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0;
+  font: 0.7rem var(--mono);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.eyebrow span {
+  padding: 0.12rem 0.4rem;
+  border: 1px solid var(--ink);
+}
+
+.chapter[data-on="true"] .eyebrow span {
+  background: #ccff00;
+  border-color: #ccff00;
+}
+
+.chapter h2 {
+  margin: 0;
+  max-width: 13ch;
+  font-family: var(--display);
+  font-weight: 900;
+  font-size: clamp(2.4rem, 4.2vw, 4.4rem);
+  line-height: 0.92;
+  letter-spacing: -0.015em;
+  text-transform: uppercase;
+}
+
+.body {
+  margin: 0;
+  max-width: 46ch;
+  font-size: 1.04rem;
+  line-height: 1.55;
+  color: rgba(4, 5, 7, 0.78);
+}
+
+.metrics {
+  list-style: none;
+  margin: 0.6rem 0 0;
+  padding: 0;
+}
+
+.metrics li {
+  display: grid;
+  grid-template-columns: minmax(8rem, auto) 1fr;
+  align-items: end;
+  gap: 1.2rem;
+  padding: 0.9rem 0;
+  border-top: 1px solid var(--rule);
+}
+
+.metrics strong {
+  display: flex;
+  font-family: var(--display);
+  font-weight: 900;
+  font-size: clamp(2.6rem, 4vw, 4rem);
+  line-height: 0.82;
+  font-variant-numeric: tabular-nums;
+}
+
+.metrics b {
+  font-weight: inherit;
+}
+
+.metrics li span {
+  font: 0.72rem/1.5 var(--mono);
+  color: rgba(4, 5, 7, 0.66);
+}
+
+.note {
+  margin: 0;
+  font: 0.62rem var(--mono);
+  letter-spacing: 0.06em;
+  color: rgba(4, 5, 7, 0.55);
+}
+
+.method {
+  margin-top: 6rem;
+  padding: clamp(5rem, 10vw, 9rem) 3.5vw;
+  background: #040507;
+  color: #f1f5f9;
+}
+
+.methodEyebrow {
+  margin: 0 0 1.5rem;
+  font: 0.7rem var(--mono);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #ccff00;
+}
+
+.method h2 {
+  margin: 0;
+  max-width: 14ch;
+  font-family: var(--display);
+  font-weight: 900;
+  font-size: clamp(3rem, 7vw, 7.5rem);
+  line-height: 0.86;
+  letter-spacing: -0.025em;
+  text-transform: uppercase;
+  color: #f1f5f9;
+}
+
+.methodBody {
+  margin: 2rem 0 0;
+  max-width: 54ch;
+  font-size: 1.1rem;
+  line-height: 1.55;
+  color: rgba(241, 245, 249, 0.74);
+}
+
+.method ol {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1.5rem;
+  margin: 4rem 0 0;
+  padding: 0;
+}
+
+.method li {
+  padding-top: 1.2rem;
+  border-top: 2px solid #ccff00;
+}
+
+.method li > span {
+  font: 0.68rem var(--mono);
+  color: rgba(241, 245, 249, 0.55);
+}
+
+.method h3 {
+  margin: 1.2rem 0 0.8rem;
+  font-family: var(--display);
+  font-weight: 900;
+  font-size: 1.7rem;
+  line-height: 1;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  color: #f1f5f9;
+}
+
+.method li p {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.55;
+  color: rgba(241, 245, 249, 0.7);
+}
+
+/* globals.css styles every nav as the fixed top bar; this one is in flow. */
+nav.exit {
+  position: static;
+  width: auto;
+  height: auto;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1px;
+  padding: 0;
+  background: var(--rule);
+}
+
+.exit a {
+  padding: 3rem 3.5vw;
+  background: #f1f5f9;
+  color: var(--ink);
+  font-family: var(--display);
+  font-weight: 900;
+  font-size: clamp(1.6rem, 2.6vw, 2.6rem);
+  line-height: 0.95;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.exit a:hover {
+  background: #ccff00;
+}
+
+/* Narrow screens: the stage rides on top and the story scrolls under it. */
+@media (max-width: 819px) {
+  .journey {
+    display: block;
+    padding: 0 5vw;
+  }
+
+  .stageCol {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    padding-top: 5rem;
+    background: linear-gradient(#e5e8ea, #e5e8ea) bottom / 100% calc(100% - 4.5rem) no-repeat;
+  }
+
+  .stage {
+    position: relative;
+    top: 0;
+    height: 38vh;
+    padding-bottom: 0.6rem;
+  }
+
+  .chapter {
+    min-height: 80vh;
+    justify-content: flex-start;
+  }
+
+  .heroBottom {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .heroBottom dl {
+    grid-template-columns: 1fr;
+  }
+
+  .method ol {
+    grid-template-columns: 1fr;
+  }
+
+  nav.exit {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (min-width: 820px) and (max-width: 1099px) {
+  .method ol {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stageInner,
+  .hud i,
+  .chapter::before {
+    transition: none;
+  }
+}
+
+/* ── Index ─────────────────────────────────────────────────────────────── */
+.indexPage {
+  min-height: 100svh;
+  padding: 10rem 3.5vw 5rem;
+  background: #f1f5f9;
+}
+
+.indexPage h1 {
+  margin: 1.5rem 0 4rem;
+  max-width: 11ch;
+  font-family: var(--display);
+  font-weight: 900;
+  font-size: clamp(3.6rem, 10vw, 10rem);
+  line-height: 0.86;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+}
+
+.indexPage ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--ink);
+}
+
+.indexPage li a {
+  display: grid;
+  grid-template-columns: 3rem minmax(0, 1.2fr) minmax(0, 1fr) 2rem;
+  gap: 1.5rem;
+  align-items: center;
+  padding: 2.4rem 0.5rem;
+  border-bottom: 1px solid var(--ink);
+  color: var(--ink);
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.indexPage li a:hover {
+  background: #ccff00;
+}
+
+.indexNum {
+  font: 0.7rem var(--mono);
+}
+
+.indexName {
+  font-family: var(--display);
+  font-weight: 900;
+  font-size: clamp(2.4rem, 6vw, 5.5rem);
+  line-height: 0.9;
+  text-transform: uppercase;
+}
+
+.indexText {
+  font-family: "PP Neue Montreal", sans-serif;
+  font-size: 1.05rem;
+  line-height: 1.45;
+}
+
+@media (max-width: 819px) {
+  .indexPage li a {
+    grid-template-columns: 2.2rem minmax(0, 1fr);
+    row-gap: 0.7rem;
+  }
+
+  .indexText {
+    grid-column: 2;
+  }
+
+  .indexPage li a > span[aria-hidden] {
+    display: none;
+  }
+}

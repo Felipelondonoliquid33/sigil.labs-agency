@@ -347,20 +347,21 @@ export default function WorkDemos({ service, direction, t }) {
         // Step copy: eyebrow and title first, the outcome lands as a receipt.
         steps.forEach((step) => {
           gsap
-            .timeline({ scrollTrigger: { trigger: step, start: "top 75%", once: true } })
+            .timeline({ scrollTrigger: { trigger: step, start: "top 75%", toggleActions: "play none none none" } })
             .fromTo(step.querySelector("h3"), { yPercent: 40, opacity: 0 }, { yPercent: 0, opacity: 1, duration: 0.8, ease: "expo.out" }, 0)
             .fromTo(step.querySelector("[data-receipt]"), { opacity: 0, rotate: -3, y: 16 }, { opacity: 1, rotate: 0, y: 0, duration: 0.6, ease: "back.out(1.8)" }, 0.35);
         });
       }
 
-      ScrollTrigger.refresh();
+      const remeasure = requestAnimationFrame(() => ScrollTrigger.refresh());
       return () => {
+        cancelAnimationFrame(remeasure);
         // A counter left mid-tween must not freeze on a wrong value.
         timer.textContent = "00:04";
         totalEl.textContent = money(totals[totals.length - 1]);
       };
     },
-    { scope: root, dependencies: [lang] }
+    { scope: root, dependencies: [lang], revertOnUpdate: true }
   );
 
   return (

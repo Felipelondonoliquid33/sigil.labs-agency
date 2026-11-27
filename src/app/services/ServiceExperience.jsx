@@ -99,7 +99,7 @@ function IntelligenceFlow({ service, direction, t }) {
 /* `renderCapabilities`, `renderHeroVisual` and `renderProcess` are optional: a
    page may replace the capabilities view, hero visual or process list with its own, receiving the same
    language-resolved props. Pages that pass none render exactly as before. */
-export default function ServiceExperience({ service, direction, projects, extra, renderCapabilities, renderHeroVisual, renderProcess }) {
+export default function ServiceExperience({ service, direction, projects, extra, renderCapabilities, renderHeroVisual, renderProcess, renderProof }) {
   const root = useRef(null);
   const { lang } = useLanguage();
   const t = UI[lang] || UI.en;
@@ -115,7 +115,7 @@ export default function ServiceExperience({ service, direction, projects, extra,
     mm.add("(prefers-reduced-motion: no-preference)", () => {
       gsap.fromTo(root.current.querySelectorAll("[data-hero-line]"), { yPercent: 110 }, { yPercent: 0, duration: 1.1, stagger: 0.12, ease: "power4.out" });
       root.current.querySelectorAll("[data-reveal]").forEach((element) => {
-        gsap.fromTo(element, { y: 45, opacity: 0 }, { y: 0, opacity: 1, duration: 0.9, ease: "power3.out", scrollTrigger: { trigger: element, start: "top 92%", once: true } });
+        gsap.fromTo(element, { y: 45, opacity: 0 }, { y: 0, opacity: 1, duration: 0.9, ease: "power3.out", scrollTrigger: { trigger: element, start: "top 92%", toggleActions: "play none none none" } });
       });
       const path = root.current.querySelector("[data-flow-path]");
       if (path) {
@@ -133,7 +133,7 @@ export default function ServiceExperience({ service, direction, projects, extra,
           opacity: 1,
           duration: 0.6,
           ease: "power3.out",
-          scrollTrigger: { trigger: step, start: "top 90%", once: true },
+          scrollTrigger: { trigger: step, start: "top 90%", toggleActions: "play none none none" },
         });
         ScrollTrigger.create({
           trigger: step,
@@ -148,8 +148,8 @@ export default function ServiceExperience({ service, direction, projects, extra,
       if (cta) {
         const ctaLines = cta.querySelectorAll("[data-cta-line]");
         const arrow = cta.querySelector("[data-cta-arrow]");
-        gsap.fromTo(ctaLines, { yPercent: 110 }, { yPercent: 0, duration: 1.1, stagger: 0.12, ease: "power4.out", scrollTrigger: { trigger: cta, start: "top 85%", once: true } });
-        gsap.fromTo(arrow, { scale: 0, rotate: -60, autoAlpha: 0 }, { scale: 1, rotate: 0, autoAlpha: 1, duration: 0.9, ease: "back.out(1.7)", scrollTrigger: { trigger: cta, start: "top 85%", once: true } });
+        gsap.fromTo(ctaLines, { yPercent: 110 }, { yPercent: 0, duration: 1.1, stagger: 0.12, ease: "power4.out", scrollTrigger: { trigger: cta, start: "top 85%", toggleActions: "play none none none" } });
+        gsap.fromTo(arrow, { scale: 0, rotate: -60, autoAlpha: 0 }, { scale: 1, rotate: 0, autoAlpha: 1, duration: 0.9, ease: "back.out(1.7)", scrollTrigger: { trigger: cta, start: "top 85%", toggleActions: "play none none none" } });
         const ax = gsap.quickTo(arrow, "x", { duration: 0.5, ease: "power3.out" });
         const ay = gsap.quickTo(arrow, "y", { duration: 0.5, ease: "power3.out" });
         const lx = gsap.quickTo(ctaLines, "x", { duration: 0.5, ease: "power3.out" });
@@ -188,9 +188,12 @@ export default function ServiceExperience({ service, direction, projects, extra,
       const viewport = root.current.querySelector("[data-proof]");
       const rail = root.current.querySelector("[data-proof-rail]");
       const distance = () => Math.max(0, rail.scrollWidth - viewport.clientWidth);
-      const tl = gsap.timeline({ scrollTrigger: { trigger: viewport, start: "top top", end: () => `+=${distance()}`, pin: true, scrub: 1, invalidateOnRefresh: true } });
-      tl.to(rail, { x: () => -distance(), ease: "none" }, 0)
-        .fromTo(root.current.querySelector("[data-proof-progress]"), { scaleX: 0 }, { scaleX: 1, ease: "none" }, 0);
+      // A page with its own proof section has no rail to pin.
+      if (rail) {
+        const tl = gsap.timeline({ scrollTrigger: { trigger: viewport, start: "top top", end: () => `+=${distance()}`, pin: true, scrub: 1, invalidateOnRefresh: true } });
+        tl.to(rail, { x: () => -distance(), ease: "none" }, 0)
+          .fromTo(root.current.querySelector("[data-proof-progress]"), { scaleX: 0 }, { scaleX: 1, ease: "none" }, 0);
+      }
       return () => tiltCleanups.forEach((fn) => fn());
     });
     let alive = true;
@@ -251,14 +254,14 @@ export default function ServiceExperience({ service, direction, projects, extra,
       </div>}
     </section>
 
-    <section data-proof className={styles.proof} aria-label={t.selectedWork}>
+    {renderProof ? renderProof({ direction: d }) : <section data-proof className={styles.proof} aria-label={t.selectedWork}>
       <div className={styles.proofHeader}><p className={styles.eyebrow}>{t.selectedWork}</p><h2>{d.proofTitle}</h2><span className={styles.eyebrow}>01 — 03</span></div>
       <div data-proof-rail className={styles.proofRail}>{projects.map((project, i) => <a className={styles.projectCard} href={project.href} key={project.href}>
         <div className={styles.projectImage}><img src={project.image.src} alt={project.image.alt} loading="lazy" /></div>
         <div className={styles.projectCaption}><span className={styles.eyebrow}>0{i + 1} / {project.discipline}</span><h3>{project.name}</h3><span className={styles.projectArrow}>↗</span></div>
       </a>)}</div>
       <div className={styles.railProgress} aria-hidden="true"><span data-proof-progress /></div>
-    </section>
+    </section>}
 
     <section className={styles.process}>
       <div className={styles.sectionHeader}><p className={styles.eyebrow}>{t.workingTogether}</p><h2 data-reveal>{t.path}<br />{t.openMind}</h2></div>

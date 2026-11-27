@@ -1,0 +1,292 @@
+/* Case showcase: ink band, porcelain stage. Same type system as the rest. */
+.showcase {
+  --display: "Big Shoulders Display", "Barlow Condensed", sans-serif;
+  --mono: "Geist Mono", "DM Mono", monospace;
+  position: relative;
+  padding: clamp(5rem, 9vw, 8rem) 3.5vw;
+  background: #040507;
+  color: #f1f5f9;
+  overflow: hidden;
+}
+
+.head {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 1rem 2rem;
+  align-items: end;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid rgba(241, 245, 249, 0.25);
+}
+
+.eyebrow {
+  grid-column: 1 / -1;
+  margin: 0;
+  font: 0.7rem var(--mono);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #ccff00;
+}
+
+.head h2 {
+  margin: 0;
+  max-width: 14ch;
+  font-family: var(--display);
+  font-weight: 900;
+  font-size: clamp(3rem, 7vw, 7rem);
+  line-height: 0.86;
+  letter-spacing: -0.025em;
+  text-transform: uppercase;
+  color: #f1f5f9;
+}
+
+.all {
+  font: 0.72rem var(--mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #f1f5f9;
+  text-decoration: none;
+  border-bottom: 1px solid currentColor;
+  padding-bottom: 3px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: clamp(1.5rem, 3vw, 3rem);
+  margin-top: 2rem;
+}
+
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.list li {
+  position: relative;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0.4rem 0.9rem;
+  border-bottom: 1px solid rgba(241, 245, 249, 0.2);
+  transition: background-color 0.35s ease;
+}
+
+.list li[data-on="true"] {
+  background: #f1f5f9;
+  color: #040507;
+}
+
+.list li > i {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: #ccff00;
+  transform: scaleY(0);
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.list li[data-on="true"] > i {
+  transform: scaleY(1);
+}
+
+.list button {
+  display: grid;
+  grid-template-columns: 2.2rem minmax(0, 1fr) auto;
+  gap: 1rem;
+  align-items: center;
+  width: 100%;
+  padding: 0.9rem 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.num {
+  font: 0.68rem var(--mono);
+  opacity: 0.6;
+}
+
+.name,
+.figure {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.name b,
+.figure b {
+  font-family: var(--display);
+  font-weight: 900;
+  font-size: clamp(1.8rem, 2.8vw, 2.8rem);
+  line-height: 0.9;
+  text-transform: uppercase;
+}
+
+.name small {
+  font-family: "PP Neue Montreal", sans-serif;
+  font-size: 0.95rem;
+  line-height: 1.3;
+  opacity: 0.75;
+}
+
+.figure {
+  text-align: right;
+  align-items: flex-end;
+}
+
+.figure small {
+  max-width: 15ch;
+  font: 0.58rem/1.4 var(--mono);
+  text-transform: uppercase;
+  opacity: 0.65;
+}
+
+.open {
+  display: none;
+  align-self: flex-start;
+  margin: 0 0 0.9rem 3.2rem;
+  padding: 0.45rem 0.7rem;
+  background: #040507;
+  color: #f1f5f9;
+  font: 0.66rem var(--mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+/* Two classes deep: the service pages force links to inherit their colour. */
+.showcase .list li[data-on="true"] .open {
+  display: inline-block;
+  color: #f1f5f9;
+}
+
+.stage {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 600px;
+  background: #e5e8ea;
+  color: #040507;
+}
+
+.canvasHost {
+  flex: 1;
+  min-height: 0;
+  position: relative;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.canvasHost[data-ready="true"] {
+  opacity: 1;
+}
+
+.canvasHost canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.caption {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1.2rem 1.5rem 1.5rem;
+  border-top: 1px solid rgba(4, 5, 7, 0.18);
+}
+
+.caption span {
+  font: 0.62rem var(--mono);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.caption strong {
+  min-height: 2em;
+  font-family: var(--display);
+  font-weight: 900;
+  font-size: clamp(1.5rem, 2.4vw, 2.4rem);
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.dots {
+  display: flex;
+  gap: 4px;
+}
+
+.dots i {
+  flex: 1;
+  height: 3px;
+  background: rgba(4, 5, 7, 0.16);
+  transition: background-color 0.4s ease;
+}
+
+.dots i[data-on="true"] {
+  background: #040507;
+}
+
+.stageLink {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  padding: 0.55rem 0.8rem;
+  background: #ccff00;
+  color: #040507;
+  font: 0.66rem var(--mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+@media (max-width: 999px) {
+  .grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .stage {
+    order: -1;
+    min-height: 0;
+    height: 64svh;
+  }
+
+  .head {
+    grid-template-columns: 1fr;
+  }
+
+  .all {
+    justify-self: start;
+  }
+}
+
+@media (max-width: 640px) {
+  .showcase {
+    padding-left: 5vw;
+    padding-right: 5vw;
+  }
+
+  .list button {
+    grid-template-columns: 1.6rem minmax(0, 1fr);
+  }
+
+  .figure {
+    grid-column: 2;
+    flex-direction: row;
+    align-items: baseline;
+    gap: 0.6rem;
+    text-align: left;
+  }
+
+  .open {
+    margin-left: 2.6rem;
+  }
+}

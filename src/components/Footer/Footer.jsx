@@ -222,6 +222,7 @@ const Footer = () => {
         </div>
         {/* Not a <nav>: this site styles every <nav> as the fixed top bar. */}
         <div className="footer-services" role="navigation" aria-label="Services">
+          <Link href="/cases">Case Studies</Link>
           {serviceLinks.map((service) => (
             <Link key={service.href} href={service.href}>
               {service.label}

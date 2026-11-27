@@ -223,11 +223,11 @@ function UseCaseSection() {
       paint(reduced ? 1 : 0);
 
       if (reduced) {
-        ScrollTrigger.refresh();
-        return undefined;
+        const settle = requestAnimationFrame(() => ScrollTrigger.refresh());
+        return () => cancelAnimationFrame(settle);
       }
 
-      const once = (trigger, start = "top 78%") => ({ trigger, start, once: true });
+      const once = (trigger, start = "top 78%") => ({ trigger, start, toggleActions: "play none none none" });
 
       // Headlines: words rise out of their mask.
       q("[data-rise]").forEach((h) => {
@@ -301,15 +301,17 @@ function UseCaseSection() {
         );
       });
 
-      // Language changes the height of every block: remeasure everything.
-      ScrollTrigger.refresh();
+      // Language changes the height of every block: remeasure everything,
+      // after this render has finished creating its triggers.
+      const remeasure = requestAnimationFrame(() => ScrollTrigger.refresh());
 
       // A counter left mid-tween by a language switch must read its real value.
       return () => {
+        cancelAnimationFrame(remeasure);
         q("[data-count]").forEach((n) => (n.textContent = n.getAttribute("data-value").padStart(2, "0")));
       };
     },
-    { scope: root, dependencies: [lang] }
+    { scope: root, dependencies: [lang], revertOnUpdate: true }
   );
 
   return (

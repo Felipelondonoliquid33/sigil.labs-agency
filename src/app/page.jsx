@@ -9,6 +9,8 @@ import CTACard from "@/components/CTACard/CTACard";
 import Footer from "@/components/Footer/Footer";
 import Copy from "@/components/Copy/Copy";
 import Preloader, { isInitialLoad } from "@/components/Preloader/Preloader";
+import AgentIntro from "@/components/AgentIntro/AgentIntro";
+import CaseShowcase from "@/app/cases/CaseShowcase";
 import React, { useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -68,6 +70,10 @@ const Page = () => {
       </section>
 
       <Showreel />
+
+      <AgentIntro />
+
+      <CaseShowcase title="Proof, playing live." />
 
       <section className="featured-work">
         <div className="container">

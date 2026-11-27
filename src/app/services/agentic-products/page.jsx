@@ -8,6 +8,7 @@ import dynamic from "next/dynamic";
 import UseCaseSection from "./UseCaseSection";
 import WorkDemos from "./WorkDemos";
 import ProcessAgent from "./ProcessAgent";
+import CaseShowcase from "@/app/cases/CaseShowcase";
 import styles from "./agentic-products.module.css";
 import pageStyles from "../services.module.css";
 
@@ -112,6 +113,7 @@ function AgenticProductsContent() {
         extra={<UseCaseSection />}
         renderHeroVisual={() => <HeroAgent />}
         renderProcess={({ direction }) => <ProcessAgent steps={direction.steps} />}
+        renderProof={({ direction }) => <CaseShowcase lang={lang} title={direction.proofTitle} />}
         renderCapabilities={({ service: s, direction, t }) => <WorkDemos service={s} direction={direction} t={t} />}
       />
     </main>

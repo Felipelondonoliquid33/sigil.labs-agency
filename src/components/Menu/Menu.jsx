@@ -9,6 +9,8 @@ import { useLenis } from "lenis/react";
 import { useViewTransition } from "@/hooks/useViewTransition";
 import SolomonicCircuit from "../SolomonicCircuit";
 import { serviceLinks } from "@/data/serviceLinks";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 gsap.registerPlugin(useGSAP, SplitText);
 
@@ -30,15 +32,18 @@ const Menu = ({ pageRef }) => {
   const [isMenuAnimating, setIsMenuAnimating] = useState(false);
 
   const lenis = useLenis();
+  const pathname = usePathname();
 
   const { navigateWithTransition } = useViewTransition();
 
   const menuItems = [
-    { label: "[01] Studio", route: "/studio" },
-    { label: "[02] Protocols", route: "/work" },
-    { label: "[03] Manifesto", route: "/stories" },
-    { label: "[04] Blog", route: "/blog" },
-    { label: "[05] Contact", route: "/contact" },
+    { label: "[01] AI Agents", route: "/services/agentic-products" },
+    { label: "[02] Cases", route: "/cases" },
+    { label: "[03] Studio", route: "/studio" },
+    { label: "[04] Protocols", route: "/work" },
+    { label: "[05] Manifesto", route: "/stories" },
+    { label: "[06] Blog", route: "/blog" },
+    { label: "[07] Contact", route: "/contact" },
   ];
 
   const currentX = useRef(0);
@@ -458,6 +463,15 @@ const Menu = ({ pageRef }) => {
             />
           </a>
         </div>
+
+        {/* The flagship page, one click away without opening the menu. It is
+            hidden there, where the language switch uses the same spot. */}
+        {pathname !== "/services/agentic-products" && !isMenuOpen && (
+          <Link href="/services/agentic-products" className="nav-agents">
+            <span aria-hidden="true" />
+            AI Agents
+          </Link>
+        )}
 
         <div className="nav-toggle" ref={navToggleRef} onClick={toggleMenu}>
           <div className="nav-toggle-wrapper">

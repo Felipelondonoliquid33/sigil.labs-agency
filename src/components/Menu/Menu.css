@@ -284,3 +284,63 @@ nav .close-label {
     font-size: 20rem;
   }
 }
+
+/* Shortcut to the flagship page. It keeps its own colours so it reads on both
+   the dark and the light pages. */
+nav .nav-agents {
+  position: absolute;
+  top: 2rem;
+  right: 7.5rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  height: 2.5rem;
+  padding: 0 1rem;
+  border-radius: 0.5rem;
+  background: #ccff00;
+  color: #040507;
+  font-family: "PP Pangram Sans", sans-serif;
+  font-size: 0.8rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  text-decoration: none;
+  z-index: 2;
+}
+
+nav .nav-agents span {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #040507;
+  animation: nav-agent-pulse 1.8s ease-in-out infinite;
+}
+
+@keyframes nav-agent-pulse {
+  50% {
+    opacity: 0.25;
+    transform: scale(0.7);
+  }
+}
+
+@media (max-width: 1000px) {
+  nav .nav-agents {
+    top: 1.25rem;
+    right: 6.25rem;
+    padding: 0 0.75rem;
+    font-size: 0.7rem;
+  }
+
+  .menu-overlay .menu-link a {
+    font-size: clamp(2.6rem, 12vw, 4rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  nav .nav-agents span {
+    animation: none;
+  }
+}
+
+body[data-nav-ink] nav .nav-sigil {
+  color: #040507 !important;
+}

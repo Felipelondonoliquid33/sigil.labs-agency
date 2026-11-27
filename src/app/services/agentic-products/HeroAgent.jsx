@@ -131,7 +131,9 @@ export function buildRobot(track) {
   return { root, pose, body, head, eyes, eyeL, eyeR, antenna, arms, treads, chest, shadow };
 }
 
-export default function HeroAgent() {
+/* `contained` keeps the agent inside its own box (used on the home page); by
+   default it uses a fixed canvas so it can travel between sections. */
+export default function HeroAgent({ contained = false }) {
   const slot = useRef(null);
   const canvasRef = useRef(null);
 
@@ -166,15 +168,21 @@ export default function HeroAgent() {
 
     let vw = 1;
     let vh = 1;
+    // Canvas size: the viewport, or just the slot when contained.
+    let cw = 1;
+    let ch = 1;
     const resize = () => {
       vw = window.innerWidth;
       vh = window.innerHeight;
+      const box = slotEl.getBoundingClientRect();
+      cw = contained ? Math.max(1, box.width) : vw;
+      ch = contained ? Math.max(1, box.height) : vh;
       renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.6));
-      renderer.setSize(vw, vh, false);
+      renderer.setSize(cw, ch, false);
       camera.left = 0;
-      camera.right = vw;
+      camera.right = cw;
       camera.top = 0;
-      camera.bottom = -vh;
+      camera.bottom = -ch;
       camera.updateProjectionMatrix();
     };
     resize();
@@ -223,14 +231,20 @@ export default function HeroAgent() {
       last = now;
 
       const wide = vw >= 900;
-      const hero = rectOf(slotEl);
+      const own = rectOf(slotEl);
+      // Everything below works in canvas coordinates.
+      const hero = contained ? { left: 0, top: 0, width: own.width, height: own.height, bottom: own.height } : own;
+      const px = contained ? pointer.x - own.left : pointer.x;
+      const py = contained ? pointer.y - own.top : pointer.y;
       const ap = rectOf(approach);
 
       // Anchor A: standing in the hero visual. Anchor B: beside the approach
       // copy, in its empty left column. Both move with the page.
-      const sizeA = wide ? clamp(hero.width * 0.21, 120, 210) : clamp(hero.width * 0.34, 100, 150);
-      const ax = hero.left + hero.width * (wide ? 0.72 : 0.5);
-      const ay = hero.top + hero.height * (wide ? 0.5 : 0.56);
+      const sizeA = contained
+        ? clamp(Math.min(hero.width * 0.34, hero.height * 0.36), 110, 250)
+        : wide ? clamp(hero.width * 0.21, 120, 210) : clamp(hero.width * 0.34, 100, 150);
+      const ax = hero.left + hero.width * (contained ? 0.52 : wide ? 0.72 : 0.5);
+      const ay = hero.top + hero.height * (contained ? 0.62 : wide ? 0.5 : 0.56);
       let tx = ax;
       let ty = ay;
       let size = sizeA;
@@ -246,7 +260,7 @@ export default function HeroAgent() {
         ty = ay + (by - ay) * travel - Math.sin(travel * Math.PI) * vh * 0.1;
         size = sizeA + (sizeB - sizeA) * travel;
         exit = clamp01((vh * 0.55 - ap.bottom) / (vh * 0.35));
-      } else {
+      } else if (!contained) {
         exit = clamp01((vh * 0.35 - hero.bottom) / (vh * 0.35));
       }
       // Leaving: it looks down at what is coming and drops out of view.
@@ -269,8 +283,8 @@ export default function HeroAgent() {
       const headX = S.x.v;
       const headY = S.y.v - unit * 0.42;
       const idle = t - pointer.last > 3;
-      let lx = pointer.x;
-      let ly = pointer.y;
+      let lx = px;
+      let ly = py;
       if (idle) {
         lx = headX + Math.sin(t * 0.45) * vw * 0.3;
         ly = headY + Math.sin(t * 0.31 + 1) * vh * 0.15;
@@ -389,11 +403,11 @@ export default function HeroAgent() {
       track.textures.forEach((tx) => tx.dispose());
       renderer.dispose();
     };
-  }, []);
+  }, [contained]);
 
   return (
     <div ref={slot} className={styles.heroAgentSlot} aria-hidden="true">
-      <canvas ref={canvasRef} className={styles.heroAgentCanvas} />
+      <canvas ref={canvasRef} className={contained ? styles.heroAgentContained : styles.heroAgentCanvas} />
     </div>
   );
 }

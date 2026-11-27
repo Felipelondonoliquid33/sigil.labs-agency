@@ -4,6 +4,7 @@ import Footer from "@/components/Footer/Footer";
 import Copy from "@/components/Copy/Copy";
 import { useSearchParams } from "next/navigation";
 import { projectDetails } from "@/data/projectDetails";
+import { caseStories } from "@/app/cases/data";
 import { projectMedia } from "@/data/projectMedia";
 import { Suspense, useEffect, useRef, useState } from "react";
 import Button from "@/components/Button/Button";
@@ -294,6 +295,7 @@ const ProjectDetail = ({ id }) => {
           <p className="lg">{project.eyebrow}</p>
           <h1>{project.title}</h1>
         </Copy>
+        {caseStories[id] ? <Button href={`/cases/${id}`}>Read the full story</Button> : null}
       </section>
 
       <section className="project-banner-img">

@@ -69,11 +69,11 @@ const Page = () => {
         </div>
       </section>
 
-      <Showreel />
-
       <AgentIntro />
 
       <CaseShowcase title="Proof, playing live." />
+
+      <Showreel />
 
       <section className="featured-work">
         <div className="container">
